@@ -1,0 +1,18 @@
+[
+  "AMT_INCOME_TOTAL",
+  "AMT_CREDIT",
+  "AMT_ANNUITY",
+  "credit_income_ratio",
+  "annuity_income_ratio",
+  "employment_years",
+  "late_payment_share",
+  "mean_days_late",
+  "max_days_late",
+  "underpayment_share",
+  "installments_count",
+  "prev_applications_count",
+  "prev_refused_count",
+  "prev_refusal_rate",
+  "thin_file",
+  "NAME_INCOME_TYPE"
+]

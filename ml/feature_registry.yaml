@@ -1,0 +1,62 @@
+eligible_features:
+- feature: employment_years
+  description: Years of verified employment history
+  reason_phrase: Short employment tenure indicates limited financial stability
+  nan_reason_phrase: No verifiable employment history on record
+  direction: low increases risk
+  alt_data: false
+- feature: late_payment_share
+  description: Proportion of prior loan installment payments made past due date
+  reason_phrase: High proportion of late payments on prior loans
+  direction: high increases risk
+  alt_data: true
+- feature: prev_refusal_rate
+  description: Proportion of past credit applications that were declined
+  reason_phrase: High rate of prior credit application refusals
+  direction: high increases risk
+  alt_data: false
+- feature: installments_count
+  description: Total count of past loan installment payments completed
+  reason_phrase: Limited installment payment history on record
+  direction: low increases risk
+  alt_data: true
+- feature: underpayment_share
+  description: Proportion of past installments where payment was less than amount
+    due
+  reason_phrase: High proportion of underpayments on prior loans
+  direction: high increases risk
+  alt_data: true
+- feature: mean_days_late
+  description: Average number of days payments were made past due date
+  reason_phrase: Average days late on prior loan payments is elevated
+  direction: high increases risk
+  alt_data: true
+- feature: AMT_CREDIT
+  description: Total credit amount requested on current application
+  reason_phrase: Requested loan amount is high
+  dedup_group: loan_size
+  direction: high increases risk
+  alt_data: false
+- feature: credit_income_ratio
+  description: Ratio of requested loan credit amount to applicant total annual income
+  reason_phrase: Ratio of requested credit to annual income is high
+  dedup_group: loan_size
+  direction: high increases risk
+  alt_data: false
+- feature: annuity_income_ratio
+  description: Ratio of monthly loan annuity obligation to applicant annual income
+  reason_phrase: Ratio of loan repayment amount to income is high
+  direction: high increases risk
+  alt_data: false
+- feature: thin_file
+  description: Binary indicator of zero formal credit bureau tradelines
+  reason_phrase: Limited or no credit bureau history on record
+  direction: high increases risk
+  alt_data: false
+excluded_features:
+- feature: NAME_INCOME_TYPE
+  reason: Structural attribute excluded from reason codes per fair lending disclosure
+    policy. Audited for disparate impact on fairness dashboard.
+- feature: NAME_HOUSING_TYPE
+  reason: Dropped from model, AUC cost under 0.003. Structural attribute excluded
+    from reason codes.
