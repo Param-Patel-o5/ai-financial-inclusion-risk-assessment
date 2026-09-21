@@ -1,0 +1,106 @@
+================================================================================
+RAG CORPUS CHUNKS PREVIEW
+================================================================================
+
+--- FIRST 3 CHUNKS IN FULL ---
+
+### [Chunk 1] ID: regb_1002_9_a_1 | Type: regulation
+Citation : 12 CFR 1002.9(a)(1)
+Heading  : When notification is required
+Text:
+§1002.9(a)(1) When notification is required:
+A creditor shall notify an applicant of action taken within:
+(i) 30 days after receiving a completed application concerning the creditor's approval of, counteroffer to, or adverse action on the application;
+(ii) 30 days after taking adverse action on an incomplete application, unless notice is provided in accordance with paragraph (c) of this section;
+(iii) 30 days after taking adverse action on an existing account; or
+(iv) 90 days after notifying the applicant of a counteroffer if the applicant does not expressly accept or use the credit offered.
+
+------------------------------------------------------------
+### [Chunk 2] ID: regb_1002_9_a_2 | Type: regulation
+Citation : 12 CFR 1002.9(a)(2)
+Heading  : Content of notification when adverse action is taken
+Text:
+§1002.9(a)(2) Content of notification when adverse action is taken:
+A notification given to an applicant when adverse action is taken shall be in writing and shall contain a statement of the action taken; the name and address of the creditor; a statement of the provisions of section 701(a) of the Act; the name and address of the Federal agency that administers compliance with respect to the creditor; and either:
+(i) A statement of specific reasons for the action taken; or
+(ii) A disclosure of the applicant's right to a statement of specific reasons within 30 days, if the statement is requested within 60 days of the creditor's notification. The disclosure shall include the name, address, and telephone number of the person or office from which the statement of reasons can be obtained. If the creditor chooses to provide the reasons orally, the creditor shall also disclose the applicant's right to have them confirmed in writing within 30 days of receiving the applicant's written request for confirmation.
+
+------------------------------------------------------------
+### [Chunk 3] ID: regb_1002_9_a_3 | Type: regulation
+Citation : 12 CFR 1002.9(a)(3)
+Heading  : Notification to business credit applicants
+Text:
+§1002.9(a)(3) Notification to business credit applicants:
+For business credit, a creditor shall comply with the notification requirements of this section in the following manner:
+(i) With regard to a business that had gross revenues of $1 million or less in its preceding fiscal year (other than trade credit/factoring):
+  (A) The statement of the action taken may be given orally or in writing, when adverse action is taken;
+  (B) Disclosure of an applicant's right to a statement of reasons may be given at the time of application, provided the disclosure contains the information required by paragraph (a)(2)(ii) and the ECOA notice specified in paragraph (b)(1);
+  (C) For an application made entirely by telephone, oral statement of action taken and right to reasons satisfies requirements.
+(ii) With regard to a business that had gross revenues in excess of $1 million in preceding fiscal year or trade credit/factoring:
+  (A) Notify the applicant within a reasonable time, orally or in writing, of action taken; and
+  (B) Provide written statement of reasons and ECOA notice if applicant makes written request within 60 days of notification.
+
+------------------------------------------------------------
+
+--- ONE SAMPLE CHUNK PER DOCUMENT ---
+
+### Source Doc: 12_CFR_1002_9 | Chunk ID: regb_1002_9_a_1
+Citation : 12 CFR 1002.9(a)(1)
+Heading  : When notification is required
+Text:
+§1002.9(a)(1) When notification is required:
+A creditor shall notify an applicant of action taken within:
+(i) 30 days after receiving a completed application concerning the creditor's approval of, counteroffer to, or adverse action on the application;
+(ii) 30 days after taking adverse action on an incomplete application, unless notice is provided in accordance with paragraph (c) of this section;
+(iii) 30 days after taking adverse action on an existing account; or
+(iv) 90 days after notifying the applicant of a counteroffer if the applicant does not expressly accept or use the credit offered.
+
+------------------------------------------------------------
+### Source Doc: Comment_1002_9_Interpretations | Chunk ID: interp_9_intro_comment1
+Citation : 12 CFR Part 1002 (Supp. I) 1002.9 Comment 1
+Heading  : Use of the term adverse action
+Text:
+Comment 1002.9-1 (Use of the term adverse action):
+The regulation does not require that a creditor use the term adverse action in communicating to an applicant that a request for an extension of credit has not been approved. In notifying an applicant of adverse action as defined by § 1002.2(c)(1), a creditor may use any words or phrases that describe the action taken on the application.
+
+------------------------------------------------------------
+### Source Doc: Appendix_C | Chunk ID: appendix_c_intro
+Citation : 12 CFR Part 1002 App. C Instructions
+Heading  : Sample Notification Forms — General Instructions
+Text:
+Appendix C to Part 1002 — Instructions and General Guidelines:
+1. This Appendix contains ten sample notification forms (C-1 through C-10). Forms C-1 through C-4 are for notifying an applicant of adverse action under §§ 1002.9(a)(1) and (2)(i). Form C-5 is a disclosure of right to request specific reasons under § 1002.9(a)(2)(ii). Form C-6 is for incomplete applications.
+2. Form C-1 contains FCRA disclosures required by sections 615(a) and (b). Forms C-2 through C-5 contain section 615(a) disclosure.
+3. The sample forms are illustrative and may not be appropriate for all creditors. If reasons commonly used by the creditor are not provided on the form, the creditor should modify the checklist by substituting or adding other reasons.
+4. If the reasons listed on the forms are not the factors actually used, a creditor will not satisfy the notice requirement by simply checking the closest identifiable factor listed. The creditor should either add such other factors to the form or check “other” and include the appropriate explanation.
+5. Proper use of Forms C-1 through C-4 satisfies § 1002.9(a)(2)(i).
+
+------------------------------------------------------------
+### Source Doc: 15_USC_1681m | Chunk ID: fcra_1681m_a_1_2
+Citation : 15 U.S.C. 1681m(a)(1)-(2)
+Heading  : Duties of users taking adverse action — Notice and Credit Score Disclosures
+Text:
+15 U.S.C. §1681m(a) Duties of users taking adverse actions on basis of information contained in consumer reports:
+If any person takes any adverse action with respect to any consumer that is based in whole or in part on any information contained in a consumer report, the person shall—
+(1) provide oral, written, or electronic notice of the adverse action to the consumer;
+(2) provide to the consumer written or electronic disclosure—
+  (A) of a numerical credit score as defined in section 1681g(f)(2)(A) used in taking adverse action based in whole or in part on consumer report information; and
+  (B) of the information set forth in section 1681g(f)(1) (score range, date, key factors adversely affecting credit score up to four, or five if inquiries is a factor).
+
+------------------------------------------------------------
+### Source Doc: Circular_2022-03 | Chunk ID: circular_2022_03_question
+Citation : CFPB Circular 2022-03 (Question presented)
+Heading  : Question presented — Complex Algorithms and Adverse Action Compliance
+Text:
+Question presented:
+When creditors make credit decisions based on complex algorithms that prevent creditors from accurately identifying the specific reasons for denying credit or taking other adverse actions, do these creditors need to comply with the Equal Credit Opportunity Act’s requirement to provide a statement of specific reasons to applicants against whom adverse action is taken?
+
+------------------------------------------------------------
+### Source Doc: Circular_2023-03 | Chunk ID: circular_2023_03_question
+Citation : CFPB Circular 2023-03 (Question presented)
+Heading  : Question presented — Sample Form Checklists with AI Credit Models
+Text:
+Question presented:
+When using artificial intelligence or complex credit models, may creditors rely on the checklist of reasons provided in CFPB sample forms for adverse action notices even when those sample reasons do not accurately or specifically identify the reasons for the adverse action?
+
+------------------------------------------------------------

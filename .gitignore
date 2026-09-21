@@ -8,3 +8,5 @@ kaggle.json
 access_token
 node_modules/
 .venv/
+rag/raw
+rag/parsed
