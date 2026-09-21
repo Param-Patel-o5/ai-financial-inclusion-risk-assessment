@@ -1,0 +1,651 @@
+{
+  "summary": {
+    "total_profiles": 12,
+    "completed": 12,
+    "failed": 0,
+    "schema_validity_rate": 100.0,
+    "feature_hallucination_rate": 0.0,
+    "citation_hallucination_rate": 0.0,
+    "prohibited_term_violation_rate": 0.0,
+    "mean_retrieval_latency_s": 0.27,
+    "mean_generation_latency_s": 2.59
+  },
+  "runs": [
+    {
+      "applicant_id": "EVAL_001",
+      "decision_band": "Deny",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.221,
+      "generation_latency_s": 2.56,
+      "notice": {
+        "applicant_id": "EVAL_001",
+        "decision_band": "Deny",
+        "calibrated_probability": 0.187,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "late_payment_share",
+            "plain_english_reason": "Your account history shows a high percentage of late payments.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires creditors to provide specific and clear reasons for taking adverse action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "prev_refusal_rate",
+            "plain_english_reason": "You have a high rate of previous credit refusals from other lenders.",
+            "regulatory_basis": {
+              "clause_id": "circular_2022_03_analysis_p1",
+              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
+              "requirement": "The law requires creditors to give specific reasons that accurately describe the real factors actually considered."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "mean_days_late",
+            "plain_english_reason": "Your past payments were late by an average of many days.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_a_2",
+              "citation": "12 CFR 1002.9(a)(2)",
+              "requirement": "The regulation requires written notification containing specific reasons and required contact details."
+            }
+          }
+        ],
+        "disclosure_statement": "We reviewed your credit profile and noted concerns regarding your payment history and past credit applications. You have the right to request more details about these specific factors within sixty days."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "circular_2022_03_analysis_p1",
+        "regb_1002_9_a_2"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_002",
+      "decision_band": "Deny",
+      "is_thin_file": false,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.286,
+      "generation_latency_s": 2.56,
+      "notice": {
+        "applicant_id": "EVAL_002",
+        "decision_band": "Deny",
+        "calibrated_probability": 0.245,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "underpayment_share",
+            "plain_english_reason": "Your account history shows too many recent underpayments.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "credit_income_ratio",
+            "plain_english_reason": "Your current debt load is too high compared to your reported income.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_a_2",
+              "citation": "12 CFR 1002.9(a)(2)",
+              "requirement": "The regulation requires written notification containing a statement of the action taken and specific reasons for the action."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "prev_refusal_rate",
+            "plain_english_reason": "Your record shows a high rate of past credit refusals from other lenders.",
+            "regulatory_basis": {
+              "clause_id": "interp_9_b2_comment9",
+              "citation": "12 CFR Part 1002 (Supp. I) 1002.9(b)(2) Comment 9",
+              "requirement": "The regulation requires disclosure of the principal reasons for taking adverse action on an application."
+            }
+          }
+        ],
+        "disclosure_statement": "We evaluated your recent application using the specific credit factors listed above. These factors directly influenced our current review process regarding your account terms."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "regb_1002_9_a_2",
+        "interp_9_b2_comment9"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_003",
+      "decision_band": "Deny",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.312,
+      "generation_latency_s": 2.29,
+      "notice": {
+        "applicant_id": "EVAL_003",
+        "decision_band": "Deny",
+        "calibrated_probability": 0.162,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "plain_english_reason": "Your credit history file is too thin.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "This regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "annuity_income_ratio",
+            "plain_english_reason": "Your annuity income ratio is too high.",
+            "regulatory_basis": {
+              "clause_id": "circular_2022_03_analysis_p1",
+              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
+              "requirement": "This guidance requires a creditor to provide a statement of specific reasons in writing that accurately describe the factors actually considered."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "mean_days_late",
+            "plain_english_reason": "Your average number of days late on payments is too high.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_a_2",
+              "citation": "12 CFR 1002.9(a)(2)",
+              "requirement": "This regulation requires that the notification given to an applicant when adverse action is taken shall be in writing."
+            }
+          }
+        ],
+        "disclosure_statement": "We have shared the main reasons for our review based on your file. You have the right to contact us if you have any questions about this notice."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "circular_2022_03_analysis_p1",
+        "regb_1002_9_a_2"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_004",
+      "decision_band": "Deny",
+      "is_thin_file": false,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.221,
+      "generation_latency_s": 2.25,
+      "notice": {
+        "applicant_id": "EVAL_004",
+        "decision_band": "Deny",
+        "calibrated_probability": 0.21,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "installments_count",
+            "plain_english_reason": "You have too many open installment accounts currently.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "credit_income_ratio",
+            "plain_english_reason": "Your debt to income ratio is too high based on your income.",
+            "regulatory_basis": {
+              "clause_id": "circular_2023_03_analysis_p3",
+              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
+              "requirement": "The guidance requires creditors to disclose specific attributes that drove the decision rather than vague or generalized categories."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "employment_years",
+            "plain_english_reason": "Your length of time at your current job is relatively short.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_a_2",
+              "citation": "12 CFR 1002.9(a)(2)",
+              "requirement": "The rule requires that written notification must contain a statement of specific reasons when action is taken."
+            }
+          }
+        ],
+        "disclosure_statement": "We evaluated your application using the specific credit factors listed above. You have the right to request more details about these findings. Please keep this notice for your records."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "circular_2023_03_analysis_p3",
+        "regb_1002_9_a_2"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_005",
+      "decision_band": "Deny",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.257,
+      "generation_latency_s": 2.528,
+      "notice": {
+        "applicant_id": "EVAL_005",
+        "decision_band": "Deny",
+        "calibrated_probability": 0.155,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "plain_english_reason": "Your credit report lacks a sufficient credit history to evaluate risk.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires creditors to provide specific and accurate reasons for any adverse action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "AMT_CREDIT",
+            "plain_english_reason": "The requested credit amount is too high for your current profile.",
+            "regulatory_basis": {
+              "clause_id": "circular_2022_03_analysis_p1",
+              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
+              "requirement": "The guidance requires that disclosed reasons must accurately describe the factors actually considered by the creditor."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "late_payment_share",
+            "plain_english_reason": "Your file shows a high share of past late payments.",
+            "regulatory_basis": {
+              "clause_id": "fcra_1681m_b",
+              "citation": "15 U.S.C. 1681m(b)",
+              "requirement": "The statute requires disclosing rights when adverse action is taken based on third-party information."
+            }
+          }
+        ],
+        "disclosure_statement": "We have reviewed your application and found specific factors that impacted our assessment. Please review the specific reasons listed above regarding your credit profile."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "circular_2022_03_analysis_p1",
+        "fcra_1681m_b"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_006",
+      "decision_band": "Deny",
+      "is_thin_file": false,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.272,
+      "generation_latency_s": 2.128,
+      "notice": {
+        "applicant_id": "EVAL_006",
+        "decision_band": "Deny",
+        "calibrated_probability": 0.178,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "prev_refusal_rate",
+            "plain_english_reason": "Your past record shows a high rate of previous credit refusals, which increases your overall financial risk.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires that the statement of reasons must be specific and indicate the principal reasons for the adverse action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "mean_days_late",
+            "plain_english_reason": "Your average number of days late on past payments is too high for us to approve your application.",
+            "regulatory_basis": {
+              "clause_id": "circular_2023_03_analysis_p3",
+              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
+              "requirement": "The regulation requires that reasons must be specific enough to inform the consumer of the factual basis of the decision."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "underpayment_share",
+            "plain_english_reason": "Your share of underpayments on previous accounts presents an elevated risk of default.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_a_2",
+              "citation": "12 CFR 1002.9(a)(2)",
+              "requirement": "The regulation requires that written notification must contain a clear statement of specific reasons for the action taken."
+            }
+          }
+        ],
+        "disclosure_statement": "We have reviewed your application and evaluated the specific risk factors outlined above. You have the right to request more details about the information used in this evaluation. Please contact our office if you have any questions regarding these specific reasons."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "circular_2023_03_analysis_p3",
+        "regb_1002_9_a_2"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_007",
+      "decision_band": "Refer",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.263,
+      "generation_latency_s": 2.165,
+      "notice": {
+        "applicant_id": "EVAL_007",
+        "decision_band": "Refer",
+        "calibrated_probability": 0.095,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "plain_english_reason": "Your credit history contains very few accounts, which limits our ability to evaluate your credit risk.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "This regulation requires creditors to provide a statement of specific reasons that clearly indicate the principal factors for the action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "installments_count",
+            "plain_english_reason": "You have a low number of installment accounts on your credit report.",
+            "regulatory_basis": {
+              "clause_id": "circular_2022_03_analysis_p1",
+              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
+              "requirement": "This regulation requires creditors to accurately describe the specific factors actually considered or scored during the evaluation."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "credit_income_ratio",
+            "plain_english_reason": "Your ratio of credit obligations to income is higher than our preferred threshold.",
+            "regulatory_basis": {
+              "clause_id": "circular_2023_03_analysis_p3",
+              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
+              "requirement": "This regulation requires creditors to provide specific reasons detailed enough to inform the consumer of the factual basis."
+            }
+          }
+        ],
+        "disclosure_statement": "We have reviewed your application and evaluated specific factors related to your credit profile. The primary reasons influencing our review of your file are listed in this notice. You may use this information to review your credit report and address any areas of concern."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "circular_2022_03_analysis_p1",
+        "circular_2023_03_analysis_p3"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_008",
+      "decision_band": "Refer",
+      "is_thin_file": false,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.305,
+      "generation_latency_s": 2.314,
+      "notice": {
+        "applicant_id": "EVAL_008",
+        "decision_band": "Refer",
+        "calibrated_probability": 0.112,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "annuity_income_ratio",
+            "plain_english_reason": "Your ratio of annuity income to debt obligations contributed to the evaluation of your financial profile.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "mean_days_late",
+            "plain_english_reason": "Your average number of days late on past payments impacted our review of your credit history.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "employment_years",
+            "plain_english_reason": "The length of your current employment history was a factor considered in our review.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+            }
+          }
+        ],
+        "disclosure_statement": "We have provided the specific factors that influenced our review of your file based on the information available. You have the right to request more details regarding these factors within the applicable timeframes."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "regb_1002_9_a_2",
+        "fcra_1681m_b"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_009",
+      "decision_band": "Refer",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.3,
+      "generation_latency_s": 2.501,
+      "notice": {
+        "applicant_id": "EVAL_009",
+        "decision_band": "Refer",
+        "calibrated_probability": 0.082,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "plain_english_reason": "Your credit report has a limited credit history, which increases risk.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reason for the action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "bureau_active_credits_count",
+            "plain_english_reason": "The number of active credit accounts currently on your bureau report is too low.",
+            "regulatory_basis": {
+              "clause_id": "circular_2022_03_analysis_p1",
+              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
+              "requirement": "The law requires that creditors provide specific reasons that relate to and accurately describe the factors actually considered or scored."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "annuity_income_ratio",
+            "plain_english_reason": "Your ratio of annuity income to other financial obligations contributed to the evaluation.",
+            "regulatory_basis": {
+              "clause_id": "circular_2023_03_analysis_p3",
+              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
+              "requirement": "The regulation requires that reasons must be specific enough to inform the consumer of the factual basis so they can take corrective action."
+            }
+          }
+        ],
+        "disclosure_statement": "We have reviewed your credit application and identified specific risk factors related to your credit history and profile. Please review the reasons listed above to understand the specific elements that impacted this review."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "circular_2022_03_analysis_p1",
+        "circular_2023_03_analysis_p3"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_010",
+      "decision_band": "Refer",
+      "is_thin_file": false,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.279,
+      "generation_latency_s": 2.095,
+      "notice": {
+        "applicant_id": "EVAL_010",
+        "decision_band": "Refer",
+        "calibrated_probability": 0.125,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "late_payment_share",
+            "plain_english_reason": "Your account history shows a high share of late payments.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires creditors to provide a specific statement of the principal reasons for adverse action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "underpayment_share",
+            "plain_english_reason": "Your records show a significant share of underpayments on past accounts.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires creditors to provide a specific statement of the principal reasons for adverse action."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "credit_income_ratio",
+            "plain_english_reason": "Your ratio of existing credit to income is high.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "The regulation requires creditors to provide a specific statement of the principal reasons for adverse action."
+            }
+          }
+        ],
+        "disclosure_statement": "We have reviewed your credit application and found specific factors affecting your file, such as late payment share, underpayment share, and credit-to-income ratio. You have the right to request more information about these factors within the allowed time frames."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "fcra_1681m_b",
+        "interp_9_b2_comment9"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_011",
+      "decision_band": "Approve",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.274,
+      "generation_latency_s": 3.678,
+      "notice": {
+        "applicant_id": "EVAL_011",
+        "decision_band": "Approve",
+        "calibrated_probability": 0.035,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "plain_english_reason": "Your credit report contains a limited number of trade lines.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "This regulation requires creditors to provide specific and clear reasons when taking adverse action."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "credit_income_ratio",
+            "plain_english_reason": "Your ratio of credit to income is higher than preferred.",
+            "regulatory_basis": {
+              "clause_id": "circular_2022_03_analysis_p1",
+              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
+              "requirement": "This guidance requires that disclosed reasons accurately describe the specific factors actually considered by the creditor."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "installments_count",
+            "plain_english_reason": "Your total count of installment loans is high.",
+            "regulatory_basis": {
+              "clause_id": "circular_2023_03_analysis_p3",
+              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
+              "requirement": "This guidance requires specific explanations rather than vague categories so consumers understand the factual basis."
+            }
+          }
+        ],
+        "disclosure_statement": "This notice details the specific factors evaluated regarding your credit profile. You have the right to review the information used in this evaluation. Please contact us if you have any questions regarding these specific factors."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "circular_2022_03_analysis_p1",
+        "circular_2023_03_analysis_p3"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_012",
+      "decision_band": "Approve",
+      "is_thin_file": false,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.261,
+      "generation_latency_s": 4.047,
+      "notice": {
+        "applicant_id": "EVAL_012",
+        "decision_band": "Approve",
+        "calibrated_probability": 0.048,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "employment_years",
+            "plain_english_reason": "Your length of time at your current job contributed to the evaluation of your financial profile.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR 1002.9(b)(2)",
+              "requirement": "This regulation requires creditors to provide specific reasons for any adverse action taken on an application."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "annuity_income_ratio",
+            "plain_english_reason": "Your ratio of annuity income to overall finances was a key factor in our review.",
+            "regulatory_basis": {
+              "clause_id": "regb_1002_9_a_2",
+              "citation": "12 CFR 1002.9(a)(2)",
+              "requirement": "This regulation requires written notification containing specific reasons or instructions on how to request them."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "AMT_CREDIT",
+            "plain_english_reason": "The total requested credit amount factored into our risk evaluation process.",
+            "regulatory_basis": {
+              "clause_id": "fcra_1681m_b",
+              "citation": "15 U.S.C. 1681m(b)",
+              "requirement": "This statute outlines duties related to disclosing information sources when adverse actions occur."
+            }
+          }
+        ],
+        "disclosure_statement": "We reviewed your credit profile based on specific financial factors. Please review the details above regarding the primary elements that influenced our evaluation."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_9_b_2",
+        "fcra_1681m_b",
+        "regb_1002_9_a_2"
+      ],
+      "status": "ok"
+    }
+  ]
+}
