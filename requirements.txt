@@ -1,0 +1,29 @@
+# Core Data Processing & Numerics
+# Pinned to NumPy 1.26.4 for maximum binary compatibility with SHAP, Numba, and LightGBM on Python 3.11
+numpy==1.26.4
+pandas==2.2.2
+pyarrow==15.0.2
+
+# Machine Learning & Explainability
+scikit-learn==1.4.2
+lightgbm==4.3.0
+shap==0.45.1
+
+# Visualization
+matplotlib==3.8.4
+seaborn==0.13.2
+
+# API Backend & Validation
+fastapi==0.110.1
+uvicorn==0.29.0
+pydantic==2.7.1
+python-dotenv==1.0.1
+
+# Vector Search, Embeddings & Generative AI
+chromadb==0.4.24
+sentence-transformers==2.7.0
+google-generativeai==0.5.4
+
+# Development, Interactive Exploration & Testing
+jupyter==1.0.0
+pytest==8.1.1
