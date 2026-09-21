@@ -1,0 +1,9 @@
+2026-09-22 01:21:28,542 | INFO | HTTP Request: GET http://testserver/health "HTTP/1.1 200 OK"
+2026-09-22 01:21:28,550 | WARNING | Unauthorized access attempt with API Key: None
+2026-09-22 01:21:28,553 | INFO | HTTP Request: POST http://testserver/assess "HTTP/1.1 403 Forbidden"
+2026-09-22 01:21:28,557 | INFO | Request received for applicant_id: TEST_001
+2026-09-22 01:21:31,871 | INFO | Assessment completed | ID: TEST_001 | Decision: Deny | Calib Prob: 0.1882 | Audit Flags: 0 | Processing Time: 3.314s
+2026-09-22 01:21:31,879 | INFO | HTTP Request: POST http://testserver/assess "HTTP/1.1 200 OK"
+2026-09-22 01:21:31,889 | INFO | Override logged | TEST_001 | Deny -> Refer | by UW_482
+2026-09-22 01:21:31,892 | INFO | HTTP Request: POST http://testserver/override "HTTP/1.1 200 OK"
+2026-09-22 01:21:31,901 | INFO | HTTP Request: GET http://testserver/metrics "HTTP/1.1 200 OK"

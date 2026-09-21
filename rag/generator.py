@@ -78,7 +78,7 @@ OUTPUT SCHEMA:
   "calibrated_probability": <float>,
   "reasons": [
     {{
-      "rank": <1|2|3>,
+      "rank": <1|2|3|4>,
       "feature_name": "<exact feature name from SHAP_REASONS>",
       "plain_english_reason": "<one sentence, max 25 words>",
       "regulatory_basis": {{
@@ -153,15 +153,6 @@ def parse_llm_json(raw: str) -> dict:
     """Strip markdown fences if LLM adds them despite instructions."""
 
     cleaned = re.sub(r"```json|```", "", raw).strip()
-
-    # ── DEBUG OUTPUT ──────────────────────────────────
-    print("\n========== RAW LLM OUTPUT ==========")
-    print(repr(raw))
-
-    print("========== CLEANED OUTPUT ==========")
-    print(repr(cleaned))
-
-    print("====================================\n")
 
     return json.loads(cleaned)
 
@@ -252,22 +243,6 @@ def generate(
 
     response = model.generate_content(prompt)
 
-
-    # ── DEBUG GEMINI RESPONSE ─────────────────────────
-
-    print("\n========== GEMINI RESPONSE ==========")
-
-    try:
-        print("TEXT:")
-        print(repr(response.text))
-    except Exception as e:
-        print("Could not read response.text:")
-        print(repr(e))
-
-    print("\nCANDIDATES:")
-    print(response.candidates)
-
-    print("=====================================\n")
 
 
     # ── GET RAW OUTPUT ─────────────────────────────────

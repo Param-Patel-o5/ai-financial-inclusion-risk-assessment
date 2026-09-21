@@ -1,0 +1,10 @@
+[
+  {
+    "applicant_id": "TEST_001",
+    "original_decision": "Deny",
+    "override_decision": "Refer",
+    "underwriter_id": "UW_482",
+    "reason": "Customer provided verified supplemental proof of income.",
+    "timestamp": "2026-09-22T01:21:31Z"
+  }
+]
