@@ -53,6 +53,14 @@ eligible_features:
   reason_phrase: Limited or no credit bureau history on record
   direction: high increases risk
   alt_data: false
+- feature: bureau_active_credits_count
+  description: Total count of currently active credit accounts reported to the credit
+    bureau
+  reason_phrase: Limited number of active credit accounts
+  direction: low increases risk
+  alt_data: false
+  dedup_group: credit_history
+  nan_phrase: null
 excluded_features:
 - feature: NAME_INCOME_TYPE
   reason: Structural attribute excluded from reason codes per fair lending disclosure

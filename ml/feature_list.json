@@ -14,5 +14,6 @@
   "prev_refused_count",
   "prev_refusal_rate",
   "thin_file",
+  "bureau_active_credits_count",
   "NAME_INCOME_TYPE"
 ]
