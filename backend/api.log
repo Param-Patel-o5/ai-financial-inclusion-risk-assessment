@@ -7,3 +7,9 @@
 2026-09-22 01:21:31,889 | INFO | Override logged | TEST_001 | Deny -> Refer | by UW_482
 2026-09-22 01:21:31,892 | INFO | HTTP Request: POST http://testserver/override "HTTP/1.1 200 OK"
 2026-09-22 01:21:31,901 | INFO | HTTP Request: GET http://testserver/metrics "HTTP/1.1 200 OK"
+2026-09-22 03:26:25,404 | INFO | Request received for applicant_id: JAMES_003
+2026-09-22 03:26:28,783 | INFO | Assessment completed | ID: JAMES_003 | Decision: Deny | Calib Prob: 0.1961 | Audit Flags: 0 | Processing Time: 3.38s
+2026-09-22 03:27:37,180 | INFO | Request received for applicant_id: MARIA_004
+2026-09-22 03:27:40,041 | INFO | Assessment completed | ID: MARIA_004 | Decision: Approve | Calib Prob: 0.0551 | Audit Flags: 0 | Processing Time: 2.861s
+2026-09-22 03:27:51,856 | INFO | Request received for applicant_id: MARCUS_002
+2026-09-22 03:27:54,442 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 2.585s
