@@ -65,7 +65,7 @@ def vector_search(query: str, top_k: int = 5) -> list[dict]:
     results = []
     for row in rows:
         chunk_id, citation, chunk_type, text, emb_blob = row
-        emb = np.frombuffer(emb_blob, dtype=np.float32)
+        emb = np.array(json.loads(emb_blob), dtype=np.float32)
         # cosine similarity
         sim = float(
             np.dot(query_vec, emb) /
@@ -201,19 +201,3 @@ FEATURE_TO_CLAUSE = {
     "NAME_HOUSING_TYPE":        "regb_1002_9_b_2",
 }
 
-
-
-# quick test at bottom of retriever.py
-if __name__ == "__main__":
-    result = retrieve(
-        shap_features=[
-            {"feature_name": "late_payment_share", "value": 0.35, "shap": 0.142},
-            {"feature_name": "prev_refusal_rate",  "value": 0.82, "shap": 0.118},
-            {"feature_name": "mean_days_late",     "value": 12.0, "shap": 0.095}
-        ],
-        decision_band="Deny",
-        is_thin_file=True,
-        applicant_id="TEST_001"
-    )
-    import json
-    print(json.dumps(result, indent=2))
