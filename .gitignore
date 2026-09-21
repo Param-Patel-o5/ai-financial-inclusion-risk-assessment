@@ -1,0 +1,10 @@
+data/
+*.csv
+*.zip
+__pycache__/
+*.pyc
+.env
+kaggle.json
+access_token
+node_modules/
+.venv/
