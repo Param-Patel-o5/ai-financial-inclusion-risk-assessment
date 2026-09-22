@@ -63,8 +63,7 @@ eligible_features:
   nan_phrase: null
 excluded_features:
 - feature: NAME_INCOME_TYPE
-  reason: Structural attribute excluded from reason codes per fair lending disclosure
-    policy. Audited for disparate impact on fairness dashboard.
+  reason: Dropped from model, AUC cost under 0.003.
 - feature: NAME_HOUSING_TYPE
   reason: Dropped from model, AUC cost under 0.003. Structural attribute excluded
     from reason codes.

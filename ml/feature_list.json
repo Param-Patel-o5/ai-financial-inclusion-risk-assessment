@@ -15,5 +15,8 @@
   "prev_refusal_rate",
   "thin_file",
   "bureau_active_credits_count",
-  "NAME_INCOME_TYPE"
+  "EXT_SOURCE_2",
+  "EXT_SOURCE_3",
+  "mobile_bill_consistency",
+  "AMT_REQ_CREDIT_BUREAU_YEAR"
 ]

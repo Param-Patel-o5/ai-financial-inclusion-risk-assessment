@@ -40,6 +40,14 @@ ELIGIBLE_REASON_FEATURES = [
 ]
 
 
+FEATURE_DEFAULTS = {
+    "EXT_SOURCE_2": 0.565,
+    "EXT_SOURCE_3": 0.535,
+    "mobile_bill_consistency": 0.85,
+    "AMT_REQ_CREDIT_BUREAU_YEAR": 1.0,
+}
+
+
 def run_inference(applicant_data: dict) -> dict:
     """
     Run complete ML risk scoring and SHAP reason code extraction.
@@ -54,9 +62,10 @@ def run_inference(applicant_data: dict) -> dict:
     # Step 2: Build feature vector DataFrame in exact order of FEATURE_LIST
     row_dict = {}
     for feat in FEATURE_LIST:
-        val = applicant_data.get(feat, 0.0)
+        default_val = FEATURE_DEFAULTS.get(feat, 0.0)
+        val = applicant_data.get(feat, default_val)
         if val is None:
-            val = 0.0
+            val = default_val
         row_dict[feat] = float(val)
 
     df_row = pd.DataFrame([row_dict], columns=FEATURE_LIST)

@@ -123,3 +123,7 @@ reasons.2.regulatory_basis.requirement
 2026-09-23 02:45:22,233 | INFO | Assessment completed | ID: MARCUS_004 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 5.642s
 2026-09-23 02:45:51,939 | INFO | Request received for applicant_id: PRIYA_002
 2026-09-23 02:45:57,307 | INFO | Assessment completed | ID: PRIYA_002 | Decision: Approve | Calib Prob: 0.0484 | Audit Flags: 0 | Processing Time: 5.369s
+2026-09-23 03:07:35,761 | INFO | Request received for applicant_id: PRIYA_002
+2026-09-23 03:07:43,113 | INFO | Assessment completed | ID: PRIYA_002 | Decision: Approve | Calib Prob: 0.0551 | Audit Flags: 0 | Processing Time: 7.345s
+2026-09-23 03:09:56,820 | INFO | Request received for applicant_id: PRIYA_002
+2026-09-23 03:10:02,078 | INFO | Assessment completed | ID: PRIYA_002 | Decision: Approve | Calib Prob: 0.0598 | Audit Flags: 0 | Processing Time: 5.258s

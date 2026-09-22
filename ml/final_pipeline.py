@@ -30,7 +30,7 @@ from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-# Base features (always included) - 16 base features in v2
+# Base features (always included) - 20 features in v3 (including high-predictive signals)
 BASE_FEATURES = [
     "AMT_INCOME_TOTAL",
     "AMT_CREDIT",
@@ -48,6 +48,10 @@ BASE_FEATURES = [
     "prev_refusal_rate",
     "thin_file",
     "bureau_active_credits_count",
+    "EXT_SOURCE_2",
+    "EXT_SOURCE_3",
+    "mobile_bill_consistency",
+    "AMT_REQ_CREDIT_BUREAU_YEAR",
 ]
 
 # Audit columns (never passed to model)
@@ -132,6 +136,12 @@ def load_and_derive_features(parquet_path: Path, bureau_path: Path):
 
     df = df.merge(active_cnt, on="SK_ID_CURR", how="left").fillna({"bureau_active_credits_count": 0})
     df["bureau_active_credits_count"] = df["bureau_active_credits_count"].astype(int)
+
+    # Impute missing predictive signals with median
+    for col in ["EXT_SOURCE_2", "EXT_SOURCE_3", "mobile_bill_consistency", "AMT_REQ_CREDIT_BUREAU_YEAR"]:
+        if col in df.columns:
+            med_val = df[col].median()
+            df[col] = df[col].fillna(med_val)
 
     print(f"bureau_active_credits_count distribution:")
     print(df["bureau_active_credits_count"].describe())
