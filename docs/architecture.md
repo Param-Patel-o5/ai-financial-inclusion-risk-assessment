@@ -1,21 +1,19 @@
-# FairTrace Architecture & Pipeline Specifications
+# FairTrace Architecture & System Specifications
 
-This document outlines the detailed system architecture and evaluation workflows for the **FairTrace by Synchrony** platform.
+This document details the system design, two-tier machine learning pipeline, and Dual-Lane regulatory RAG architecture of **FairTrace by Synchrony**.
 
 ---
 
-## 1. End-to-End System Pipeline
-
-The diagram below illustrates the complete end-to-end flow from applicant submission in the React UI through the machine learning and regulatory RAG pipelines to client rendering.
+## 1. End-to-End System Architecture
 
 ```mermaid
 flowchart TD
     subgraph Frontend ["Frontend Layer (React + Vite)"]
         UI["User submits Application Form"]
         AR["AssessmentResult Page"]
-        AAN["AdverseActionNotice Page"]
-        FD["FairnessDashboard"]
-        UP["UnderwriterPanel"]
+        AAN["AdverseActionNotice Page (Dual-Lane View)"]
+        FD["FairnessDashboard (0.741 AUC Benchmark)"]
+        UP["UnderwriterPanel (Audit Logging)"]
     end
 
     subgraph API ["API & Gateway Layer (FastAPI)"]
@@ -23,26 +21,26 @@ flowchart TD
         RESP["FastAPI Returns Structured JSON Response"]
     end
 
-    subgraph ML ["Machine Learning Pipeline (inference.py)"]
-        LGBM["LightGBM Prediction<br/>(Raw Default Probability)"]
-        ISO["Isotonic Calibration<br/>(Calibrated Probability)"]
-        SHAP["SHAP TreeExplainer<br/>(Top 4 Key Risk Contributors)"]
-        DEC["Decision Band Engine<br/>Approve (< 0.07474) | Deny (> 0.13375) | Refer"]
+    subgraph ML ["Two-Tier ML Pipeline (inference.py)"]
+        LGBM["LightGBM Prediction on 20 Features<br/>(Test AUC: 0.7411)"]
+        ISO["Isotonic Probability Calibration<br/>(Floor: 0.005)"]
+        SHAP["SHAP TreeExplainer Attribution"]
+        GATE{"ELIGIBLE_REASON_FEATURES<br/>Statutory Whitelist Gate"}
+        DEC["Decision Engine<br/>Approve (< 0.0764) | Deny (> 0.1511) | Refer"]
     end
 
-    subgraph RAG_Retriever ["RAG Regulatory Retriever (retriever.py)"]
-        MAP["FEATURE_TO_CLAUSE Deterministic Map"]
-        SQL["SQLite Exact Clause Lookup"]
-        VEC["Fallback: MiniLM-L6-v2 + ChromaDB Vector Search"]
-        RERANK["Relevance Reranker<br/>(Select Top 4 Scored Clauses)"]
+    subgraph RAG_Retriever ["Dual-Lane Regulatory Retriever (retriever.py)"]
+        SQL["Deterministic SQLite Clause Index"]
+        L1["Lane 1: 12 CFR § 1002.6 & Form C-1 Authority"]
+        L2["Lane 2: CFPB Circulars 2022-03 / 2023-03 & FCRA § 1681m"]
+        VEC["Semantic Vector Fallback (all-MiniLM-L6-v2)"]
     end
 
     subgraph RAG_Generator ["RAG Notice Generator (generator.py)"]
-        ENRICH["Enrich SHAP Features with Pre-bound Clause IDs"]
-        PROMPT["Construct Strict Regulatory Prompt"]
+        PROMPT["Structured Regulatory Prompting"]
         GEMINI["Google Gemini 2.5 Flash Lite<br/>(temperature=0.0)"]
-        PYD["Pydantic Output Validation<br/>(AdverseActionNotice Schema)"]
-        SCAN["Deterministic Prohibited Term Scan"]
+        PYD["Pydantic Output Validation<br/>(AdverseActionNotice Model)"]
+        SCAN["Deterministic Prohibited Demographic Term Scanner"]
         AUDIT["Citation & Hallucination Audit Flags Check"]
     end
 
@@ -51,14 +49,14 @@ flowchart TD
     POST --> LGBM
     LGBM --> ISO
     ISO --> SHAP
-    SHAP --> DEC
-    DEC --> MAP
-    MAP --> SQL
+    SHAP --> GATE
+    GATE --> DEC
+    DEC --> SQL
+    SQL --> L1
+    SQL --> L2
     SQL -. Fallback .-> VEC
-    SQL --> RERANK
-    VEC --> RERANK
-    RERANK --> ENRICH
-    ENRICH --> PROMPT
+    L1 --> PROMPT
+    L2 --> PROMPT
     PROMPT --> GEMINI
     GEMINI --> PYD
     PYD --> SCAN
@@ -72,45 +70,82 @@ flowchart TD
 
 ---
 
-## 2. Standalone RAG Evaluation Harness Flow
+## 2. Dual-Lane Compliance Model
 
-The evaluation harness (`rag/eval_harness.py`) validates the regulatory RAG pipeline in complete isolation using a benchmark of 12 realistic credit profiles across four strict compliance dimensions.
+FairTrace solves the regulatory challenge of black-box AI by enforcing a two-lane statutory structure on every generated adverse action reason code:
+
+### Lane 1: Substantive Factor Authorization
+- **Statutory Authority**: **12 CFR § 1002.6(a), (b)(5), and (b)(6)**.
+- **Form C-1 Checklist Alignment**: Regulation B Appendix C Sample Form C-1 line items (e.g., `Part I (Item 15): Delinquent past or present credit obligations with others`).
+- **Legal Scope**: Explicit statutory boundary describing the creditor's legal authority to evaluate the specific risk factor.
+
+### Lane 2: Procedural Specificity & AI Governance Mandate
+- **Governing Directives**:
+  - **12 CFR § 1002.9(b)(2)** & Official Staff Commentary: Requirement to state specific, principal reasons.
+  - **CFPB Circular 2022-03**: Black-box algorithmic complexity does not exempt creditors from providing actionable, specific reasons.
+  - **CFPB Circular 2023-03**: Prohibition against relying on generic checklist items when complex ML models score non-traditional factors.
+  - **FCRA 15 U.S.C. § 1681m**: Consumer reporting agency disclosures and credit dispute rights.
+
+---
+
+## 3. Two-Tier Machine Learning Pipeline
+
+```mermaid
+flowchart LR
+    subgraph Data ["Feature Ingestion"]
+        APP["Application Data<br/>(Income, Credit, Tenure)"]
+        ALT["Alternative Data<br/>(Cash Flow, Installments)"]
+        EXT["Internal Aggregators<br/>(EXT_SOURCE_2/3, Inquiries)"]
+    end
+
+    subgraph Tier1 ["Tier 1: High-AUC Classifier"]
+        TREE["LightGBM 20-Feature Model<br/>AUC: 0.7411"]
+        CALIB["Isotonic Calibrator<br/>Default Separation: 6.71x"]
+    end
+
+    subgraph Tier2 ["Tier 2: Statutory Gating"]
+        RAW_SHAP["Raw SHAP Attributions"]
+        FILTER["ELIGIBLE_REASON_FEATURES Filter"]
+        TOP4["Top 4 Statutory Reasons"]
+    end
+
+    APP --> TREE
+    ALT --> TREE
+    EXT --> TREE
+    TREE --> CALIB
+    CALIB --> RAW_SHAP
+    RAW_SHAP --> FILTER
+    FILTER --> TOP4
+```
+
+---
+
+## 4. Standalone RAG Evaluation Benchmark (20 Profiles)
+
+The standalone evaluation harness (`rag/eval_harness.py`) runs 20 diverse test applicant profiles against 4 strict compliance targets:
 
 ```mermaid
 flowchart TD
-    subgraph Benchmark ["12 Test Benchmark Profiles"]
-        POOL["12 Realistic Profiles<br/>(Thin-File, High-Delinquency, Borderline, Low-Risk)"]
+    subgraph Benchmark ["20 Benchmark Profiles"]
+        POOL["20 Profiles (EVAL_001 – EVAL_020)<br/>Thin-File, High-Delinquency, Borderline, Prime"]
     end
 
-    subgraph Pipeline ["Isolated RAG Execution"]
-        RET["retriever.retrieve(shap_features, decision_band, is_thin_file)"]
-        GEN["generator.generate(applicant_id, decision_band, prob, is_thin, features, clauses)"]
+    subgraph Execution ["Isolated Execution"]
+        RET["retriever.retrieve(...)"]
+        GEN["generator.generate(...)"]
     end
 
-    subgraph Target_Checks ["4 Target Validation Checks"]
-        T1["Target 1: Schema Validity<br/>(Must parse into AdverseActionNotice model)"]
-        T2["Target 2: Feature Hallucination<br/>(Every reason feature_name in SHAP inputs)"]
-        T3["Target 3: Citation Hallucination<br/>(Every clause_id in retrieved context)"]
-        T4["Target 4: Prohibited Term Violations<br/>(Zero protected demographic terms)"]
+    subgraph Audit ["4 Deterministic Compliance Checks"]
+        C1["Schema Validity: 100.0% (20/20)"]
+        C2["Feature Hallucination: 0.0%"]
+        C3["Citation Hallucination: 0.0%"]
+        C4["Prohibited Term Violations: 0.0%"]
     end
 
-    subgraph Aggregation ["Reporting & Decision"]
-        METRICS["Compute Aggregate Metrics & Generation Latencies"]
-        RESULT{"Pass / Fail per Target"}
-        REPORT["Generate Terminal Table & Log Report"]
-    end
-
-    %% Flow connections
     POOL --> RET
     RET --> GEN
-    GEN --> T1
-    GEN --> T2
-    GEN --> T3
-    GEN --> T4
-    T1 --> METRICS
-    T2 --> METRICS
-    T3 --> METRICS
-    T4 --> METRICS
-    METRICS --> RESULT
-    RESULT --> REPORT
+    GEN --> C1
+    GEN --> C2
+    GEN --> C3
+    GEN --> C4
 ```
