@@ -1,20 +1,20 @@
 import { Link, useLocation } from 'react-router-dom';
 
 const links = [
-  { to: '/', label: 'Dashboard' },
+  { to: '/', label: 'Home' },
   { to: '/apply', label: 'New Application' },
+  { to: '/dictionary', label: 'Data Guide' },
   { to: '/fairness', label: 'Fairness' },
   { to: '/underwriter', label: 'Underwriter' },
 ];
 
 export default function Navbar() {
   const location = useLocation();
-
   return (
     <nav style={{
-      background: '#111827',
-      borderBottom: '1px solid #1f2937',
-      padding: '0 24px',
+      background: '#111111',
+      borderBottom: '1px solid #2A2A2A',
+      padding: '0 32px',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
@@ -23,46 +23,54 @@ export default function Navbar() {
       top: 0,
       zIndex: 100,
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      {/* Logo */}
+      <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div style={{
-          width: 32,
-          height: 32,
-          background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-          borderRadius: '8px',
+          width: 38, height: 38,
+          background: '#FFD100',
+          borderRadius: '10px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          fontSize: '16px'
-        }}>⚖</div>
-        <span style={{ fontWeight: 700, fontSize: '18px', color: '#f9fafb' }}>
-          FairLend <span style={{ color: '#3b82f6' }}>AI</span>
-        </span>
-      </div>
+          fontWeight: 800,
+          fontSize: '15px',
+          color: '#0A0A0A',
+          letterSpacing: '-0.5px',
+        }}>FT</div>
+        <div>
+          <div style={{ fontWeight: 700, fontSize: '16px', color: '#FFFFFF', lineHeight: 1.2 }}>
+            FairTrace
+          </div>
+          <div style={{ fontSize: '10px', color: '#FFD100', fontWeight: 600, letterSpacing: '0.05em' }}>
+            BY SYNCHRONY
+          </div>
+        </div>
+      </Link>
 
+      {/* Nav Links */}
       <div style={{ display: 'flex', gap: '4px' }}>
-        {links.map(link => (
-          <Link
-            key={link.to}
-            to={link.to}
-            style={{
+        {links.map(link => {
+          const active = location.pathname === link.to;
+          return (
+            <Link key={link.to} to={link.to} style={{
               padding: '8px 16px',
               borderRadius: '8px',
               textDecoration: 'none',
               fontSize: '14px',
-              fontWeight: 500,
-              color: location.pathname === link.to ? '#3b82f6' : '#9ca3af',
-              background: location.pathname === link.to ? '#1e3a5f' : 'transparent',
+              fontWeight: active ? 600 : 400,
+              color: active ? '#FFD100' : '#9CA3AF',
+              background: active ? 'rgba(255,209,0,0.1)' : 'transparent',
               transition: 'all 0.2s',
-            }}
-          >
-            {link.label}
-          </Link>
-        ))}
+            }}>
+              {link.label}
+            </Link>
+          );
+        })}
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#10b981' }}>
-        <div style={{ width: 8, height: 8, background: '#10b981', borderRadius: '50%' }} />
-        API Live
+      {/* Right side */}
+      <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 500 }}>
+        v1.0.0 · Demo Mode
       </div>
     </nav>
   );

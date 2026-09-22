@@ -13,3 +13,17 @@
 2026-09-22 03:27:40,041 | INFO | Assessment completed | ID: MARIA_004 | Decision: Approve | Calib Prob: 0.0551 | Audit Flags: 0 | Processing Time: 2.861s
 2026-09-22 03:27:51,856 | INFO | Request received for applicant_id: MARCUS_002
 2026-09-22 03:27:54,442 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 2.585s
+2026-09-22 10:25:45,732 | INFO | Request received for applicant_id: MARCUS_002
+2026-09-22 10:25:48,800 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 3.068s
+2026-09-22 10:45:41,160 | INFO | Request received for applicant_id: MARIA_004
+2026-09-22 10:45:44,462 | INFO | Assessment completed | ID: MARIA_004 | Decision: Approve | Calib Prob: 0.0551 | Audit Flags: 0 | Processing Time: 3.301s
+2026-09-22 10:46:17,058 | INFO | Request received for applicant_id: JAMES_003
+2026-09-22 10:46:21,592 | INFO | Assessment completed | ID: JAMES_003 | Decision: Refer | Calib Prob: 0.0894 | Audit Flags: 0 | Processing Time: 4.535s
+2026-09-22 10:46:54,946 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-22 10:46:59,222 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 4.277s
+2026-09-22 10:48:12,346 | INFO | Request received for applicant_id: MARCUS_002
+2026-09-22 10:48:16,240 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 3.894s
+2026-09-22 10:48:49,592 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-22 10:48:52,641 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 3.049s
+2026-09-22 10:56:52,166 | INFO | Request received for applicant_id: AISHA_005
+2026-09-22 10:56:58,195 | INFO | Assessment completed | ID: AISHA_005 | Decision: Refer | Calib Prob: 0.0773 | Audit Flags: 0 | Processing Time: 6.029s

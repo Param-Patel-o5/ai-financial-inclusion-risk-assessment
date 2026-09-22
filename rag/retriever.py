@@ -115,7 +115,7 @@ def rerank_chunks(
         scored.append({**chunk, "final_score": round(score, 4)})
 
     scored.sort(key=lambda x: x["final_score"], reverse=True)
-    return scored[:3]
+    return scored[:4]
 
 
 # ─── STEP 5: MASTER RETRIEVE FUNCTION ────────────────
