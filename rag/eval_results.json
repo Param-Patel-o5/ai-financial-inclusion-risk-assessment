@@ -1,14 +1,14 @@
 {
   "summary": {
-    "total_profiles": 12,
-    "completed": 12,
+    "total_profiles": 20,
+    "completed": 20,
     "failed": 0,
     "schema_validity_rate": 100.0,
     "feature_hallucination_rate": 0.0,
     "citation_hallucination_rate": 0.0,
     "prohibited_term_violation_rate": 0.0,
-    "mean_retrieval_latency_s": 0.27,
-    "mean_generation_latency_s": 2.59
+    "mean_retrieval_latency_s": 0.2,
+    "mean_generation_latency_s": 4.38
   },
   "runs": [
     {
@@ -17,8 +17,8 @@
       "is_thin_file": true,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.221,
-      "generation_latency_s": 2.56,
+      "retrieval_latency_s": 0.535,
+      "generation_latency_s": 4.406,
       "notice": {
         "applicant_id": "EVAL_001",
         "decision_band": "Deny",
@@ -27,40 +27,103 @@
           {
             "rank": 1,
             "feature_name": "late_payment_share",
-            "plain_english_reason": "Your account history shows a high percentage of late payments.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your share of late payments is too high, indicating elevated default risk on past credit obligations.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "Moreover, no factor that was a principal reason for adverse action may be excluded from disclosure."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires creditors to provide specific and clear reasons for taking adverse action."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 2,
             "feature_name": "prev_refusal_rate",
-            "plain_english_reason": "You have a high rate of previous credit refusals from other lenders.",
+            "standard_category": "Poor credit performance / previous credit denial history",
+            "plain_english_reason": "Your previous credit refusal rate is too high, showing an elevated history of credit denials.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "fcra_1681m_a_1_2",
+              "citation": "15 U.S.C. \u00a7 1681m(a)(1)-(2)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2022_03_analysis_p1",
-              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
-              "requirement": "The law requires creditors to give specific reasons that accurately describe the real factors actually considered."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 3,
             "feature_name": "mean_days_late",
-            "plain_english_reason": "Your past payments were late by an average of many days.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your mean days late is too high, reflecting excessive delays in past payment history.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "Moreover, no factor that was a principal reason for adverse action may be excluded from disclosure."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_a_2",
-              "citation": "12 CFR 1002.9(a)(2)",
-              "requirement": "The regulation requires written notification containing specific reasons and required contact details."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "thin_file",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "Your credit history is limited, providing insufficient background to establish standard creditworthiness.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           }
         ],
-        "disclosure_statement": "We reviewed your credit profile and noted concerns regarding your payment history and past credit applications. You have the right to request more details about these specific factors within sixty days."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
-        "regb_1002_9_b_2",
-        "circular_2022_03_analysis_p1",
-        "regb_1002_9_a_2"
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "fcra_1681m_a_1_2",
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "appendix_c_form_c5",
+        "regb_1002_9_a_2",
+        "fcra_1681m_b",
+        "interp_9_b2_comment1",
+        "interp_9_g_comment1",
+        "appendix_c_intro",
+        "interp_9_b2_comment9"
       ],
       "status": "ok"
     },
@@ -70,8 +133,8 @@
       "is_thin_file": false,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.286,
-      "generation_latency_s": 2.56,
+      "retrieval_latency_s": 0.156,
+      "generation_latency_s": 3.834,
       "notice": {
         "applicant_id": "EVAL_002",
         "decision_band": "Deny",
@@ -80,40 +143,104 @@
           {
             "rank": 1,
             "feature_name": "underpayment_share",
-            "plain_english_reason": "Your account history shows too many recent underpayments.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your past payment history shows an excessive share of underpayments relative to established obligations.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "Moreover, no factor that was a principal reason for adverse action may be excluded from disclosure."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 2,
             "feature_name": "credit_income_ratio",
-            "plain_english_reason": "Your current debt load is too high compared to your reported income.",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit obligations are elevated compared to your verified income level.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_a_2",
-              "citation": "12 CFR 1002.9(a)(2)",
-              "requirement": "The regulation requires written notification containing a statement of the action taken and specific reasons for the action."
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 3,
             "feature_name": "prev_refusal_rate",
-            "plain_english_reason": "Your record shows a high rate of past credit refusals from other lenders.",
+            "standard_category": "Poor credit performance / previous credit denial history",
+            "plain_english_reason": "Your credit history indicates an elevated frequency of previous credit application refusals.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "fcra_1681m_a_1_2",
+              "citation": "15 U.S.C. \u00a7 1681m(a)(1)-(2)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
             "regulatory_basis": {
-              "clause_id": "interp_9_b2_comment9",
-              "citation": "12 CFR Part 1002 (Supp. I) 1002.9(b)(2) Comment 9",
-              "requirement": "The regulation requires disclosure of the principal reasons for taking adverse action on an application."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "employment_years",
+            "standard_category": "Length of employment",
+            "plain_english_reason": "Your current employment history shows a limited duration at your present position.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment2",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-2",
+              "requirement": "The specific reasons disclosed under \u00a7\u00a7 1002.9(a)(2) and (b)(2) must relate to and accurately describe the factors actually considered or scored by a creditor."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           }
         ],
-        "disclosure_statement": "We evaluated your recent application using the specific credit factors listed above. These factors directly influenced our current review process regarding your account terms."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
+        "fcra_1681m_a_1_2",
+        "regb_1002_6_a",
+        "interp_9_b2_comment2",
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "interp_9_b2_comment1",
         "regb_1002_9_a_2",
-        "interp_9_b2_comment9"
+        "fcra_1681m_b",
+        "appendix_c_intro"
       ],
       "status": "ok"
     },
@@ -123,8 +250,8 @@
       "is_thin_file": true,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.312,
-      "generation_latency_s": 2.29,
+      "retrieval_latency_s": 0.147,
+      "generation_latency_s": 4.19,
       "notice": {
         "applicant_id": "EVAL_003",
         "decision_band": "Deny",
@@ -133,40 +260,104 @@
           {
             "rank": 1,
             "feature_name": "thin_file",
-            "plain_english_reason": "Your credit history file is too thin.",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have a limited credit history with too few established accounts.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "This regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons."
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           },
           {
             "rank": 2,
             "feature_name": "annuity_income_ratio",
-            "plain_english_reason": "Your annuity income ratio is too high.",
+            "standard_category": "Excessive obligations in relation to income",
+            "plain_english_reason": "Your debt obligations are excessive in relation to your reported income.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2022_03_analysis_p1",
-              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
-              "requirement": "This guidance requires a creditor to provide a statement of specific reasons in writing that accurately describe the factors actually considered."
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 3,
             "feature_name": "mean_days_late",
-            "plain_english_reason": "Your average number of days late on payments is too high.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your credit report shows an elevated number of days past due on past obligations.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed must relate only to those factors actually scored in the system."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_a_2",
-              "citation": "12 CFR 1002.9(a)(2)",
-              "requirement": "This regulation requires that the notification given to an applicant when adverse action is taken shall be in writing."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "bureau_active_credits_count",
+            "standard_category": "Insufficient number of credit references provided",
+            "plain_english_reason": "You have provided too few credit references to establish sufficient credit depth.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           }
         ],
-        "disclosure_statement": "We have shared the main reasons for our review based on your file. You have the right to contact us if you have any questions about this notice."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
-        "circular_2022_03_analysis_p1",
-        "regb_1002_9_a_2"
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "circular_2023_03_response",
+        "circular_2023_03_analysis_p1",
+        "appendix_c_intro",
+        "regb_1002_9_a_2",
+        "fcra_1681m_b",
+        "regb_1002_9_a_3",
+        "interp_9_b2_comment9"
       ],
       "status": "ok"
     },
@@ -176,8 +367,8 @@
       "is_thin_file": false,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.221,
-      "generation_latency_s": 2.25,
+      "retrieval_latency_s": 0.147,
+      "generation_latency_s": 4.759,
       "notice": {
         "applicant_id": "EVAL_004",
         "decision_band": "Deny",
@@ -186,40 +377,104 @@
           {
             "rank": 1,
             "feature_name": "installments_count",
-            "plain_english_reason": "You have too many open installment accounts currently.",
+            "standard_category": "Limited installment credit experience",
+            "plain_english_reason": "You have too few installment credit accounts established on your credit file.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms (currently codified in Regulation B) to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 2,
             "feature_name": "credit_income_ratio",
-            "plain_english_reason": "Your debt to income ratio is too high based on your income.",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit obligations are too high relative to your documented income.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor shall not discount or exclude from consideration the income of an applicant or the spouse of an applicant because of a prohibited basis or because the income is derived from part-time employment or is an annuity, pension, or other retirement benefit; a creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2023_03_analysis_p3",
-              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
-              "requirement": "The guidance requires creditors to disclose specific attributes that drove the decision rather than vague or generalized categories."
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor shall not discount or exclude from consideration the income of an applicant or the spouse of an applicant because of a prohibited basis or because the income is derived from part-time employment or is an annuity, pension, or other retirement benefit; a creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
             }
           },
           {
             "rank": 3,
             "feature_name": "employment_years",
-            "plain_english_reason": "Your length of time at your current job is relatively short.",
+            "standard_category": "Length of employment",
+            "plain_english_reason": "You have a short duration of employment history at your current position.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment2",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-2",
+              "requirement": "The specific reasons disclosed under \u00a7\u00a7 1002.9(a)(2) and (b)(2) must relate to and accurately describe the factors actually considered or scored by a creditor."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_a_2",
-              "citation": "12 CFR 1002.9(a)(2)",
-              "requirement": "The rule requires that written notification must contain a statement of specific reasons when action is taken."
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "underpayment_share",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "You have an excessive share of underpayments on your past or present obligations.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed must relate only to those factors actually scored in the system."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           }
         ],
-        "disclosure_statement": "We evaluated your application using the specific credit factors listed above. You have the right to request more details about these findings. Please keep this notice for your records."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_b_6",
+        "circular_2023_03_response",
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
-        "circular_2023_03_analysis_p3",
-        "regb_1002_9_a_2"
+        "regb_1002_6_a",
+        "interp_9_b2_comment2",
+        "interp_9_b2_comment4",
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "appendix_c_intro",
+        "regb_1002_9_a_2",
+        "interp_9_b2_comment1",
+        "fcra_1681m_b"
       ],
       "status": "ok"
     },
@@ -229,8 +484,8 @@
       "is_thin_file": true,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.257,
-      "generation_latency_s": 2.528,
+      "retrieval_latency_s": 0.157,
+      "generation_latency_s": 3.973,
       "notice": {
         "applicant_id": "EVAL_005",
         "decision_band": "Deny",
@@ -239,40 +494,103 @@
           {
             "rank": 1,
             "feature_name": "thin_file",
-            "plain_english_reason": "Your credit report lacks a sufficient credit history to evaluate risk.",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have limited credit experience and a thin credit file.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires creditors to provide specific and accurate reasons for any adverse action."
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           },
           {
             "rank": 2,
             "feature_name": "AMT_CREDIT",
-            "plain_english_reason": "The requested credit amount is too high for your current profile.",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "The requested credit amount is excessive relative to your income.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2022_03_analysis_p1",
-              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
-              "requirement": "The guidance requires that disclosed reasons must accurately describe the factors actually considered by the creditor."
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
             }
           },
           {
             "rank": 3,
             "feature_name": "late_payment_share",
-            "plain_english_reason": "Your file shows a high share of past late payments.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "You have an elevated share of late payments on past obligations.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "Moreover, no factor that was a principal reason for adverse action may be excluded from disclosure."
+            },
             "regulatory_basis": {
-              "clause_id": "fcra_1681m_b",
-              "citation": "15 U.S.C. 1681m(b)",
-              "requirement": "The statute requires disclosing rights when adverse action is taken based on third-party information."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "bureau_active_credits_count",
+            "standard_category": "Insufficient number of credit references provided",
+            "plain_english_reason": "You have too few active credit accounts reported on your file.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           }
         ],
-        "disclosure_statement": "We have reviewed your application and found specific factors that impacted our assessment. Please review the specific reasons listed above regarding your credit profile."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
-        "circular_2022_03_analysis_p1",
-        "fcra_1681m_b"
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "circular_2023_03_response",
+        "circular_2023_03_analysis_p1",
+        "appendix_c_intro",
+        "fcra_1681m_b",
+        "interp_9_g_comment1",
+        "interp_9_b2_comment9"
       ],
       "status": "ok"
     },
@@ -282,8 +600,8 @@
       "is_thin_file": false,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.272,
-      "generation_latency_s": 2.128,
+      "retrieval_latency_s": 0.142,
+      "generation_latency_s": 3.73,
       "notice": {
         "applicant_id": "EVAL_006",
         "decision_band": "Deny",
@@ -292,40 +610,100 @@
           {
             "rank": 1,
             "feature_name": "prev_refusal_rate",
-            "plain_english_reason": "Your past record shows a high rate of previous credit refusals, which increases your overall financial risk.",
+            "standard_category": "Poor credit performance / previous credit denial history",
+            "plain_english_reason": "Your previous credit refusal rate is too high.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "fcra_1681m_a_1_2",
+              "citation": "15 U.S.C. \u00a7 1681m(a)(1)-(2)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires that the statement of reasons must be specific and indicate the principal reasons for the adverse action."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 2,
             "feature_name": "mean_days_late",
-            "plain_english_reason": "Your average number of days late on past payments is too high for us to approve your application.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your average number of days late on payments is excessive.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed must relate only to those factors actually scored in the system."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2023_03_analysis_p3",
-              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
-              "requirement": "The regulation requires that reasons must be specific enough to inform the consumer of the factual basis of the decision."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 3,
             "feature_name": "underpayment_share",
-            "plain_english_reason": "Your share of underpayments on previous accounts presents an elevated risk of default.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your underpayment share is elevated.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "Moreover, no factor that was a principal reason for adverse action may be excluded from disclosure."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_a_2",
-              "citation": "12 CFR 1002.9(a)(2)",
-              "requirement": "The regulation requires that written notification must contain a clear statement of specific reasons for the action taken."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "installments_count",
+            "standard_category": "Limited installment credit experience",
+            "plain_english_reason": "You have too few installment accounts.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           }
         ],
-        "disclosure_statement": "We have reviewed your application and evaluated the specific risk factors outlined above. You have the right to request more details about the information used in this evaluation. Please contact our office if you have any questions regarding these specific reasons."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
-        "regb_1002_9_b_2",
-        "circular_2023_03_analysis_p3",
-        "regb_1002_9_a_2"
+        "regb_1002_6_b_6",
+        "fcra_1681m_a_1_2",
+        "interp_9_b2_comment4",
+        "circular_2023_03_response",
+        "appendix_c_form_c5",
+        "regb_1002_9_a_2",
+        "interp_9_b2_comment1",
+        "appendix_c_intro",
+        "fcra_1681m_b"
       ],
       "status": "ok"
     },
@@ -335,8 +713,8 @@
       "is_thin_file": true,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.263,
-      "generation_latency_s": 2.165,
+      "retrieval_latency_s": 0.143,
+      "generation_latency_s": 4.3,
       "notice": {
         "applicant_id": "EVAL_007",
         "decision_band": "Refer",
@@ -345,40 +723,101 @@
           {
             "rank": 1,
             "feature_name": "thin_file",
-            "plain_english_reason": "Your credit history contains very few accounts, which limits our ability to evaluate your credit risk.",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have a limited credit file and lack established credit history.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "This regulation requires creditors to provide a statement of specific reasons that clearly indicate the principal factors for the action."
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           },
           {
             "rank": 2,
             "feature_name": "installments_count",
-            "plain_english_reason": "You have a low number of installment accounts on your credit report.",
+            "standard_category": "Limited installment credit experience",
+            "plain_english_reason": "You have too few installment accounts on your credit report.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms (currently codified in Regulation B) to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2022_03_analysis_p1",
-              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
-              "requirement": "This regulation requires creditors to accurately describe the specific factors actually considered or scored during the evaluation."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 3,
             "feature_name": "credit_income_ratio",
-            "plain_english_reason": "Your ratio of credit obligations to income is higher than our preferred threshold.",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit-to-income ratio is too high relative to your stated income.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2023_03_analysis_p3",
-              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
-              "requirement": "This regulation requires creditors to provide specific reasons detailed enough to inform the consumer of the factual basis."
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "bureau_active_credits_count",
+            "standard_category": "Insufficient number of credit references provided",
+            "plain_english_reason": "You have an insufficient number of active credit references.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms (currently codified in Regulation B) to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           }
         ],
-        "disclosure_statement": "We have reviewed your application and evaluated specific factors related to your credit profile. The primary reasons influencing our review of your file are listed in this notice. You may use this information to review your credit report and address any areas of concern."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "regb_1002_6_b_6",
+        "circular_2023_03_response",
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
-        "circular_2022_03_analysis_p1",
-        "circular_2023_03_analysis_p3"
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "circular_2023_03_analysis_p1",
+        "appendix_c_intro"
       ],
       "status": "ok"
     },
@@ -388,8 +827,8 @@
       "is_thin_file": false,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.305,
-      "generation_latency_s": 2.314,
+      "retrieval_latency_s": 0.151,
+      "generation_latency_s": 4.01,
       "notice": {
         "applicant_id": "EVAL_008",
         "decision_band": "Refer",
@@ -398,40 +837,102 @@
           {
             "rank": 1,
             "feature_name": "annuity_income_ratio",
-            "plain_english_reason": "Your ratio of annuity income to debt obligations contributed to the evaluation of your financial profile.",
-            "regulatory_basis": {
+            "standard_category": "Excessive obligations in relation to income",
+            "plain_english_reason": "Your ratio of annuity obligations to income is too high, indicating elevated risk.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
               "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
             }
           },
           {
             "rank": 2,
             "feature_name": "mean_days_late",
-            "plain_english_reason": "Your average number of days late on past payments impacted our review of your credit history.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your average number of days late on past obligations is excessive.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed must relate only to those factors actually scored in the system."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 3,
             "feature_name": "employment_years",
-            "plain_english_reason": "The length of your current employment history was a factor considered in our review.",
+            "standard_category": "Length of employment",
+            "plain_english_reason": "Your length of employment is too short, reflecting limited stability.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment2",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-2",
+              "requirement": "The specific reasons disclosed under \u00a7\u00a7 1002.9(a)(2) and (b)(2) must relate to and accurately describe the factors actually considered or scored by a creditor."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reasons for the action."
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "underpayment_share",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your share of underpayments is excessive, indicating an elevated risk profile.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed must relate only to those factors actually scored in the system."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           }
         ],
-        "disclosure_statement": "We have provided the specific factors that influenced our review of your file based on the information available. You have the right to request more details regarding these factors within the applicable timeframes."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days. The federal agency administering compliance with this law is the Consumer Financial Protection Bureau."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "regb_1002_6_a",
+        "interp_9_b2_comment2",
         "regb_1002_9_a_2",
-        "fcra_1681m_b"
+        "fcra_1681m_b",
+        "interp_9_b2_comment1",
+        "regb_1002_9_a_3",
+        "appendix_c_intro"
       ],
       "status": "ok"
     },
@@ -441,8 +942,8 @@
       "is_thin_file": true,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.3,
-      "generation_latency_s": 2.501,
+      "retrieval_latency_s": 0.158,
+      "generation_latency_s": 3.92,
       "notice": {
         "applicant_id": "EVAL_009",
         "decision_band": "Refer",
@@ -451,40 +952,102 @@
           {
             "rank": 1,
             "feature_name": "thin_file",
-            "plain_english_reason": "Your credit report has a limited credit history, which increases risk.",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have a limited credit history with too few established accounts.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires that the statement of reasons for adverse action must be specific and indicate the principal reason for the action."
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           },
           {
             "rank": 2,
             "feature_name": "bureau_active_credits_count",
-            "plain_english_reason": "The number of active credit accounts currently on your bureau report is too low.",
+            "standard_category": "Insufficient number of credit references provided",
+            "plain_english_reason": "You have too few active credit references available on your report.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2022_03_analysis_p1",
-              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
-              "requirement": "The law requires that creditors provide specific reasons that relate to and accurately describe the factors actually considered or scored."
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           },
           {
             "rank": 3,
             "feature_name": "annuity_income_ratio",
-            "plain_english_reason": "Your ratio of annuity income to other financial obligations contributed to the evaluation.",
+            "standard_category": "Excessive obligations in relation to income",
+            "plain_english_reason": "Your debt-to-income ratio is too high based on your evaluated obligations.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reasons for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2023_03_analysis_p3",
-              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
-              "requirement": "The regulation requires that reasons must be specific enough to inform the consumer of the factual basis so they can take corrective action."
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "installments_count",
+            "standard_category": "Limited installment credit experience",
+            "plain_english_reason": "You have limited installment credit experience with too few past loans.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           }
         ],
-        "disclosure_statement": "We have reviewed your credit application and identified specific risk factors related to your credit history and profile. Please review the reasons listed above to understand the specific elements that impacted this review."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "circular_2023_03_response",
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
-        "circular_2022_03_analysis_p1",
-        "circular_2023_03_analysis_p3"
+        "regb_1002_6_b_6",
+        "circular_2023_03_analysis_p1",
+        "appendix_c_intro",
+        "appendix_c_form_c5",
+        "regb_1002_9_a_3",
+        "interp_9_b2_comment9"
       ],
       "status": "ok"
     },
@@ -494,8 +1057,8 @@
       "is_thin_file": false,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.279,
-      "generation_latency_s": 2.095,
+      "retrieval_latency_s": 0.162,
+      "generation_latency_s": 4.413,
       "notice": {
         "applicant_id": "EVAL_010",
         "decision_band": "Refer",
@@ -504,40 +1067,100 @@
           {
             "rank": 1,
             "feature_name": "late_payment_share",
-            "plain_english_reason": "Your account history shows a high share of late payments.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your share of late payments on past or present credit obligations is too high.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "Moreover, no factor that was a principal reason for adverse action may be excluded from disclosure."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires creditors to provide a specific statement of the principal reasons for adverse action."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 2,
             "feature_name": "underpayment_share",
-            "plain_english_reason": "Your records show a significant share of underpayments on past accounts.",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your underpayment share on previous credit obligations is elevated and presents added risk.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "Moreover, no factor that was a principal reason for adverse action may be excluded from disclosure."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires creditors to provide a specific statement of the principal reasons for adverse action."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           },
           {
             "rank": 3,
             "feature_name": "credit_income_ratio",
-            "plain_english_reason": "Your ratio of existing credit to income is high.",
-            "regulatory_basis": {
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit-to-income ratio is excessive relative to your demonstrated earnings.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
               "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "The regulation requires creditors to provide a specific statement of the principal reasons for adverse action."
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "AMT_CREDIT",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "The requested credit amount is too high given your current income level.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
             }
           }
         ],
-        "disclosure_statement": "We have reviewed your credit application and found specific factors affecting your file, such as late payment share, underpayment share, and credit-to-income ratio. You have the right to request more information about these factors within the allowed time frames."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "appendix_c_intro",
         "fcra_1681m_b",
-        "interp_9_b2_comment9"
+        "interp_9_g_comment1"
       ],
       "status": "ok"
     },
@@ -547,8 +1170,8 @@
       "is_thin_file": true,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.274,
-      "generation_latency_s": 3.678,
+      "retrieval_latency_s": 0.55,
+      "generation_latency_s": 4.938,
       "notice": {
         "applicant_id": "EVAL_011",
         "decision_band": "Approve",
@@ -557,40 +1180,101 @@
           {
             "rank": 1,
             "feature_name": "thin_file",
-            "plain_english_reason": "Your credit report contains a limited number of trade lines.",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have limited credit experience and a thin credit file.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "This regulation requires creditors to provide specific and clear reasons when taking adverse action."
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           },
           {
             "rank": 2,
             "feature_name": "credit_income_ratio",
-            "plain_english_reason": "Your ratio of credit to income is higher than preferred.",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit-to-income ratio is elevated compared to required thresholds.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2022_03_analysis_p1",
-              "citation": "CFPB Circular 2022-03 (Analysis Part 1)",
-              "requirement": "This guidance requires that disclosed reasons accurately describe the specific factors actually considered by the creditor."
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
             }
           },
           {
             "rank": 3,
             "feature_name": "installments_count",
-            "plain_english_reason": "Your total count of installment loans is high.",
+            "standard_category": "Limited installment credit experience",
+            "plain_english_reason": "You have too few installment credit accounts in your history.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "circular_2023_03_analysis_p3",
-              "citation": "CFPB Circular 2023-03 (Analysis Part 3)",
-              "requirement": "This guidance requires specific explanations rather than vague categories so consumers understand the factual basis."
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "bureau_active_credits_count",
+            "standard_category": "Insufficient number of credit references provided",
+            "plain_english_reason": "There is an insufficient number of active credit references on file.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           }
         ],
-        "disclosure_statement": "This notice details the specific factors evaluated regarding your credit profile. You have the right to review the information used in this evaluation. Please contact us if you have any questions regarding these specific factors."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
-        "circular_2022_03_analysis_p1",
-        "circular_2023_03_analysis_p3"
+        "regb_1002_6_b_6",
+        "circular_2023_03_response",
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "circular_2023_03_analysis_p1",
+        "appendix_c_intro"
       ],
       "status": "ok"
     },
@@ -600,8 +1284,8 @@
       "is_thin_file": false,
       "schema_valid": true,
       "audit_flags": [],
-      "retrieval_latency_s": 0.261,
-      "generation_latency_s": 4.047,
+      "retrieval_latency_s": 0.154,
+      "generation_latency_s": 4.436,
       "notice": {
         "applicant_id": "EVAL_012",
         "decision_band": "Approve",
@@ -610,40 +1294,1027 @@
           {
             "rank": 1,
             "feature_name": "employment_years",
-            "plain_english_reason": "Your length of time at your current job contributed to the evaluation of your financial profile.",
+            "standard_category": "Length of employment",
+            "plain_english_reason": "Your length of employment history is too short for this credit evaluation.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment2",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-2",
+              "requirement": "The specific reasons disclosed under \u00a7\u00a7 1002.9(a)(2) and (b)(2) must relate to and accurately describe the factors actually considered or scored by a creditor."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_b_2",
-              "citation": "12 CFR 1002.9(b)(2)",
-              "requirement": "This regulation requires creditors to provide specific reasons for any adverse action taken on an application."
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
             }
           },
           {
             "rank": 2,
             "feature_name": "annuity_income_ratio",
-            "plain_english_reason": "Your ratio of annuity income to overall finances was a key factor in our review.",
+            "standard_category": "Excessive obligations in relation to income",
+            "plain_english_reason": "Your annuity to income ratio is too high based on your financial profile.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "regb_1002_9_a_2",
-              "citation": "12 CFR 1002.9(a)(2)",
-              "requirement": "This regulation requires written notification containing specific reasons or instructions on how to request them."
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
             }
           },
           {
             "rank": 3,
             "feature_name": "AMT_CREDIT",
-            "plain_english_reason": "The total requested credit amount factored into our risk evaluation process.",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "The requested credit amount is excessive relative to your current income level.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
             "regulatory_basis": {
-              "clause_id": "fcra_1681m_b",
-              "citation": "15 U.S.C. 1681m(b)",
-              "requirement": "This statute outlines duties related to disclosing information sources when adverse actions occur."
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "late_payment_share",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your share of late payments is elevated compared to credit standards.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed must relate only to those factors actually scored in the system."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
             }
           }
         ],
-        "disclosure_statement": "We reviewed your credit profile based on specific financial factors. Please review the details above regarding the primary elements that influenced our evaluation."
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
       },
       "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "interp_9_b2_comment2",
+        "regb_1002_6_b_5",
         "regb_1002_9_b_2",
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "appendix_c_intro",
         "fcra_1681m_b",
-        "regb_1002_9_a_2"
+        "regb_1002_9_a_2",
+        "interp_9_g_comment1",
+        "interp_9_b2_comment1",
+        "regb_1002_9_a_3"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_013",
+      "decision_band": "Deny",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.15,
+      "generation_latency_s": 3.927,
+      "notice": {
+        "applicant_id": "EVAL_013",
+        "decision_band": "Deny",
+        "calibrated_probability": 0.224,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have limited established credit history.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "credit_income_ratio",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit to income ratio is too high.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "employment_years",
+            "standard_category": "Length of employment",
+            "plain_english_reason": "Your length of employment history is too short.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment2",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-2",
+              "requirement": "The specific reasons disclosed under \u00a7\u00a7 1002.9(a)(2) and (b)(2) must relate to and accurately describe the factors actually considered or scored by a creditor."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "annuity_income_ratio",
+            "standard_category": "Excessive obligations in relation to income",
+            "plain_english_reason": "Your obligations are excessive in relation to your income.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          }
+        ],
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "regb_1002_6_b_5",
+        "regb_1002_9_b_2",
+        "interp_9_b2_comment2",
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "regb_1002_9_a_2",
+        "interp_9_b2_comment1",
+        "regb_1002_9_a_3",
+        "appendix_c_intro"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_014",
+      "decision_band": "Deny",
+      "is_thin_file": false,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.328,
+      "generation_latency_s": 4.277,
+      "notice": {
+        "applicant_id": "EVAL_014",
+        "decision_band": "Deny",
+        "calibrated_probability": 0.198,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "late_payment_share",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your proportion of late payments is too high, reflecting elevated risk.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed must relate only to those factors actually scored in the system."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "mean_days_late",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your average days past due on accounts is too high, indicating extended delinquency.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "Moreover, no factor that was a principal reason for adverse action may be excluded from disclosure."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "prev_refusal_rate",
+            "standard_category": "Poor credit performance / previous credit denial history",
+            "plain_english_reason": "Your previous credit refusal rate is too high, showing elevated financial instability.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "fcra_1681m_a_1_2",
+              "citation": "15 U.S.C. \u00a7 1681m(a)(1)-(2)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "underpayment_share",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your underpayment share across accounts is too high, presenting excessive default risk.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "The creditor must disclose the actual reasons for denial even if the relationship of that factor to predicting creditworthiness may not be clear to the applicant."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          }
+        ],
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "fcra_1681m_a_1_2",
+        "appendix_c_form_c5",
+        "regb_1002_9_a_2",
+        "fcra_1681m_b",
+        "interp_9_b2_comment1",
+        "interp_9_g_comment1",
+        "appendix_c_intro"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_015",
+      "decision_band": "Deny",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.155,
+      "generation_latency_s": 4.516,
+      "notice": {
+        "applicant_id": "EVAL_015",
+        "decision_band": "Deny",
+        "calibrated_probability": 0.172,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have a limited credit file with insufficient established history.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "installments_count",
+            "standard_category": "Limited installment credit experience",
+            "plain_english_reason": "You have too few installment credit accounts in your history.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "AMT_CREDIT",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "The requested credit amount is too high relative to your income.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph of this section must be specific and indicate the principal reasons for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "bureau_active_credits_count",
+            "standard_category": "Insufficient number of credit references provided",
+            "plain_english_reason": "You have too few active credit references listed on your bureau report.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          }
+        ],
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "regb_1002_6_b_6",
+        "circular_2023_03_response",
+        "regb_1002_6_b_5",
+        "regb_1002_9_b_2",
+        "circular_2023_03_analysis_p1",
+        "appendix_c_intro",
+        "fcra_1681m_b",
+        "appendix_c_form_c5",
+        "interp_9_b2_comment9"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_016",
+      "decision_band": "Refer",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.142,
+      "generation_latency_s": 4.426,
+      "notice": {
+        "applicant_id": "EVAL_016",
+        "decision_band": "Refer",
+        "calibrated_probability": 0.108,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have limited credit history and a lack of established credit experience.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "annuity_income_ratio",
+            "standard_category": "Excessive obligations in relation to income",
+            "plain_english_reason": "Your annuity to income ratio is too high and represents an excessive financial obligation.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "installments_count",
+            "standard_category": "Limited installment credit experience",
+            "plain_english_reason": "You have too few installment accounts, indicating limited prior installment credit experience.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "credit_income_ratio",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit to income ratio is too high for the amount of credit requested.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            }
+          }
+        ],
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "regb_1002_6_b_5",
+        "regb_1002_9_b_2",
+        "regb_1002_6_b_6",
+        "circular_2023_03_response",
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "appendix_c_intro",
+        "regb_1002_9_a_3"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_017",
+      "decision_band": "Refer",
+      "is_thin_file": false,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.156,
+      "generation_latency_s": 4.698,
+      "notice": {
+        "applicant_id": "EVAL_017",
+        "decision_band": "Refer",
+        "calibrated_probability": 0.119,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "credit_income_ratio",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit-to-income ratio is too high.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "late_payment_share",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your share of late payments is excessive.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed must relate only to those factors actually scored in the system."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "employment_years",
+            "standard_category": "Length of employment",
+            "plain_english_reason": "Your length of employment history is too short.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to evaluate applications improperly."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment2",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-2",
+              "requirement": "The specific reasons disclosed under \u00a7\u00a7 1002.9(a)(2) and (b)(2) must relate to and accurately describe the factors actually considered or scored by a creditor."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to evaluate applications improperly."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "bureau_active_credits_count",
+            "standard_category": "Insufficient number of credit references provided",
+            "plain_english_reason": "You have too few active credit accounts.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to evaluate applications improperly."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to evaluate applications improperly."
+            }
+          }
+        ],
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_6_b_5",
+        "regb_1002_9_b_2",
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "regb_1002_6_a",
+        "interp_9_b2_comment2",
+        "circular_2023_03_response",
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "circular_2023_03_analysis_p1",
+        "appendix_c_intro",
+        "fcra_1681m_b",
+        "regb_1002_9_a_2",
+        "interp_9_g_comment1",
+        "interp_9_b2_comment1"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_018",
+      "decision_band": "Refer",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.187,
+      "generation_latency_s": 4.537,
+      "notice": {
+        "applicant_id": "EVAL_018",
+        "decision_band": "Refer",
+        "calibrated_probability": 0.088,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have a limited credit experience and insufficient established history.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "employment_years",
+            "standard_category": "Length of employment",
+            "plain_english_reason": "Your employment history duration is too short.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment2",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-2",
+              "requirement": "The specific reasons disclosed under \u00a7\u00a7 1002.9(a)(2) and (b)(2) must relate to and accurately describe the factors actually considered or scored by a creditor."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "installments_count",
+            "standard_category": "Limited installment credit experience",
+            "plain_english_reason": "You have too few installment credit accounts.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms (currently codified in Regulation B) to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "bureau_active_credits_count",
+            "standard_category": "Insufficient number of credit references provided",
+            "plain_english_reason": "You have an insufficient number of active credit references.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms (currently codified in Regulation B) to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          }
+        ],
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "interp_9_b2_comment2",
+        "regb_1002_6_b_6",
+        "circular_2023_03_response",
+        "circular_2023_03_analysis_p1",
+        "appendix_c_intro",
+        "regb_1002_9_a_2",
+        "appendix_c_form_c5",
+        "interp_9_b2_comment1",
+        "interp_9_b2_comment9"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_019",
+      "decision_band": "Approve",
+      "is_thin_file": false,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.137,
+      "generation_latency_s": 5.065,
+      "notice": {
+        "applicant_id": "EVAL_019",
+        "decision_band": "Approve",
+        "calibrated_probability": 0.028,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "employment_years",
+            "standard_category": "Length of employment",
+            "plain_english_reason": "Your employment history is too short to meet our established underwriting criteria.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment2",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-2",
+              "requirement": "The specific reasons disclosed under \u00a7\u00a7 1002.9(a)(2) and (b)(2) must relate to and accurately describe the factors actually considered or scored by a creditor."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "credit_income_ratio",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit to income ratio is too high relative to your total available financial resources.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor shall not discount or exclude from consideration the income of an applicant or the spouse of an applicant because of a prohibited basis or because the income is derived from part-time employment or is an annuity, pension, or other retirement benefit; a creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor shall not discount or exclude from consideration the income of an applicant or the spouse of an applicant because of a prohibited basis or because the income is derived from part-time employment or is an annuity, pension, or other retirement benefit; a creditor may consider the amount and probable continuance of any income in evaluating an applicant's creditworthiness."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "late_payment_share",
+            "standard_category": "Delinquent past or present credit obligations with others",
+            "plain_english_reason": "Your record shows an elevated frequency of delayed payment occurrences on existing credit accounts.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "interp_9_b2_comment4",
+              "citation": "12 CFR Part 1002 (Supp. I), \u00a7 1002.9, Comment 9(b)(2)-4",
+              "requirement": "If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed must relate only to those factors actually scored in the system."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "bureau_active_credits_count",
+            "standard_category": "Insufficient number of credit references provided",
+            "plain_english_reason": "You have too few active credit accounts established on your credit bureau report.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms (currently codified in Regulation B) to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason(s) for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            }
+          }
+        ],
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "interp_9_b2_comment2",
+        "regb_1002_6_b_5",
+        "regb_1002_9_b_2",
+        "regb_1002_6_b_6",
+        "interp_9_b2_comment4",
+        "circular_2023_03_response",
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "circular_2023_03_analysis_p1",
+        "appendix_c_intro",
+        "fcra_1681m_b",
+        "regb_1002_9_a_2",
+        "interp_9_g_comment1",
+        "interp_9_b2_comment1"
+      ],
+      "status": "ok"
+    },
+    {
+      "applicant_id": "EVAL_020",
+      "decision_band": "Approve",
+      "is_thin_file": true,
+      "schema_valid": true,
+      "audit_flags": [],
+      "retrieval_latency_s": 0.164,
+      "generation_latency_s": 5.19,
+      "notice": {
+        "applicant_id": "EVAL_020",
+        "decision_band": "Approve",
+        "calibrated_probability": 0.042,
+        "reasons": [
+          {
+            "rank": 1,
+            "feature_name": "thin_file",
+            "standard_category": "No credit file / Limited credit experience",
+            "plain_english_reason": "You have a limited credit history with too few established accounts.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2022_03_response",
+              "citation": "CFPB Circular 2022-03",
+              "requirement": "ECOA and Regulation B require creditors to provide statements of specific reasons to applicants against whom adverse action is taken."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_a",
+              "citation": "12 CFR \u00a7 1002.6(a)",
+              "requirement": "Except as otherwise provided in the Act and this part, a creditor may consider any information obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis."
+            }
+          },
+          {
+            "rank": 2,
+            "feature_name": "installments_count",
+            "standard_category": "Limited installment credit experience",
+            "plain_english_reason": "You have too few installment loan accounts on your credit report.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            },
+            "lane_2_mandate": {
+              "clause_id": "circular_2023_03_response",
+              "citation": "CFPB Circular 2023-03",
+              "requirement": "No, creditors may not rely on the checklist of reasons provided in the sample forms to satisfy their obligations under ECOA if those reasons do not specifically and accurately indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_6",
+              "citation": "12 CFR \u00a7 1002.6(b)(6)",
+              "requirement": "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+            }
+          },
+          {
+            "rank": 3,
+            "feature_name": "annuity_income_ratio",
+            "standard_category": "Excessive obligations in relation to income",
+            "plain_english_reason": "Your annuity-related financial obligations are too high compared to your income.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor shall not discount or exclude from consideration the income of an applicant or the spouse of an applicant because of a prohibited basis or because the income is derived from part-time employment or is an annuity, pension, or other retirement benefit."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor shall not discount or exclude from consideration the income of an applicant or the spouse of an applicant because of a prohibited basis or because the income is derived from part-time employment or is an annuity, pension, or other retirement benefit."
+            }
+          },
+          {
+            "rank": 4,
+            "feature_name": "credit_income_ratio",
+            "standard_category": "Income insufficient for amount of credit requested",
+            "plain_english_reason": "Your credit obligations are too high in relation to your overall income level.",
+            "lane_1_authorization": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor shall not discount or exclude from consideration the income of an applicant or the spouse of an applicant because of a prohibited basis or because the income is derived from part-time employment or is an annuity, pension, or other retirement benefit."
+            },
+            "lane_2_mandate": {
+              "clause_id": "regb_1002_9_b_2",
+              "citation": "12 CFR \u00a7 1002.9(b)(2)",
+              "requirement": "The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be specific and indicate the principal reason for the adverse action."
+            },
+            "regulatory_basis": {
+              "clause_id": "regb_1002_6_b_5",
+              "citation": "12 CFR \u00a7 1002.6(b)(5)",
+              "requirement": "A creditor shall not discount or exclude from consideration the income of an applicant or the spouse of an applicant because of a prohibited basis or because the income is derived from part-time employment or is an annuity, pension, or other retirement benefit."
+            }
+          }
+        ],
+        "disclosure_statement": "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days."
+      },
+      "retrieved_clause_ids": [
+        "regb_1002_6_a",
+        "circular_2022_03_response",
+        "regb_1002_6_b_6",
+        "circular_2023_03_response",
+        "regb_1002_6_b_5",
+        "regb_1002_9_b_2",
+        "interp_9_b2_comment9",
+        "appendix_c_form_c5",
+        "appendix_c_intro",
+        "regb_1002_9_a_3"
       ],
       "status": "ok"
     }

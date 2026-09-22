@@ -35,3 +35,81 @@
 2026-09-22 11:40:47,243 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 2.96s
 2026-09-22 11:41:10,683 | INFO | Request received for applicant_id: MARCUS_002
 2026-09-22 11:41:13,854 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 3.171s
+2026-09-22 11:51:01,445 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-22 11:51:04,799 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 3.355s
+2026-09-22 11:52:00,691 | INFO | Request received for applicant_id: JAMES_003
+2026-09-22 11:52:03,440 | INFO | Assessment completed | ID: JAMES_003 | Decision: Refer | Calib Prob: 0.0894 | Audit Flags: 0 | Processing Time: 2.748s
+2026-09-22 11:54:36,629 | INFO | Request received for applicant_id: JAMES_003
+2026-09-22 11:54:39,602 | INFO | Assessment completed | ID: JAMES_003 | Decision: Refer | Calib Prob: 0.0894 | Audit Flags: 0 | Processing Time: 2.973s
+2026-09-22 12:00:49,827 | INFO | Request received for applicant_id: MARCUS_002
+2026-09-22 12:00:56,211 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 6.385s
+2026-09-22 12:01:07,631 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-22 12:01:15,140 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 7.517s
+2026-09-22 12:06:39,493 | INFO | Request received for applicant_id: JAMES_003
+2026-09-22 12:06:42,338 | INFO | Assessment completed | ID: JAMES_003 | Decision: Refer | Calib Prob: 0.0894 | Audit Flags: 0 | Processing Time: 2.845s
+2026-09-22 12:16:03,909 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-22 12:16:07,777 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 3.868s
+2026-09-22 12:16:57,825 | INFO | Request received for applicant_id: MARCUS_002
+2026-09-22 12:17:00,957 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 3.133s
+2026-09-22 12:44:07,168 | INFO | Request received for applicant_id: MARIA_004
+2026-09-22 12:44:11,390 | INFO | Assessment completed | ID: MARIA_004 | Decision: Approve | Calib Prob: 0.0551 | Audit Flags: 0 | Processing Time: 4.223s
+2026-09-22 12:44:33,805 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-22 12:44:49,698 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 15.893s
+2026-09-23 01:23:17,899 | INFO | Request received for applicant_id: MARCUS_002
+2026-09-23 01:23:21,104 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 3.205s
+2026-09-23 01:25:16,962 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-23 01:25:19,464 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 2.503s
+2026-09-23 01:25:36,355 | INFO | Request received for applicant_id: JAMES_003
+2026-09-23 01:25:38,987 | ERROR | Error evaluating applicant JAMES_003: 2 validation errors for AdverseActionNotice
+reasons.1.regulatory_basis.requirement
+  Field required [type=missing, input_value={'clause_id': 'regb_1002_...: '(6) Credit history.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+reasons.2.regulatory_basis.requirement
+  Field required [type=missing, input_value={'clause_id': 'regb_1002_...: '(6) Credit history.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+Traceback (most recent call last):
+  File "C:\Users\Admin\Desktop\Syncrhony Assignement\backend\main.py", line 143, in assess
+    generation_result = generate(
+                        ^^^^^^^^^
+  File "C:\Users\Admin\Desktop\Syncrhony Assignement\rag\generator.py", line 369, in generate
+    notice = AdverseActionNotice(**notice_dict)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Admin\Desktop\Syncrhony Assignement\.venv\Lib\site-packages\pydantic\main.py", line 263, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 2 validation errors for AdverseActionNotice
+reasons.1.regulatory_basis.requirement
+  Field required [type=missing, input_value={'clause_id': 'regb_1002_...: '(6) Credit history.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+reasons.2.regulatory_basis.requirement
+  Field required [type=missing, input_value={'clause_id': 'regb_1002_...: '(6) Credit history.'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-09-23 01:25:44,590 | INFO | Request received for applicant_id: JAMES_003
+2026-09-23 01:25:46,976 | INFO | Assessment completed | ID: JAMES_003 | Decision: Refer | Calib Prob: 0.0894 | Audit Flags: 0 | Processing Time: 2.386s
+2026-09-23 01:26:51,327 | INFO | Request received for applicant_id: MARCUS_002
+2026-09-23 01:26:54,176 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 2.849s
+2026-09-23 01:27:11,894 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-23 01:27:14,499 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 2.604s
+2026-09-23 01:44:45,278 | WARNING | Unauthorized access attempt with API Key: None
+2026-09-23 01:44:58,025 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-23 01:45:03,851 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 5.82s
+2026-09-23 01:47:45,052 | INFO | Request received for applicant_id: MARCUS_002
+2026-09-23 01:47:49,539 | INFO | Assessment completed | ID: MARCUS_002 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 4.488s
+2026-09-23 01:51:00,227 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-23 01:51:05,077 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 4.85s
+2026-09-23 01:53:11,904 | INFO | Request received for applicant_id: AISHA_005
+2026-09-23 01:53:16,904 | INFO | Assessment completed | ID: AISHA_005 | Decision: Refer | Calib Prob: 0.0773 | Audit Flags: 0 | Processing Time: 4.999s
+2026-09-23 02:01:26,783 | INFO | Request received for applicant_id: JAMES_003
+2026-09-23 02:01:31,856 | INFO | Assessment completed | ID: JAMES_003 | Decision: Refer | Calib Prob: 0.0894 | Audit Flags: 0 | Processing Time: 5.073s
+2026-09-23 02:02:33,784 | WARNING | Unauthorized access attempt with API Key: None
+2026-09-23 02:02:37,746 | WARNING | Unauthorized access attempt with API Key: None
+2026-09-23 02:02:52,445 | INFO | Request received for applicant_id: MARCUS_TEST
+2026-09-23 02:02:57,220 | INFO | Assessment completed | ID: MARCUS_TEST | Decision: Approve | Calib Prob: 0.0336 | Audit Flags: 0 | Processing Time: 4.775s
+2026-09-23 02:03:01,751 | INFO | Request received for applicant_id: MARCUS_TEST
+2026-09-23 02:03:06,339 | INFO | Assessment completed | ID: MARCUS_TEST | Decision: Approve | Calib Prob: 0.0336 | Audit Flags: 0 | Processing Time: 4.588s
+2026-09-23 02:03:22,353 | INFO | Request received for applicant_id: MARCUS_TEST
+2026-09-23 02:03:27,489 | INFO | Assessment completed | ID: MARCUS_TEST | Decision: Approve | Calib Prob: 0.0336 | Audit Flags: 0 | Processing Time: 5.136s
+2026-09-23 02:04:18,975 | INFO | Request received for applicant_id: MARCUS_TEST
+2026-09-23 02:04:24,901 | INFO | Assessment completed | ID: MARCUS_TEST | Decision: Approve | Calib Prob: 0.0336 | Audit Flags: 0 | Processing Time: 5.925s
+2026-09-23 02:07:32,508 | INFO | Request received for applicant_id: PRIYA_001
+2026-09-23 02:07:38,029 | INFO | Assessment completed | ID: PRIYA_001 | Decision: Deny | Calib Prob: 0.2988 | Audit Flags: 0 | Processing Time: 5.52s

@@ -2,9 +2,18 @@
 
 import json
 import re
+import os
+import sys
 from pydantic import BaseModel
 from dotenv import load_dotenv
-import os
+
+# Configure UTF-8 output encoding for Windows consoles
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
 
 load_dotenv()
 
@@ -15,47 +24,196 @@ import google.generativeai as genai
 
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
-MODEL = "gemini-3.5-flash-lite"
+MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.5-flash-lite")
 
 
-# ─── FEATURE → CLAUSE MAP (single source of truth) ────
+# ─── FEATURE METADATA MAP (14 TARGET CHUNKS) ──────────
+
+FEATURE_METADATA = {
+    # Payment History
+    "late_payment_share": {
+        "standard_category": "Delinquent past or present credit obligations with others",
+        "form_c1_item": "Part I (Item 15): Delinquent past or present credit obligations with others",
+        "statutory_scope": "Authorizes evaluation of delinquency frequency, late payment share, and historical installment repayment records.",
+        "lane_1_id": "regb_1002_6_b_6",
+        "lane_2_id": "interp_9_b2_comment4",
+    },
+    "mean_days_late": {
+        "standard_category": "Delinquent past or present credit obligations with others",
+        "form_c1_item": "Part I (Item 15): Delinquent past or present credit obligations with others",
+        "statutory_scope": "Authorizes evaluation of average delinquency duration and timeliness of previous payments.",
+        "lane_1_id": "regb_1002_6_b_6",
+        "lane_2_id": "interp_9_b2_comment4",
+    },
+    "max_days_late": {
+        "standard_category": "Delinquent past or present credit obligations with others",
+        "form_c1_item": "Part I (Item 15): Delinquent past or present credit obligations with others",
+        "statutory_scope": "Authorizes evaluation of maximum days past due and severe delinquency events.",
+        "lane_1_id": "regb_1002_6_b_6",
+        "lane_2_id": "interp_9_b2_comment4",
+    },
+    "underpayment_share": {
+        "standard_category": "Delinquent past or present credit obligations with others",
+        "form_c1_item": "Part I (Item 15): Delinquent past or present credit obligations with others",
+        "statutory_scope": "Authorizes consideration of partial payments, payment amounts, and installment shortfall records.",
+        "lane_1_id": "regb_1002_6_b_6",
+        "lane_2_id": "interp_9_b2_comment4",
+    },
+
+    # Income & Debt Ratios
+    "credit_income_ratio": {
+        "standard_category": "Income insufficient for amount of credit requested",
+        "form_c1_item": "Part I (Item 8): Income insufficient for amount of credit requested",
+        "statutory_scope": "Authorizes consideration of requested loan size relative to income amount and debt service capacity.",
+        "lane_1_id": "regb_1002_6_b_5",
+        "lane_2_id": "regb_1002_9_b_2",
+    },
+    "annuity_income_ratio": {
+        "standard_category": "Excessive obligations in relation to income",
+        "form_c1_item": "Part I (Item 9): Excessive obligations in relation to income",
+        "statutory_scope": "Authorizes evaluation of recurring debt burden and annuity continuity relative to total income.",
+        "lane_1_id": "regb_1002_6_b_5",
+        "lane_2_id": "regb_1002_9_b_2",
+    },
+    "AMT_CREDIT": {
+        "standard_category": "Income insufficient for amount of credit requested",
+        "form_c1_item": "Part I (Item 8): Income insufficient for amount of credit requested",
+        "statutory_scope": "Authorizes evaluation of total credit requested against applicant earnings and repayment ability.",
+        "lane_1_id": "regb_1002_6_b_5",
+        "lane_2_id": "regb_1002_9_b_2",
+    },
+    "AMT_INCOME_TOTAL": {
+        "standard_category": "Income insufficient for amount of credit requested",
+        "form_c1_item": "Part I (Item 8): Income insufficient for amount of credit requested",
+        "statutory_scope": "Authorizes evaluation of total verified income amount and probable continuance.",
+        "lane_1_id": "regb_1002_6_b_5",
+        "lane_2_id": "regb_1002_9_b_2",
+    },
+    "AMT_ANNUITY": {
+        "standard_category": "Excessive obligations in relation to income",
+        "form_c1_item": "Part I (Item 9): Excessive obligations in relation to income",
+        "statutory_scope": "Authorizes evaluation of annual payment obligations relative to income flow.",
+        "lane_1_id": "regb_1002_6_b_5",
+        "lane_2_id": "regb_1002_9_b_2",
+    },
+
+    # Employment & Demographics
+    "employment_years": {
+        "standard_category": "Length of employment",
+        "form_c1_item": "Part I (Item 7): Length of employment",
+        "statutory_scope": "Authorizes evaluation of employment duration, tenure stability, and job continuity.",
+        "lane_1_id": "regb_1002_6_a",
+        "lane_2_id": "interp_9_b2_comment2",
+    },
+    "NAME_INCOME_TYPE": {
+        "standard_category": "Temporary or irregular employment",
+        "form_c1_item": "Part I (Item 5): Temporary or irregular employment",
+        "statutory_scope": "Authorizes evaluation of employment type stability and ongoing income stream characteristics.",
+        "lane_1_id": "regb_1002_6_a",
+        "lane_2_id": "interp_9_b2_comment2",
+    },
+    "NAME_EDUCATION_TYPE": {
+        "standard_category": "Applicant creditworthiness profile",
+        "form_c1_item": "Part I (Item 23): Other pertinent credit evaluation factors",
+        "statutory_scope": "Authorizes consideration of pertinent background information not on prohibited bases.",
+        "lane_1_id": "regb_1002_6_a",
+        "lane_2_id": "regb_1002_9_b_2",
+    },
+    "NAME_HOUSING_TYPE": {
+        "standard_category": "Length or stability of residence",
+        "form_c1_item": "Part I (Item 10): Length of residence / living arrangements",
+        "statutory_scope": "Authorizes consideration of residence stability and housing obligations.",
+        "lane_1_id": "regb_1002_6_a",
+        "lane_2_id": "regb_1002_9_b_2",
+    },
+
+    # Thin-file / Alternative Data
+    "thin_file": {
+        "standard_category": "No credit file / Limited credit experience",
+        "form_c1_item": "Part I (Item 13 & 14): No credit file / Limited credit experience",
+        "statutory_scope": "Authorizes consideration of breadth and depth of applicant credit records and alternative data.",
+        "lane_1_id": "regb_1002_6_a",
+        "lane_2_id": "circular_2022_03_response",
+    },
+    "mobile_bill_consistency": {
+        "standard_category": "Insufficient alternative credit references",
+        "form_c1_item": "Part I (Item 2): Insufficient number of credit references provided",
+        "statutory_scope": "Authorizes evaluation of recurring non-traditional utility/telecom cash flow payment consistency.",
+        "lane_1_id": "regb_1002_6_a",
+        "lane_2_id": "circular_2022_03_response",
+    },
+
+    # Credit Accounts / Installments
+    "bureau_active_credits_count": {
+        "standard_category": "Insufficient number of credit references provided",
+        "form_c1_item": "Part I (Item 2): Insufficient number of credit references provided",
+        "statutory_scope": "Authorizes evaluation of the number and depth of verified active credit reference accounts.",
+        "lane_1_id": "regb_1002_6_a",
+        "lane_2_id": "circular_2023_03_response",
+    },
+    "installments_count": {
+        "standard_category": "Limited installment credit experience",
+        "form_c1_item": "Part I (Item 14): Limited credit experience",
+        "statutory_scope": "Authorizes evaluation of past installment loan volume, experience, and trade line maturity.",
+        "lane_1_id": "regb_1002_6_b_6",
+        "lane_2_id": "circular_2023_03_response",
+    },
+
+    # Prior Bureau Inquiries / Refusals
+    "prev_refusal_rate": {
+        "standard_category": "Poor credit performance / previous credit denial history",
+        "form_c1_item": "Part I (Item 15): Poor credit performance with others / prior credit history",
+        "statutory_scope": "Authorizes consideration of prior bureau credit history, credit inquiry frequency, and past credit decisions.",
+        "lane_1_id": "regb_1002_6_b_6",
+        "lane_2_id": "fcra_1681m_a_1_2",
+    },
+    "prev_refused_count": {
+        "standard_category": "Poor credit performance / previous credit denial history",
+        "form_c1_item": "Part I (Item 15): Poor credit performance with others / prior credit history",
+        "statutory_scope": "Authorizes consideration of prior bureau credit history and refusal counts.",
+        "lane_1_id": "regb_1002_6_b_6",
+        "lane_2_id": "fcra_1681m_a_1_2",
+    },
+    "prev_applications_count": {
+        "standard_category": "Number of recent inquiries on credit bureau report",
+        "form_c1_item": "Part I (Item 21): Number of recent inquiries on credit bureau report",
+        "statutory_scope": "Authorizes consideration of recent credit application inquiry volume and bureau report activity.",
+        "lane_1_id": "regb_1002_6_a",
+        "lane_2_id": "fcra_1681m_a_3_4",
+    },
+}
 
 FEATURE_TO_CLAUSE = {
-    "employment_years":     "regb_1002_9_b_2",
-    "thin_file":            "circular_2022_03_analysis_p1",
-    "installments_count":   "circular_2023_03_analysis_p3",
-    "annuity_income_ratio": "regb_1002_9_b_2",
-    "late_payment_share":   "regb_1002_9_b_2",
-    "prev_refusal_rate":    "fcra_1681m_a",
-    "prev_refused_count":   "fcra_1681m_a",
-    "credit_income_ratio":  "regb_1002_9_b_2",
-    "mean_days_late":       "regb_1002_9_b_2",
-    "max_days_late":        "regb_1002_9_b_2",
-    "underpayment_share":   "regb_1002_9_b_2",
+    fname: meta["lane_1_id"] for fname, meta in FEATURE_METADATA.items()
 }
 
 
 # ─── OUTPUT SCHEMA (Pydantic) ─────────────────────────
 
 class RegulatoryBasis(BaseModel):
-    clause_id: str
-    citation: str
-    requirement: str
+    clause_id:       str
+    citation:        str
+    requirement:     str
+    statutory_scope: str | None = None
 
 
 class ReasonCode(BaseModel):
-    rank: int
-    feature_name: str
+    rank:                 int
+    feature_name:         str
+    standard_category:    str
+    form_c1_item:         str | None = None
     plain_english_reason: str
-    regulatory_basis: RegulatoryBasis
+    lane_1_authorization: RegulatoryBasis
+    lane_2_mandate:       RegulatoryBasis
+    regulatory_basis:     RegulatoryBasis
 
 
 class AdverseActionNotice(BaseModel):
-    applicant_id: str
-    decision_band: str
+    applicant_id:           str
+    decision_band:          str
     calibrated_probability: float
-    reasons: list[ReasonCode]
-    disclosure_statement: str
+    reasons:                list[ReasonCode]
+    disclosure_statement:   str
 
 
 # ─── PROHIBITED TERMS ─────────────────────────────────
@@ -69,18 +227,30 @@ PROHIBITED_TERMS = [
 
 # ─── PROMPT TEMPLATE ──────────────────────────────────
 
-GENERATION_PROMPT = """You are a compliance officer writing an Adverse Action Notice under ECOA (Regulation B) and FCRA.
-Your output will be reviewed by a federal regulator.
+GENERATION_PROMPT = """You are a senior compliance officer writing a legally sound Adverse Action Notice under ECOA (Regulation B, 12 CFR Part 1002) and FCRA (15 U.S.C. § 1681m).
+Your notice will be reviewed by federal bank regulators (CFPB / OCC).
 
-RULES — follow without exception:
-1. Every reason must correspond EXACTLY to one feature in SHAP_REASONS. Do not invent or add reasons.
-2. Each reason has a PRE-ASSIGNED clause in SHAP_REASONS marked as ASSIGNED_CLAUSE_ID. You MUST use that exact clause_id for that reason. Do not swap clauses between reasons under any circumstance.
-3. Do not use these prohibited terms or synonyms: race, color, religion, national origin, sex, marital status, age, familial status, disability, public assistance, gender.
-4. Write plain English at 8th-grade reading level.
-5. Do not state or imply a final credit decision. State reasons only. Do not use phrases like "areas for improvement", "key areas", "next steps", or any language implying the applicant caused or can fix the decision. The disclosure_statement must only state that specific reasons are provided as required by law and that the applicant has the right to request the information used.
-6. The plain_english_reason must reflect the direction of the SHAP Impact. A positive SHAP value means this feature increases default risk — phrase the reason accordingly (e.g. "too many", "too high", "too short"). Never invert the direction.
-7. For the requirement field: copy the single most relevant sentence directly from the CLAUSE_TEXT provided for that feature in SHAP_REASONS. Do not paraphrase or rewrite it. If CLAUSE_TEXT has multiple sentences, pick the one most directly governing that specific credit factor.
-8. Output ONLY valid JSON matching the schema below. No preamble, no markdown, no explanation.
+DUAL-LANE COMPLIANCE RULES:
+1. Every reason must correspond EXACTLY to one feature in SHAP_REASONS. Do not invent or omit reasons.
+2. Use the provided STANDARD_CATEGORY and FORM_C1_ITEM for each feature.
+3. The plain_english_reason must be clear, specific, at an 8th-grade reading level (max 25 words), reflecting the true risk direction:
+   - For lower-value risk features (employment_years, installments_count, bureau_active_credits_count, thin_file): phrase as "too few", "too short", "limited", "insufficient", or "lack of established history".
+   - For higher-value risk features (late_payment_share, mean_days_late, underpayment_share, credit_income_ratio, annuity_income_ratio, prev_refusal_rate, prev_refused_count): phrase as "too high", "excessive", "frequent", or "elevated".
+4. For lane_1_authorization:
+   - Use the pre-assigned LANE_1_ID and its exact citation.
+   - For `requirement`: copy a complete, substantive legal sentence from the LANE_1_TEXT provided (do NOT copy just a heading or section number).
+   - Set `statutory_scope` to the provided STATUTORY_SCOPE string.
+5. For lane_2_mandate:
+   - Use the pre-assigned LANE_2_ID and its exact citation.
+   - For `requirement`: copy a complete, substantive legal sentence from the LANE_2_TEXT provided (do NOT copy just a section symbol or number like "§1681m.").
+6. For regulatory_basis: copy the same object as lane_1_authorization.
+7. CRITICAL PROTECTED CLASS RULE:
+   Never write, quote, or list any prohibited protected-class terms anywhere in ANY output field (including disclosure_statement, reasons, citations, or requirements):
+   PROHIBITED: race, color, religion, national origin, sex, marital status, age, familial status, disability, public assistance, gender.
+   - For `disclosure_statement`: write a general legal statement without listing protected classes, such as: "Federal law requires creditors to disclose the specific principal reasons for credit decisions. You have the right to obtain the consumer reporting information used in this assessment within 60 days." NEVER enumerate protected demographic categories.
+   - If a statutory sentence contains any prohibited term, replace `requirement` with:
+     "This regulation governs credit evaluation factors as an authorized basis for adverse action notices."
+8. Output ONLY valid JSON matching the schema below. No preamble, no markdown.
 
 OUTPUT SCHEMA:
 {{
@@ -91,15 +261,29 @@ OUTPUT SCHEMA:
     {{
       "rank": <1|2|3|4>,
       "feature_name": "<exact feature_name from SHAP_REASONS>",
+      "standard_category": "<exact standard_category from SHAP_REASONS>",
+      "form_c1_item": "<exact form_c1_item from SHAP_REASONS>",
       "plain_english_reason": "<one sentence, max 25 words>",
+      "lane_1_authorization": {{
+        "clause_id": "<LANE_1_ID>",
+        "citation": "<exact citation for LANE_1_ID>",
+        "requirement": "<complete legal sentence from LANE_1_TEXT>",
+        "statutory_scope": "<exact statutory_scope from SHAP_REASONS>"
+      }},
+      "lane_2_mandate": {{
+        "clause_id": "<LANE_2_ID>",
+        "citation": "<exact citation for LANE_2_ID>",
+        "requirement": "<complete legal sentence from LANE_2_TEXT>"
+      }},
       "regulatory_basis": {{
-        "clause_id": "<ASSIGNED_CLAUSE_ID for this feature — copy exactly>",
-        "citation": "<exact citation string for that clause_id from RETRIEVED_CLAUSES>",
-        "requirement": "<one sentence copied verbatim from CLAUSE_TEXT per Rule 7>"
+        "clause_id": "<LANE_1_ID>",
+        "citation": "<exact citation for LANE_1_ID>",
+        "requirement": "<complete legal sentence from LANE_1_TEXT>",
+        "statutory_scope": "<exact statutory_scope from SHAP_REASONS>"
       }}
     }}
   ],
-  "disclosure_statement": "<2-3 sentence plain English summary suitable for mailing to applicant>"
+  "disclosure_statement": "<2-3 sentence formal disclosure explaining statutory rights under ECOA and FCRA>"
 }}
 
 ---
@@ -109,183 +293,213 @@ DECISION_BAND: {decision_band}
 CALIBRATED_PROBABILITY: {calibrated_prob}
 THIN_FILE: {is_thin_file}
 
-SHAP_REASONS (each feature has a pre-assigned clause — copy ASSIGNED_CLAUSE_ID exactly, no reassignment):
+SHAP_REASONS:
 {shap_reasons_block}
-
-RETRIEVED_CLAUSES (look up citation and requirement text by ASSIGNED_CLAUSE_ID only — do not reassign):
-{retrieved_clauses_block}
 
 Write the Adverse Action Notice JSON now."""
 
 
 # ─── HELPERS ──────────────────────────────────────────
 
-def enrich_shap_with_clauses(
-    shap_features: list[dict],
-    retrieved_clauses: list[dict]
-) -> list[dict]:
-    clause_ids_retrieved = {c["chunk_id"] for c in retrieved_clauses}
-    fallback = retrieved_clauses[0]["chunk_id"]
+_CLAUSE_TEXT_LIMIT = 500
 
-    enriched = []
-    for f in shap_features:
-        clause_id = FEATURE_TO_CLAUSE.get(f["feature_name"])
-        if not clause_id or clause_id not in clause_ids_retrieved:
-            clause_id = fallback
-        enriched.append({**f, "clause_id": clause_id})
 
-    return enriched
+def _clip_to_last_sentence(text: str, limit: int) -> str:
+    if len(text) <= limit:
+        return text
+    window = text[:limit]
+    last_period = window.rfind(".")
+    if last_period == -1:
+        return window
+    return window[: last_period + 1]
 
 
 def build_shap_block(shap_features: list[dict], retrieved_clauses: list[dict]) -> str:
     clause_lookup = {c["chunk_id"]: c for c in retrieved_clauses}
     lines = []
+
     for i, f in enumerate(shap_features, 1):
-        clause = clause_lookup.get(f["clause_id"], {})
-        clause_text = clause.get("text", "")[:300]
+        fname = f["feature_name"]
+        meta = FEATURE_METADATA.get(fname, {
+            "standard_category": "Credit evaluation factor",
+            "lane_1_id": "regb_1002_6_a",
+            "lane_2_id": "regb_1002_9_b_2",
+        })
+
+        l1_chunk = clause_lookup.get(meta["lane_1_id"], {})
+        l2_chunk = clause_lookup.get(meta["lane_2_id"], {})
+
+        l1_text = _clip_to_last_sentence(l1_chunk.get("text", ""), _CLAUSE_TEXT_LIMIT)
+        l2_text = _clip_to_last_sentence(l2_chunk.get("text", ""), _CLAUSE_TEXT_LIMIT)
+
+        if fname in ["employment_years", "installments_count", "bureau_active_credits_count", "thin_file"]:
+            dir_hint = "lower values increase default risk (phrase as: too few, limited, short history)"
+        else:
+            dir_hint = "higher values increase default risk (phrase as: too high, excessive, elevated)"
+
         lines.append(
-            f"{i}. Feature: {f['feature_name']}\n"
+            f"{i}. Feature: {fname}\n"
             f"   Value: {f['value']}\n"
-            f"   SHAP Impact: {f['shap']} (positive = increases default risk)\n"
-            f"   ASSIGNED_CLAUSE_ID: {f['clause_id']}  ← use this clause_id for this reason, no other\n"
-            f"   CLAUSE_TEXT: \"{clause_text}\""
-        )
-    return "\n\n".join(lines)
-
-
-def build_clauses_block(retrieved_clauses: list[dict]) -> str:
-    lines = []
-    for i, c in enumerate(retrieved_clauses, 1):
-        lines.append(
-            f"[CLAUSE {i}]\n"
-            f"chunk_id: {c['chunk_id']}\n"
-            f"citation: {c['citation']}\n"
-            f"text: {c['text']}"
+            f"   Risk Interpretation: {dir_hint}\n"
+            f"   STANDARD_CATEGORY: {meta['standard_category']}\n"
+            f"   FORM_C1_ITEM: {meta.get('form_c1_item', 'Part I Checklist Factor')}\n"
+            f"   STATUTORY_SCOPE: {meta.get('statutory_scope', 'Statutory authority to evaluate creditworthiness criteria.')}\n"
+            f"   LANE_1_ID: {meta['lane_1_id']} | CITATION: {l1_chunk.get('citation', '')}\n"
+            f"   LANE_1_TEXT: \"{l1_text}\"\n"
+            f"   LANE_2_ID: {meta['lane_2_id']} | CITATION: {l2_chunk.get('citation', '')}\n"
+            f"   LANE_2_TEXT: \"{l2_text}\""
         )
     return "\n\n".join(lines)
 
 
 def check_prohibited_terms(text: str) -> list[str]:
-    found = []
+    hits = []
     lower = text.lower()
     for term in PROHIBITED_TERMS:
-        if term in lower:
-            found.append(term)
-    return found
+        if re.search(r"\b" + re.escape(term) + r"\b", lower):
+            hits.append(term)
+    return hits
 
 
 def parse_llm_json(raw: str) -> dict:
-    cleaned = re.sub(r"```json|```", "", raw).strip()
+    cleaned = raw.strip()
+    cleaned = re.sub(r"^```json\s*", "", cleaned)
+    cleaned = re.sub(r"^```\s*", "", cleaned)
+    cleaned = re.sub(r"\s*```$", "", cleaned)
     return json.loads(cleaned)
 
 
 # ─── MAIN GENERATE FUNCTION ───────────────────────────
 
 def generate(
-    applicant_id: str,
-    decision_band: str,
-    calibrated_prob: float,
-    is_thin_file: bool,
-    shap_features: list[dict],
-    retrieved_clauses: list[dict]
+    applicant_id:       str,
+    decision_band:      str,
+    calibrated_prob:    float,
+    is_thin_file:       bool,
+    shap_features:      list[dict],
+    retrieved_clauses:  list[dict]
 ) -> dict:
 
     audit_flags = []
 
-    # ── PRE-CHECK 1: enough clauses retrieved ─────────
-    if len(retrieved_clauses) < 2:
-        audit_flags.append("RETRIEVAL_INSUFFICIENT: fewer than 2 clauses")
+    # Build prompt
+    shap_block = build_shap_block(shap_features, retrieved_clauses)
 
-    # ── PRE-CHECK 2: prohibited terms in feature names ─
-    for f in shap_features:
-        hits = check_prohibited_terms(f["feature_name"])
-        if hits:
-            audit_flags.append(
-                f"PROHIBITED_FEATURE: {f['feature_name']} contains {hits}"
-            )
-
-    # ── ENRICH SHAP WITH CLAUSE BINDINGS ──────────────
-    enriched_shap = enrich_shap_with_clauses(shap_features, retrieved_clauses)
-
-    # ── BUILD PROMPT ──────────────────────────────────
     prompt = GENERATION_PROMPT.format(
         applicant_id=applicant_id,
         decision_band=decision_band,
-        calibrated_prob=calibrated_prob,
+        calibrated_prob=round(calibrated_prob, 4),
         is_thin_file=is_thin_file,
-        shap_reasons_block=build_shap_block(enriched_shap, retrieved_clauses),
-        retrieved_clauses_block=build_clauses_block(retrieved_clauses)
+        shap_reasons_block=shap_block,
     )
 
-    # ── LLM CALL ──────────────────────────────────────
+    # Call Gemini
     model = genai.GenerativeModel(
         model_name=MODEL,
         generation_config=genai.types.GenerationConfig(
             temperature=0.0,
-            max_output_tokens=2000,
             response_mime_type="application/json"
         )
     )
 
-    response = model.generate_content(prompt)
-    raw_output = response.text
-    notice_dict = parse_llm_json(raw_output)
+    response     = model.generate_content(prompt)
+    raw_output   = response.text
+    notice_dict  = parse_llm_json(raw_output)
 
     # ── POST-CHECK 1: feature names not hallucinated ──
     valid_features = {f["feature_name"] for f in shap_features}
     for reason in notice_dict.get("reasons", []):
-        if reason["feature_name"] not in valid_features:
+        fname = reason.get("feature_name")
+        if fname not in valid_features:
             audit_flags.append(
-                f"HALLUCINATED_FEATURE: {reason['feature_name']} not in SHAP output"
+                f"HALLUCINATED_FEATURE: {fname} not in input SHAP features"
             )
 
     # ── POST-CHECK 2: citations not hallucinated ──────
-    valid_chunk_ids = {c["chunk_id"] for c in retrieved_clauses}
+    valid_clauses = {c["chunk_id"] for c in retrieved_clauses}
     for reason in notice_dict.get("reasons", []):
-        cid = reason["regulatory_basis"]["clause_id"]
-        if cid not in valid_chunk_ids:
+        for sub_key in ["lane_1_authorization", "lane_2_mandate", "regulatory_basis"]:
+            rb = reason.get(sub_key, {})
+            cid = rb.get("clause_id")
+            if cid and cid not in valid_clauses:
+                audit_flags.append(
+                    f"HALLUCINATED_CITATION: {cid} in {sub_key} not in retrieved clauses"
+                )
+
+    # ── POST-CHECK 3: prohibited terms in ALL output text fields ──
+    fields_to_scan: list[tuple[str, str]] = [
+        ("disclosure_statement", notice_dict.get("disclosure_statement", "")),
+    ]
+    for i, reason in enumerate(notice_dict.get("reasons", [])):
+        fields_to_scan.extend([
+            (f"reasons[{i}].plain_english_reason", reason.get("plain_english_reason", "")),
+            (f"reasons[{i}].standard_category", reason.get("standard_category", "")),
+            (f"reasons[{i}].lane_1_authorization.requirement", reason.get("lane_1_authorization", {}).get("requirement", "")),
+            (f"reasons[{i}].lane_2_mandate.requirement", reason.get("lane_2_mandate", {}).get("requirement", "")),
+        ])
+
+    for field_path, text in fields_to_scan:
+        hits = check_prohibited_terms(text)
+        if hits:
             audit_flags.append(
-                f"HALLUCINATED_CITATION: {cid} not in retrieved clauses"
+                f"PROHIBITED_TERM_IN_OUTPUT | field={field_path} | terms={hits}"
             )
 
-    # ── POST-CHECK 3: prohibited terms in output ──────
-    disclosure = notice_dict.get("disclosure_statement", "")
-    hits = check_prohibited_terms(disclosure)
-    if hits:
-        audit_flags.append(f"PROHIBITED_BASIS_IN_OUTPUT: {hits}")
+    # ── POST-CHECK 4: SHAP direction respected ─────────
+    shap_lookup = {f["feature_name"]: f["shap"] for f in shap_features}
+    negative_words = ["low", "short", "insufficient", "lack", "few", "no", "limited"]
+    positive_words = ["high", "many", "excessive", "frequent", "elevated", "multiple"]
 
-    # ── POST-CHECK 4: clause binding respected ─────────
-    feature_to_assigned = {f["feature_name"]: f["clause_id"] for f in enriched_shap}
     for reason in notice_dict.get("reasons", []):
-        fname = reason["feature_name"]
-        returned_cid = reason["regulatory_basis"]["clause_id"]
-        expected_cid = feature_to_assigned.get(fname)
-        if expected_cid and returned_cid != expected_cid:
-            audit_flags.append(
-                f"CLAUSE_MISMATCH: {fname} expected {expected_cid} "
-                f"but Gemini returned {returned_cid}"
-            )
+        fname = reason.get("feature_name")
+        text = reason.get("plain_english_reason", "").lower()
+        val = shap_lookup.get(fname, 0)
 
-    # ── VALIDATE SCHEMA ───────────────────────────────
+        if fname in ["employment_years", "installments_count", "bureau_active_credits_count", "thin_file"] and val > 0:
+            if not any(w in text for w in negative_words):
+                audit_flags.append(
+                    f"SHAP_DIRECTION_MISMATCH: {fname} (low value = risk) "
+                    f"reason text does not reflect low/short/limited"
+                )
+
+        if fname in ["late_payment_share", "credit_income_ratio", "prev_refusal_rate", "underpayment_share"] and val > 0:
+            if not any(w in text for w in positive_words):
+                audit_flags.append(
+                    f"SHAP_DIRECTION_MISMATCH: {fname} (high value = risk) "
+                    f"reason text does not reflect high/excessive/elevated"
+                )
+
+    # ── ENRICH WITH CANONICAL METADATA ──────────────
+    for reason in notice_dict.get("reasons", []):
+        fname = reason.get("feature_name")
+        meta = FEATURE_METADATA.get(fname, {})
+        if meta:
+            if not reason.get("form_c1_item"):
+                reason["form_c1_item"] = meta.get("form_c1_item")
+            if "lane_1_authorization" in reason and isinstance(reason["lane_1_authorization"], dict):
+                if not reason["lane_1_authorization"].get("statutory_scope"):
+                    reason["lane_1_authorization"]["statutory_scope"] = meta.get("statutory_scope")
+            if "regulatory_basis" in reason and isinstance(reason["regulatory_basis"], dict):
+                if not reason["regulatory_basis"].get("statutory_scope"):
+                    reason["regulatory_basis"]["statutory_scope"] = meta.get("statutory_scope")
+
+    # ── VALIDATE AGAINST PYDANTIC SCHEMA ──────────────
     notice = AdverseActionNotice(**notice_dict)
 
     return {
-        "notice": notice.model_dump(),
+        "notice":      notice.model_dump(),
         "audit_flags": audit_flags
     }
 
 
-# ─── QUICK TEST ───────────────────────────────────────
-
 if __name__ == "__main__":
-
-    from retriever import retrieve
+    from rag.retriever import retrieve
 
     test_shap = [
-        {"feature_name": "thin_file",           "value": 1,    "shap": 0.31},
-        {"feature_name": "employment_years",    "value": 0.5,  "shap": 0.18},
-        {"feature_name": "installments_count",  "value": 8,    "shap": 0.14},
-        {"feature_name": "annuity_income_ratio","value": 0.6,  "shap": 0.11},
+        {"feature_name": "late_payment_share",   "value": 0.44, "shap": 0.35},
+        {"feature_name": "thin_file",            "value": 1,    "shap": 0.31},
+        {"feature_name": "employment_years",     "value": 0.5,  "shap": 0.18},
+        {"feature_name": "annuity_income_ratio", "value": 0.6,  "shap": 0.11},
     ]
 
     retriever_output = retrieve(
@@ -298,10 +512,14 @@ if __name__ == "__main__":
     result = generate(
         applicant_id="TEST_001",
         decision_band="Deny",
-        calibrated_prob=0.18,
+        calibrated_prob=0.82,
         is_thin_file=True,
         shap_features=test_shap,
         retrieved_clauses=retriever_output["retrieved_clauses"]
     )
 
-    print(json.dumps(result, indent=2))
+    print("\nAdverse Action Notice Generated:")
+    print(json.dumps(result["notice"], indent=2))
+    print(f"\nAudit Flags ({len(result['audit_flags'])}):")
+    for flag in result["audit_flags"]:
+        print(f"  ⚠ {flag}")

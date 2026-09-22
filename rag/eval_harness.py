@@ -169,6 +169,102 @@ TEST_POOL = [
             {"feature_name": "late_payment_share",       "value": 0.05, "shap": 0.01},
         ],
     },
+    {
+        "applicant_id": "EVAL_013",
+        "decision_band": "Deny",
+        "calibrated_prob": 0.224,
+        "is_thin_file": True,
+        "shap_features": [
+            {"feature_name": "thin_file",                "value": 1.0,  "shap": 0.32},
+            {"feature_name": "credit_income_ratio",      "value": 6.20, "shap": 0.26},
+            {"feature_name": "employment_years",         "value": 0.4,  "shap": 0.17},
+            {"feature_name": "annuity_income_ratio",     "value": 0.35, "shap": 0.12},
+        ],
+    },
+    {
+        "applicant_id": "EVAL_014",
+        "decision_band": "Deny",
+        "calibrated_prob": 0.198,
+        "is_thin_file": False,
+        "shap_features": [
+            {"feature_name": "late_payment_share",       "value": 0.38, "shap": 0.29},
+            {"feature_name": "mean_days_late",           "value": 22.0, "shap": 0.23},
+            {"feature_name": "prev_refusal_rate",        "value": 0.70, "shap": 0.19},
+            {"feature_name": "underpayment_share",       "value": 0.25, "shap": 0.14},
+        ],
+    },
+    {
+        "applicant_id": "EVAL_015",
+        "decision_band": "Deny",
+        "calibrated_prob": 0.172,
+        "is_thin_file": True,
+        "shap_features": [
+            {"feature_name": "thin_file",                "value": 1.0,  "shap": 0.27},
+            {"feature_name": "installments_count",       "value": 3.0,  "shap": 0.21},
+            {"feature_name": "AMT_CREDIT",               "value": 580000.0, "shap": 0.16},
+            {"feature_name": "bureau_active_credits_count", "value": 0.0, "shap": 0.11},
+        ],
+    },
+    {
+        "applicant_id": "EVAL_016",
+        "decision_band": "Refer",
+        "calibrated_prob": 0.108,
+        "is_thin_file": True,
+        "shap_features": [
+            {"feature_name": "thin_file",                "value": 1.0,  "shap": 0.15},
+            {"feature_name": "annuity_income_ratio",     "value": 0.27, "shap": 0.11},
+            {"feature_name": "installments_count",       "value": 8.0,  "shap": 0.08},
+            {"feature_name": "credit_income_ratio",      "value": 2.90, "shap": 0.06},
+        ],
+    },
+    {
+        "applicant_id": "EVAL_017",
+        "decision_band": "Refer",
+        "calibrated_prob": 0.119,
+        "is_thin_file": False,
+        "shap_features": [
+            {"feature_name": "credit_income_ratio",      "value": 3.40, "shap": 0.13},
+            {"feature_name": "late_payment_share",       "value": 0.12, "shap": 0.10},
+            {"feature_name": "employment_years",         "value": 2.2,  "shap": 0.07},
+            {"feature_name": "bureau_active_credits_count", "value": 5.0, "shap": 0.05},
+        ],
+    },
+    {
+        "applicant_id": "EVAL_018",
+        "decision_band": "Refer",
+        "calibrated_prob": 0.088,
+        "is_thin_file": True,
+        "shap_features": [
+            {"feature_name": "thin_file",                "value": 1.0,  "shap": 0.14},
+            {"feature_name": "employment_years",         "value": 1.1,  "shap": 0.09},
+            {"feature_name": "installments_count",       "value": 9.0,  "shap": 0.07},
+            {"feature_name": "bureau_active_credits_count", "value": 1.0, "shap": 0.04},
+        ],
+    },
+    {
+        "applicant_id": "EVAL_019",
+        "decision_band": "Approve",
+        "calibrated_prob": 0.028,
+        "is_thin_file": False,
+        "shap_features": [
+            {"feature_name": "employment_years",         "value": 8.5,  "shap": 0.05},
+            {"feature_name": "credit_income_ratio",      "value": 1.20, "shap": 0.03},
+            {"feature_name": "late_payment_share",       "value": 0.0,  "shap": 0.02},
+            {"feature_name": "bureau_active_credits_count", "value": 6.0, "shap": 0.01},
+        ],
+    },
+    {
+        "applicant_id": "EVAL_020",
+        "decision_band": "Approve",
+        "calibrated_prob": 0.042,
+        "is_thin_file": True,
+        "shap_features": [
+            {"feature_name": "thin_file",                "value": 1.0,  "shap": 0.04},
+            {"feature_name": "installments_count",       "value": 16.0, "shap": 0.03},
+            {"feature_name": "annuity_income_ratio",     "value": 0.12, "shap": 0.02},
+            {"feature_name": "credit_income_ratio",      "value": 1.40, "shap": 0.01},
+        ],
+    },
 ]
 
 
@@ -244,7 +340,7 @@ def run_evaluation():
             if has_cite_hallucination:
                 cite_hallucination_count += 1
 
-            has_prohibited = any("PROHIBITED_BASIS_IN_OUTPUT" in f for f in audit_flags)
+            has_prohibited = any("PROHIBITED" in f for f in audit_flags)
             if has_prohibited:
                 prohibited_term_count += 1
 

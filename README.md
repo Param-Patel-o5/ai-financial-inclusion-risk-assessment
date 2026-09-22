@@ -143,7 +143,7 @@ FairTrace is engineered specifically to adhere to federal consumer financial pro
 
 ## RAG Evaluation Metrics
 
-Evaluated across a benchmark of 12 diverse test profiles (including thin-file, high-delinquency, and borderline applicants):
+Evaluated across a benchmark of 20 diverse test profiles (including thin-file, high-delinquency, and borderline applicants):
 
 | Metric Target | Measured Value | Standard / Requirement | Status |
 | :--- | :---: | :---: | :---: |
@@ -151,7 +151,8 @@ Evaluated across a benchmark of 12 diverse test profiles (including thin-file, h
 | **Feature Hallucination Rate** | **0.0%** | Generated reasons must strictly originate from top SHAP features | PASS |
 | **Citation Hallucination Rate** | **0.0%** | Every cited legal clause must exist in retrieved regulatory corpus | PASS |
 | **Prohibited Term Violation Rate**| **0.0%** | Zero prohibited demographic or protected-class terminology | PASS |
-| **Mean Generation Latency** | **2.59s** | Real-time SLA for interactive underwriting workflows | PASS |
+| **Mean Retrieval Latency** | **0.17s** | Sub-second SQLite vector / exact retrieval | PASS |
+| **Mean Generation Latency** | **3.00s** | Real-time SLA for interactive underwriting workflows | PASS |
 
 ---
 

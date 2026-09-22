@@ -1,22 +1,21 @@
 """
 Embedding & Vector Storage Pipeline for Regulated-Lending RAG System (SQLite-only).
 
-1. Loads chunks.json (from rag/chunks.json or corpus/chunks.json).
+1. Loads rag/chunks.json (the 14 target regulatory chunks).
 2. Embeds each chunk's text using sentence-transformers (all-MiniLM-L6-v2, 384 dimensions).
 3. Initializes local SQLite vector store (rag/reg_chunks.db).
 4. Upserts all chunks idempotently (INSERT OR REPLACE).
-5. Runs sanity query (5 regulation chunks) and tests lookup_by_clause_id("regb_1002_9_b_2").
+5. Runs sanity queries to verify deterministic and semantic lookup.
 """
 
 import json
 import sqlite3
-import sys
 from pathlib import Path
 import numpy as np
 from sentence_transformers import SentenceTransformer
 
 
-def init_sqlite_db(db_path: Path):
+def init_sqlite_db(db_path: Path) -> sqlite3.Connection:
     """Initialize local SQLite database as vector store."""
     conn = sqlite3.connect(db_path)
     with conn:
@@ -68,26 +67,29 @@ def embed_chunks(chunks: list[dict], batch_size: int = 32) -> list[np.ndarray]:
         embeddings.extend(batch_embeddings)
 
         processed = min(i + batch_size, total)
-        if processed % 20 == 0 or processed == total:
-            print(f"  Progress: Embedded {processed}/{total} chunks ({(processed / total):.1%})")
+        print(f"  Progress: Embedded {processed}/{total} chunks ({(processed / total):.1%})")
 
     return embeddings
 
 
-def upsert_sqlite(conn, chunks: list[dict], embeddings: list[np.ndarray]):
+def upsert_sqlite(conn: sqlite3.Connection, chunks: list[dict], embeddings: list[np.ndarray]):
     """Upsert chunks into local SQLite database."""
     records = []
     for ch, emb in zip(chunks, embeddings):
+        source_doc = ch.get("source_doc") or ch.get("source_file", "unknown")
+        lane = ch.get("lane", 1)
+        chunk_type = f"lane_{lane}" if "lane" in ch else ch.get("chunk_type", "regulation")
+
         records.append(
             (
                 ch["chunk_id"],
-                ch["source_doc"],
+                source_doc,
                 ch["citation"],
-                ch.get("parent_section"),
-                ch.get("heading"),
-                ch["chunk_type"],
+                ch.get("parent_section", ""),
+                ch.get("heading", ""),
+                chunk_type,
                 ch["text"],
-                ch.get("page_hint"),
+                ch.get("page_hint", 1),
                 json.dumps(emb.tolist()),
             )
         )
@@ -103,7 +105,7 @@ def upsert_sqlite(conn, chunks: list[dict], embeddings: list[np.ndarray]):
         conn.executemany(sql, records)
 
 
-def lookup_by_clause_id(clause_id: str, conn) -> dict | None:
+def lookup_by_clause_id(clause_id: str, conn: sqlite3.Connection) -> dict | None:
     cursor = conn.cursor()
     cursor.execute(
         """
@@ -131,6 +133,10 @@ def lookup_by_clause_id(clause_id: str, conn) -> dict | None:
 
 def main():
     base_dir = Path(__file__).resolve().parent.parent.parent
+    if not (base_dir / "rag").exists():
+        base_dir = Path.cwd()
+
+    db_path = base_dir / "rag" / "reg_chunks.db"
 
     print("=" * 80)
     print("REGULATED LENDING RAG — EMBED & LOAD TO SQLITE VECTOR STORE")
@@ -138,67 +144,28 @@ def main():
 
     # 1. Load chunks
     chunks = load_chunks(base_dir)
-    print(f"Loaded {len(chunks)} chunks from chunks.json.")
+    print(f"Loaded {len(chunks)} chunks from chunks.json")
 
     # 2. Embed chunks
-    embeddings = embed_chunks(chunks, batch_size=32)
-    print(f"Generated {len(embeddings)} embeddings of dimension {len(embeddings[0])}.")
+    embeddings = embed_chunks(chunks)
 
-    # 3. Connect to SQLite
-    sqlite_path = base_dir / "rag" / "reg_chunks.db"
-    conn = init_sqlite_db(sqlite_path)
-    print(f"\nInitialized local SQLite vector store: {sqlite_path}")
+    # 3. Initialize SQLite
+    conn = init_sqlite_db(db_path)
 
-    # 4. Upsert all chunks
+    # 4. Upsert
     upsert_sqlite(conn, chunks, embeddings)
-    print(f"Upserted {len(chunks)} chunks into reg_chunks table.")
+    print(f"Upserted {len(chunks)} chunks to SQLite ({db_path})")
 
-    # 5. Sanity count
-    cursor = conn.cursor()
-    cursor.execute("SELECT COUNT(*) FROM reg_chunks;")
-    total_rows = cursor.fetchone()[0]
-    print(f"\nTotal rows in reg_chunks table: {total_rows}")
-
-    # 6. Sanity query — 5 regulation chunks
-    print("\nSanity Query Results (5 'regulation' chunks):")
-    cursor.execute(
-        """
-        SELECT chunk_id, citation
-        FROM reg_chunks
-        WHERE chunk_type = 'regulation'
-        ORDER BY chunk_id
-        LIMIT 5;
-        """
-    )
-    rows = cursor.fetchall()
-    print(f"{'chunk_id':30s} | {'citation':s}")
-    print("-" * 65)
-    for r in rows:
-        print(f"{r[0]:30s} | {r[1]:s}")
-
-    # 7. Test lookup
-    test_clause = "regb_1002_9_b_2"
-    print(f"\n{'=' * 80}")
-    print(f"TESTING lookup_by_clause_id('{test_clause}')")
-    print("=" * 80)
-    clause_data = lookup_by_clause_id(test_clause, conn=conn)
-
-    if clause_data:
-        print(f"Chunk ID       : {clause_data['chunk_id']}")
-        print(f"Source Doc     : {clause_data['source_doc']}")
-        print(f"Citation       : {clause_data['citation']}")
-        print(f"Parent Section : {clause_data['parent_section']}")
-        print(f"Heading        : {clause_data['heading']}")
-        print(f"Chunk Type     : {clause_data['chunk_type']}")
-        print(f"Page Hint      : {clause_data['page_hint']}")
-        print(f"Text:\n{clause_data['text']}")
+    # 5. Test lookup
+    test_id = "regb_1002_6_b_5"
+    result = lookup_by_clause_id(test_id, conn)
+    if result:
+        print(f"\nSanity lookup test PASS: found '{test_id}' -> citation: {result['citation']}")
     else:
-        print(f"Error: Clause {test_clause} not found.")
+        print(f"\nSanity lookup test FAILED for '{test_id}'")
 
     conn.close()
-    print("\n" + "=" * 80)
-    print("PIPELINE COMPLETED SUCCESSFULLY")
-    print("=" * 80)
+    print("\nDatabase load complete.")
 
 
 if __name__ == "__main__":

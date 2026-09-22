@@ -1,106 +1,265 @@
-================================================================================
-RAG CORPUS CHUNKS PREVIEW
-================================================================================
+======================================================================
+FAIRTRACE REGULATORY CORPUS — 14 TARGET CHUNKS PREVIEW
+======================================================================
 
---- FIRST 3 CHUNKS IN FULL ---
+CHUNK ID:        regb_1002_6_a
+CITATION:        12 CFR § 1002.6(a)
+LANE:            Lane 1
+FEATURES BACKED: employment_years, NAME_INCOME_TYPE, NAME_EDUCATION_TYPE, NAME_HOUSING_TYPE
+HEADING:         Rules Concerning Evaluation of Applications — General Rule
+SOURCE FILE:     Comment_1002_9_full.txt
+TOKEN COUNT:     55 tokens
+----------------------------------------------------------------------
+Except as otherwise provided in the Act and this part, a creditor may consider any information
+obtained, so long as the information is not used to discriminate against an applicant on a prohibited basis. The Act does not provide that
+the “effects test” applies for determining whether there is discrimination in violation of the Act.
+======================================================================
 
-### [Chunk 1] ID: regb_1002_9_a_1 | Type: regulation
-Citation : 12 CFR 1002.9(a)(1)
-Heading  : When notification is required
-Text:
-§1002.9(a)(1) When notification is required:
-A creditor shall notify an applicant of action taken within:
-(i) 30 days after receiving a completed application concerning the creditor's approval of, counteroffer to, or adverse action on the application;
-(ii) 30 days after taking adverse action on an incomplete application, unless notice is provided in accordance with paragraph (c) of this section;
-(iii) 30 days after taking adverse action on an existing account; or
-(iv) 90 days after notifying the applicant of a counteroffer if the applicant does not expressly accept or use the credit offered.
+CHUNK ID:        regb_1002_6_b_5
+CITATION:        12 CFR § 1002.6(b)(5)
+LANE:            Lane 1
+FEATURES BACKED: credit_income_ratio, annuity_income_ratio, AMT_CREDIT, AMT_INCOME_TOTAL, AMT_ANNUITY
+HEADING:         Rules Concerning Evaluation of Applications — Income
+SOURCE FILE:     Comment_1002_9_full.txt
+TOKEN COUNT:     95 tokens
+----------------------------------------------------------------------
+A creditor shall not discount or exclude from consideration the income of an applicant or the spouse of an applicant
+because of a prohibited basis or because the income is derived from part-time employment or is an annuity, pension, or other
+retirement benefit; a creditor may consider the amount and probable continuance of any income in evaluating an applicant's
+creditworthiness. When an applicant relies on alimony, child support, or separate maintenance payments in applying for credit, the
+creditor shall consider such payments as income to the extent that they are likely to be consistently made.
+======================================================================
 
-------------------------------------------------------------
-### [Chunk 2] ID: regb_1002_9_a_2 | Type: regulation
-Citation : 12 CFR 1002.9(a)(2)
-Heading  : Content of notification when adverse action is taken
-Text:
-§1002.9(a)(2) Content of notification when adverse action is taken:
-A notification given to an applicant when adverse action is taken shall be in writing and shall contain a statement of the action taken; the name and address of the creditor; a statement of the provisions of section 701(a) of the Act; the name and address of the Federal agency that administers compliance with respect to the creditor; and either:
-(i) A statement of specific reasons for the action taken; or
-(ii) A disclosure of the applicant's right to a statement of specific reasons within 30 days, if the statement is requested within 60 days of the creditor's notification. The disclosure shall include the name, address, and telephone number of the person or office from which the statement of reasons can be obtained. If the creditor chooses to provide the reasons orally, the creditor shall also disclose the applicant's right to have them confirmed in writing within 30 days of receiving the applicant's written request for confirmation.
+CHUNK ID:        regb_1002_6_b_6
+CITATION:        12 CFR § 1002.6(b)(6)
+LANE:            Lane 1
+FEATURES BACKED: late_payment_share, mean_days_late, max_days_late, underpayment_share
+HEADING:         Rules Concerning Evaluation of Applications — Credit History
+SOURCE FILE:     Comment_1002_9_full.txt
+TOKEN COUNT:     128 tokens
+----------------------------------------------------------------------
+To the extent that a creditor considers credit history in evaluating the creditworthiness of similarly qualified applicants
+for a similar type and amount of credit, in evaluating an applicant's creditworthiness a creditor shall consider:
+(i) The credit history, when available, of accounts designated as accounts that the applicant and the applicant's spouse are
+permitted to use or for which both are contractually liable;
+(ii) On the applicant's request, any information the applicant may present that tends to indicate the credit history being considered
+by the creditor does not accurately reflect the applicant's creditworthiness; and
+(iii) On the applicant's request, the credit history, when available, of any account reported in the name of the applicant's spouse or
+former spouse that the applicant can demonstrate accurately reflects the applicant's creditworthiness.
+======================================================================
 
-------------------------------------------------------------
-### [Chunk 3] ID: regb_1002_9_a_3 | Type: regulation
-Citation : 12 CFR 1002.9(a)(3)
-Heading  : Notification to business credit applicants
-Text:
-§1002.9(a)(3) Notification to business credit applicants:
-For business credit, a creditor shall comply with the notification requirements of this section in the following manner:
-(i) With regard to a business that had gross revenues of $1 million or less in its preceding fiscal year (other than trade credit/factoring):
-  (A) The statement of the action taken may be given orally or in writing, when adverse action is taken;
-  (B) Disclosure of an applicant's right to a statement of reasons may be given at the time of application, provided the disclosure contains the information required by paragraph (a)(2)(ii) and the ECOA notice specified in paragraph (b)(1);
-  (C) For an application made entirely by telephone, oral statement of action taken and right to reasons satisfies requirements.
-(ii) With regard to a business that had gross revenues in excess of $1 million in preceding fiscal year or trade credit/factoring:
-  (A) Notify the applicant within a reasonable time, orally or in writing, of action taken; and
-  (B) Provide written statement of reasons and ECOA notice if applicant makes written request within 60 days of notification.
+CHUNK ID:        appendix_c_form_c1_denial_reasons
+CITATION:        12 CFR Part 1002, App. C (Form C-1)
+LANE:            Lane 1
+FEATURES BACKED: late_payment_share, mean_days_late, max_days_late, underpayment_share, credit_income_ratio, annuity_income_ratio, employment_years, thin_file
+HEADING:         Sample Form C-1 — Principal Reason(s) for Adverse Action Taken
+SOURCE FILE:     Appendix_C_1002.txt
+TOKEN COUNT:     130 tokens
+----------------------------------------------------------------------
+Part I - Principal Reason(s) for Credit Denial, Termination,
+or Other Action Taken Concerning Credit
+This section must be completed in all instances.
+__Credit application incomplete
+__Insufficient number of credit references provided
+__Unacceptable type of credit references provided
+__Unable to verify credit references
+__Temporary or irregular employment
+__Unable to verify employment
+__Length of employment
+__Income insufficient for amount of credit requested
+__Excessive obligations in relation to income
+__Unable to verify income
+__Length of residence
+__Temporary residence
+__Unable to verify residence
+__No credit file
+__Limited credit experience
+__Poor credit performance with us
 
-------------------------------------------------------------
+__Delinquent past or present credit obligations with others
+Appendix C
+__Collection action or judgment
+__Garnishment or attachment
+__Foreclosure or repossession
+__Bankruptcy
+__Number of recent inquiries on credit bureau report
+__Value or type of collateral not sufficient
+__Other, specify: ___
+======================================================================
 
---- ONE SAMPLE CHUNK PER DOCUMENT ---
+CHUNK ID:        appendix_c_comment3
+CITATION:        12 CFR Part 1002, App. C, Comment 3
+LANE:            Lane 2
+FEATURES BACKED: bureau_active_credits_count, installments_count, thin_file, mobile_bill_consistency
+HEADING:         Official Interpretation App. C — Sample Forms Illustrative
+SOURCE FILE:     Appendix_C_1002.txt
+TOKEN COUNT:     112 tokens
+----------------------------------------------------------------------
+The sample forms are illustrative and may not be appropriate for all creditors. They were
+designed to include some of the factors that creditors most commonly consider. If a creditor
+chooses to use the checklist of reasons provided in one of the sample forms in this appendix
+and if reasons commonly used by the creditor are not provided on the form, the creditor
+should modify the checklist by substituting or adding other reasons. For example, if
+“inadequate down payment” or “no deposit relationship with us” are common reasons for
+taking adverse action on an application, the creditor ought to add or substitute such reasons
+for those presently contained on the sample forms.
+======================================================================
 
-### Source Doc: 12_CFR_1002_9 | Chunk ID: regb_1002_9_a_1
-Citation : 12 CFR 1002.9(a)(1)
-Heading  : When notification is required
-Text:
-§1002.9(a)(1) When notification is required:
-A creditor shall notify an applicant of action taken within:
-(i) 30 days after receiving a completed application concerning the creditor's approval of, counteroffer to, or adverse action on the application;
-(ii) 30 days after taking adverse action on an incomplete application, unless notice is provided in accordance with paragraph (c) of this section;
-(iii) 30 days after taking adverse action on an existing account; or
-(iv) 90 days after notifying the applicant of a counteroffer if the applicant does not expressly accept or use the credit offered.
+CHUNK ID:        appendix_c_comment4
+CITATION:        12 CFR Part 1002, App. C, Comment 4
+LANE:            Lane 2
+FEATURES BACKED: bureau_active_credits_count, installments_count, thin_file, mobile_bill_consistency
+HEADING:         Official Interpretation App. C — Factors Actually Scored
+SOURCE FILE:     Appendix_C_1002.txt
+TOKEN COUNT:     137 tokens
+----------------------------------------------------------------------
+If the reasons listed on the forms are not the factors actually used, a creditor will not satisfy
+the notice requirement by simply checking the closest identifiable factor listed. For example,
+some creditors consider only references from banks or other depository institutions and
+disregard finance company references altogether; their statement of reasons should disclose
+“insufficient bank references,” not “insufficient credit references.” Similarly, a creditor that
+considers bank references and other credit references as distinct factors should treat the two
+factors separately and disclose them as appropriate. The creditor should either add such other
+factors to the form or check “other” and include the appropriate explanation. The creditor
+need not, however, describe how or why a factor adversely affected the application. For
+example, the notice may say “length of residence” rather than “too short a period of
+residence.”
+======================================================================
 
-------------------------------------------------------------
-### Source Doc: Comment_1002_9_Interpretations | Chunk ID: interp_9_intro_comment1
-Citation : 12 CFR Part 1002 (Supp. I) 1002.9 Comment 1
-Heading  : Use of the term adverse action
-Text:
-Comment 1002.9-1 (Use of the term adverse action):
-The regulation does not require that a creditor use the term adverse action in communicating to an applicant that a request for an extension of credit has not been approved. In notifying an applicant of adverse action as defined by § 1002.2(c)(1), a creditor may use any words or phrases that describe the action taken on the application.
+CHUNK ID:        regb_1002_9_b_2
+CITATION:        12 CFR § 1002.9(b)(2)
+LANE:            Lane 2
+FEATURES BACKED: credit_income_ratio, annuity_income_ratio, AMT_CREDIT, AMT_INCOME_TOTAL, AMT_ANNUITY
+HEADING:         Notifications — Statement of Specific Reasons
+SOURCE FILE:     Comment_1002_9_full.txt
+TOKEN COUNT:     63 tokens
+----------------------------------------------------------------------
+The statement of reasons for adverse action required by paragraph (a)(2)(i) of this section must be
+specific and indicate the principal reason(s) for the adverse action. Statements that the adverse action was based on the creditor's
+internal standards or policies or that the applicant, joint applicant, or similar party failed to achieve a qualifying score on the
+creditor's credit scoring system are insufficient.
+======================================================================
 
-------------------------------------------------------------
-### Source Doc: Appendix_C | Chunk ID: appendix_c_intro
-Citation : 12 CFR Part 1002 App. C Instructions
-Heading  : Sample Notification Forms — General Instructions
-Text:
-Appendix C to Part 1002 — Instructions and General Guidelines:
-1. This Appendix contains ten sample notification forms (C-1 through C-10). Forms C-1 through C-4 are for notifying an applicant of adverse action under §§ 1002.9(a)(1) and (2)(i). Form C-5 is a disclosure of right to request specific reasons under § 1002.9(a)(2)(ii). Form C-6 is for incomplete applications.
-2. Form C-1 contains FCRA disclosures required by sections 615(a) and (b). Forms C-2 through C-5 contain section 615(a) disclosure.
-3. The sample forms are illustrative and may not be appropriate for all creditors. If reasons commonly used by the creditor are not provided on the form, the creditor should modify the checklist by substituting or adding other reasons.
-4. If the reasons listed on the forms are not the factors actually used, a creditor will not satisfy the notice requirement by simply checking the closest identifiable factor listed. The creditor should either add such other factors to the form or check “other” and include the appropriate explanation.
-5. Proper use of Forms C-1 through C-4 satisfies § 1002.9(a)(2)(i).
+CHUNK ID:        interp_9_b2_comment2
+CITATION:        12 CFR Part 1002 (Supp. I), § 1002.9, Comment 9(b)(2)-2
+LANE:            Lane 2
+FEATURES BACKED: employment_years, NAME_INCOME_TYPE
+HEADING:         Official Interpretation § 1002.9 — Source of Specific Reasons
+SOURCE FILE:     Comment_1002_9_full.txt
+TOKEN COUNT:     24 tokens
+----------------------------------------------------------------------
+The specific reasons disclosed under §§ 1002.9(a)(2) and (b)(2) must relate to and accurately
+describe the factors actually considered or scored by a creditor.
+======================================================================
 
-------------------------------------------------------------
-### Source Doc: 15_USC_1681m | Chunk ID: fcra_1681m_a_1_2
-Citation : 15 U.S.C. 1681m(a)(1)-(2)
-Heading  : Duties of users taking adverse action — Notice and Credit Score Disclosures
-Text:
-15 U.S.C. §1681m(a) Duties of users taking adverse actions on basis of information contained in consumer reports:
-If any person takes any adverse action with respect to any consumer that is based in whole or in part on any information contained in a consumer report, the person shall—
+CHUNK ID:        interp_9_b2_comment4
+CITATION:        12 CFR Part 1002 (Supp. I), § 1002.9, Comment 9(b)(2)-4
+LANE:            Lane 2
+FEATURES BACKED: late_payment_share, mean_days_late, max_days_late, underpayment_share
+HEADING:         Official Interpretation § 1002.9 — Credit Scoring System Reasons
+SOURCE FILE:     Comment_1002_9_full.txt
+TOKEN COUNT:     76 tokens
+----------------------------------------------------------------------
+If a creditor bases the denial or other adverse action on a credit scoring system, the reasons disclosed
+must relate only to those factors actually scored in the system. Moreover, no factor that was a principal reason for adverse
+action may be excluded from disclosure. The creditor must disclose the actual reasons for denial (for example, “age of
+automobile”) even if the relationship of that factor to predicting creditworthiness may not be clear to the applicant.
+======================================================================
+
+CHUNK ID:        interp_9_b2_comment9
+CITATION:        12 CFR Part 1002 (Supp. I), § 1002.9, Comment 9(b)(2)-9
+LANE:            Lane 2
+FEATURES BACKED: prev_refusal_rate, prev_refused_count, prev_applications_count
+HEADING:         Official Interpretation § 1002.9 — Combined ECOA-FCRA Disclosures
+SOURCE FILE:     Comment_1002_9_full.txt
+TOKEN COUNT:     241 tokens
+----------------------------------------------------------------------
+The ECOA requires disclosure of the principal reasons for denying or taking other adverse
+action on an application for an extension of credit. The Fair Credit Reporting Act (FCRA) requires a creditor to disclose when it
+has based its decision in whole or in part on information from a source other than the applicant or its own files. Disclosing that
+a credit report was obtained and used in the denial of the application, as the FCRA requires, does not satisfy the ECOA
+requirement to disclose specific reasons. For example, if the applicant's credit history reveals delinquent credit obligations and
+the application is denied for that reason, to satisfy § 1002.9(b)(2) the creditor must disclose that the application was denied
+because of the applicant's delinquent credit obligations. The FCRA also requires a creditor to disclose, as applicable, a credit
+score it used in taking adverse action along with related information, including up to four key factors that adversely affected
+the consumer's credit score (or up to five factors if the number of inquiries made with respect to that consumer report is a key
+factor). Disclosing the key factors that adversely affected the consumer's credit score does not satisfy the ECOA requirement
+to disclose specific reasons for denying or taking other adverse action on an application or extension of credit. Sample forms
+C-1 through C-5 of appendix C of the regulation provide for both the ECOA and FCRA disclosures. See also comment 9(b)(2)-1.
+======================================================================
+
+CHUNK ID:        fcra_1681m_a_1_2
+CITATION:        15 U.S.C. § 1681m(a)(1)-(2)
+LANE:            Lane 2
+FEATURES BACKED: prev_refusal_rate, prev_refused_count
+HEADING:         Duties of Users Taking Adverse Actions — Notice & Credit Score Disclosure
+SOURCE FILE:     15_USC_1681m.txt
+TOKEN COUNT:     108 tokens
+----------------------------------------------------------------------
+If any person takes any adverse action with respect to any consumer that is based in whole or in
+part on any information contained in a consumer report, the person shall—
 (1) provide oral, written, or electronic notice of the adverse action to the consumer;
 (2) provide to the consumer written or electronic disclosure—
-  (A) of a numerical credit score as defined in section 1681g(f)(2)(A) used in taking adverse action based in whole or in part on consumer report information; and
-  (B) of the information set forth in section 1681g(f)(1) (score range, date, key factors adversely affecting credit score up to four, or five if inquiries is a factor).
+(A) of a numerical credit score as defined in section 1681g(f)(2)(A) of this title used by such
+person in taking any adverse action based in whole or in part on any information in a consumer
+report; and
+(B) of the information set forth in subparagraphs (B) through (E) of section 1681g(f)(1) of this
+title;
+======================================================================
 
-------------------------------------------------------------
-### Source Doc: Circular_2022-03 | Chunk ID: circular_2022_03_question
-Citation : CFPB Circular 2022-03 (Question presented)
-Heading  : Question presented — Complex Algorithms and Adverse Action Compliance
-Text:
-Question presented:
-When creditors make credit decisions based on complex algorithms that prevent creditors from accurately identifying the specific reasons for denying credit or taking other adverse actions, do these creditors need to comply with the Equal Credit Opportunity Act’s requirement to provide a statement of specific reasons to applicants against whom adverse action is taken?
+CHUNK ID:        fcra_1681m_a_3_4
+CITATION:        15 U.S.C. § 1681m(a)(3)-(4)
+LANE:            Lane 2
+FEATURES BACKED: prev_applications_count
+HEADING:         Duties of Users Taking Adverse Actions — CRA Identity & Dispute Rights
+SOURCE FILE:     15_USC_1681m.txt
+TOKEN COUNT:     179 tokens
+----------------------------------------------------------------------
+(3) provide to the consumer orally, in writing, or electronically—
+(A) the name, address, and telephone number of the consumer reporting agency (including
+a toll-free telephone number established by the agency if the agency compiles and maintains
+files on consumers on a nationwide basis) that furnished the report to the person; and
+(B) a statement that the consumer reporting agency did not make the decision to take the
+adverse action and is unable to provide the consumer the specific reasons why the adverse
+action was taken; and
+(4) provide to the consumer an oral, written, or electronic notice of the consumer's right—
+(A) to obtain, under section 1681j of this title, a free copy of a consumer report on the
+consumer from the consumer reporting agency referred to in paragraph (3), which notice shall
+include an indication of the 60-day period under that section for obtaining such a copy; and
+(B) to dispute, under section 1681i of this title, with a consumer reporting agency the
+accuracy or completeness of any information in a consumer report furnished by the agency.
+======================================================================
 
-------------------------------------------------------------
-### Source Doc: Circular_2023-03 | Chunk ID: circular_2023_03_question
-Citation : CFPB Circular 2023-03 (Question presented)
-Heading  : Question presented — Sample Form Checklists with AI Credit Models
-Text:
-Question presented:
-When using artificial intelligence or complex credit models, may creditors rely on the checklist of reasons provided in CFPB sample forms for adverse action notices even when those sample reasons do not accurately or specifically identify the reasons for the adverse action?
+CHUNK ID:        circular_2022_03_response
+CITATION:        CFPB Circular 2022-03
+LANE:            Lane 2
+FEATURES BACKED: thin_file, mobile_bill_consistency
+HEADING:         CFPB Circular 2022-03 — Complex Algorithms & Specific Reasons Mandate
+SOURCE FILE:     Circular_2022_03.txt
+TOKEN COUNT:     111 tokens
+----------------------------------------------------------------------
+ECOA and Regulation B require creditors to provide statements of specific reasons to
+applicants against whom adverse action is taken. Some creditors may make credit decisions
+based on certain complex algorithms, sometimes referred to as uninterpretable or “black-box”
+models, that make it difficult—if not impossible—to accurately identify the specific reasons for
+denying credit or taking other adverse actions.1 The adverse action notice requirements of
+ECOA and Regulation B, however, apply equally to all credit decisions, regardless of the
+technology used to make them. Thus, ECOA and Regulation B do not permit creditors to use
+complex algorithms when doing so means they cannot provide the specific and accurate
+reasons for adverse actions.
+======================================================================
 
-------------------------------------------------------------
+CHUNK ID:        circular_2023_03_response
+CITATION:        CFPB Circular 2023-03
+LANE:            Lane 2
+FEATURES BACKED: bureau_active_credits_count, installments_count
+HEADING:         CFPB Circular 2023-03 — Specificity Standard for AI/ML Credit Models
+SOURCE FILE:     Circular_2023_03.txt
+TOKEN COUNT:     69 tokens
+----------------------------------------------------------------------
+No, creditors may not rely on the checklist of reasons provided in the sample forms (currently
+codified in Regulation B) to satisfy their obligations under ECOA if those reasons do not
+specifically and accurately indicate the principal reason(s) for the adverse action. Nor, as a
+general matter, may creditors rely on overly broad or vague reasons to the extent that they
+obscure the specific and accurate reasons relied upon.
+======================================================================
