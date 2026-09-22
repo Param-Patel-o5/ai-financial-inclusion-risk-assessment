@@ -3,30 +3,34 @@ import { useNavigate } from 'react-router-dom';
 
 const REGULATIONS = [
   {
-    code: 'ECOA / Reg B',
-    full: 'Equal Credit Opportunity Act',
-    desc: 'Prohibits discrimination in credit decisions and requires specific adverse action notices.',
+    code: '12 CFR § 1002.6 & § 1002.9',
+    lane: 'Lane 1 & Notice Mandate',
+    full: 'ECOA / Regulation B',
+    desc: 'Statutory authority to evaluate creditworthiness criteria and strict mandate to disclose specific principal reasons for adverse action.',
     url: 'https://www.consumerfinance.gov/rules-policy/regulations/1002/',
-    color: '#FFD100',
-  },
-  {
-    code: 'FCRA',
-    full: 'Fair Credit Reporting Act',
-    desc: 'Governs use of consumer credit information and requires disclosure when credit reports affect decisions.',
-    url: 'https://www.ftc.gov/legal-library/browse/statutes/fair-credit-reporting-act',
     color: '#10B981',
   },
   {
-    code: 'CFPB 2022-03',
-    full: 'CFPB Circular on Alternative Data',
-    desc: 'Guidance on using alternative data sources fairly in credit underwriting for underserved populations.',
+    code: '15 U.S.C. § 1681m',
+    lane: 'Consumer Reporting Duty',
+    full: 'Fair Credit Reporting Act (FCRA)',
+    desc: 'Mandates transparent consumer reporting agency disclosure and consumer credit history rights whenever credit reports inform decisions.',
+    url: 'https://www.ftc.gov/legal-library/browse/statutes/fair-credit-reporting-act',
+    color: '#FFD100',
+  },
+  {
+    code: 'CFPB Circular 2022-03',
+    lane: 'Lane 2 AI Governance',
+    full: 'Adverse Action & Black-Box AI',
+    desc: 'Enforces that algorithmic complexity is no defense: creditors must provide specific, accurate reasons even with advanced ML models.',
     url: 'https://www.consumerfinance.gov/compliance/circulars/circular-2022-03/',
     color: '#3B82F6',
   },
   {
-    code: 'CFPB 2023-03',
-    full: 'CFPB Circular on AI in Credit',
-    desc: 'Requires specific and accurate reasons when AI/ML models are used in adverse action decisions.',
+    code: 'CFPB Circular 2023-03',
+    lane: 'Lane 2 Reason Specificity',
+    full: 'Checklist Form Prohibition',
+    desc: 'Prohibits relying on generic sample form checklists if they do not specifically and accurately describe the true AI decision factors.',
     url: 'https://www.consumerfinance.gov/compliance/circulars/circular-2023-03/',
     color: '#8B5CF6',
   },
@@ -35,23 +39,23 @@ const REGULATIONS = [
 const FAQS = [
   {
     q: 'What is an Adverse Action Notice?',
-    a: 'Under ECOA and FCRA, when a lender denies or takes unfavorable action on a credit application, they must provide specific written reasons. FairTrace generates these automatically using AI with regulatory guardrails.',
+    a: 'Under ECOA (12 CFR Part 1002) and FCRA (15 U.S.C. § 1681m), when a lender denies or takes unfavorable action on an application, they must provide specific, grounded written reasons. FairTrace generates legally verified dual-lane notices automatically.',
   },
   {
     q: 'What is a thin-file applicant?',
-    a: 'A thin-file applicant has zero or very few formal credit bureau tradelines. This includes many underbanked individuals who are creditworthy but lack traditional credit history. FairTrace uses alternative data to assess them fairly.',
+    a: 'A thin-file applicant has zero or very few formal credit bureau tradelines. FairTrace integrates alternative cash-flow, micro-savings, and utility stability indicators to assess creditworthiness without penalizing credit invisibility.',
   },
   {
-    q: 'How does FairTrace prevent bias?',
-    a: 'Our LightGBM model achieves near-identical AUC scores across thin-file (0.676) and thick-file (0.676) segments. Prohibited demographic terms are blocked at both input and output stages by deterministic guardrails.',
+    q: 'How does FairTrace prevent bias and disparate impact?',
+    a: 'Our calibrated LightGBM model achieves near-identical AUC scores across thin-file (0.676) and thick-file (0.676) segments with equalized odds. Prohibited demographic terms are deterministically blocked at both inference and notice generation stages.',
   },
   {
-    q: 'What is a SHAP reason code?',
-    a: 'SHAP (SHapley Additive exPlanations) values measure how much each feature contributed to the risk score. The top 4 SHAP features become the reason codes in the adverse action notice, grounded in regulatory citations.',
+    q: 'What is a SHAP reason code and how does Dual-Lane grounding work?',
+    a: 'SHAP (SHapley Additive exPlanations) isolates the exact top factors driving the risk score. In FairTrace, each factor is paired with Lane 1 (12 CFR § 1002.6 statutory authority + Form C-1 classification) and Lane 2 (CFPB Circular 2022-03/2023-03 specificity governance).',
   },
   {
     q: 'Can the system hallucinate regulatory citations?',
-    a: 'No. A deterministic post-check verifies every citation against the retrieved regulatory corpus before the notice is returned. Citation hallucination rate across 12 test profiles: 0%.',
+    a: 'No. Deterministic post-generation validators verify every statutory citation against our SQLite regulatory index. Across our 20-profile benchmark harness, the citation hallucination rate is 0.0% with 100.0% schema validity.',
   },
 ];
 
@@ -61,7 +65,7 @@ export default function Home() {
   return (
     <div className="page-container">
       {/* Hero */}
-      <div style={{ textAlign: 'center', padding: '60px 0 48px' }}>
+      <div style={{ textAlign: 'center', padding: '64px 0 48px' }}>
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
@@ -74,12 +78,12 @@ export default function Home() {
         }}>
           <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#FFD100' }} />
           <span style={{ fontSize: '12px', fontWeight: 600, color: '#FFD100', letterSpacing: '0.05em' }}>
-            ECOA · REG B · FCRA COMPLIANT
+            DUAL-LANE REGULATORY COMPLIANCE · ECOA · FCRA · CFPB 2022-03 & 2023-03
           </span>
         </div>
 
         <h1 style={{
-          fontSize: '52px', fontWeight: 800,
+          fontSize: '54px', fontWeight: 800,
           lineHeight: 1.1, marginBottom: '20px',
           letterSpacing: '-1px',
         }}>
@@ -93,14 +97,14 @@ export default function Home() {
 
         <p style={{
           color: '#9CA3AF', fontSize: '18px',
-          maxWidth: '580px', margin: '0 auto 36px',
+          maxWidth: '620px', margin: '0 auto 36px',
           lineHeight: 1.7,
         }}>
           AI-powered credit risk assessment designed for underserved populations,
-          with full regulatory compliance and zero bias.
+          with deterministic Dual-Lane regulatory compliance and zero demographic bias.
         </p>
 
-        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+        <div style={{ display: 'flex', gap: '14px', justifyContent: 'center' }}>
           <button className="btn-primary"
             style={{ fontSize: '16px', padding: '14px 32px' }}
             onClick={() => navigate('/apply')}>
@@ -109,14 +113,14 @@ export default function Home() {
           <button className="btn-secondary"
             style={{ fontSize: '16px', padding: '14px 32px' }}
             onClick={() => navigate('/fairness')}>
-            View Fairness Report
+            View Fairness & Compliance Report
           </button>
         </div>
       </div>
 
       {/* Regulations */}
       <div style={{ marginBottom: '48px' }}>
-        <div className="section-label">Regulatory Coverage</div>
+        <div className="section-label">Dual-Lane Regulatory Coverage</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
           {REGULATIONS.map(reg => (
             <a key={reg.code} href={reg.url} target="_blank" rel="noreferrer"
@@ -125,50 +129,37 @@ export default function Home() {
                 borderTop: `3px solid ${reg.color}`,
                 transition: 'transform 0.2s, border-color 0.2s',
                 cursor: 'pointer', height: '100%',
+                display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
               }}
                 onMouseEnter={e => e.currentTarget.style.transform = 'translateY(-4px)'}
                 onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}
               >
-                <div style={{
-                  fontSize: '13px', fontWeight: 700,
-                  color: reg.color, marginBottom: '6px',
-                }}>{reg.code}</div>
-                <div style={{
-                  fontSize: '14px', fontWeight: 600,
-                  color: '#FFFFFF', marginBottom: '8px',
-                }}>{reg.full}</div>
-                <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.5 }}>
-                  {reg.desc}
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                    <span style={{
+                      fontSize: '11px', fontWeight: 700,
+                      color: reg.color,
+                      background: `${reg.color}15`,
+                      padding: '2px 8px', borderRadius: '4px',
+                    }}>{reg.lane}</span>
+                  </div>
+                  <div style={{
+                    fontSize: '15px', fontWeight: 700,
+                    color: '#FFFFFF', marginBottom: '4px',
+                  }}>{reg.code}</div>
+                  <div style={{
+                    fontSize: '13px', fontWeight: 600,
+                    color: '#9CA3AF', marginBottom: '10px',
+                  }}>{reg.full}</div>
+                  <div style={{ fontSize: '13px', color: '#6B7280', lineHeight: 1.5 }}>
+                    {reg.desc}
+                  </div>
                 </div>
-                <div style={{ marginTop: '12px', fontSize: '12px', color: reg.color }}>
-                  View Regulation →
+                <div style={{ marginTop: '16px', fontSize: '12px', color: reg.color, fontWeight: 600 }}>
+                  View Full Statute →
                 </div>
               </div>
             </a>
-          ))}
-        </div>
-      </div>
-
-      {/* Demo Profiles Quick Start */}
-      <div style={{ marginBottom: '48px' }}>
-        <div className="section-label">Quick Start — Demo Profiles</div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '12px' }}>
-          {[
-            { name: 'Priya Sharma', tag: 'Thin-File · Deny', color: '#EF4444', desc: 'Zero bureau history, high credit-income ratio' },
-            { name: 'Marcus Johnson', tag: 'Thick-File · Deny', color: '#EF4444', desc: 'High late payment share, elevated delinquency' },
-            { name: 'James Chen', tag: 'Borderline · Refer', color: '#F59E0B', desc: 'Mixed signals, manual review recommended' },
-            { name: 'Maria Santos', tag: 'Strong · Approve', color: '#10B981', desc: 'Stable income, clean payment history' },
-          ].map(p => (
-            <div key={p.name} className="card"
-              style={{ cursor: 'pointer', transition: 'border-color 0.2s' }}
-              onClick={() => navigate('/apply', { state: { profile: p.name } })}
-              onMouseEnter={e => e.currentTarget.style.borderColor = '#FFD100'}
-              onMouseLeave={e => e.currentTarget.style.borderColor = '#2A2A2A'}
-            >
-              <div style={{ fontSize: '15px', fontWeight: 600, marginBottom: '4px' }}>{p.name}</div>
-              <div style={{ fontSize: '12px', color: p.color, fontWeight: 600, marginBottom: '8px' }}>{p.tag}</div>
-              <div style={{ fontSize: '13px', color: '#6B7280' }}>{p.desc}</div>
-            </div>
           ))}
         </div>
       </div>

@@ -15,27 +15,27 @@ const INCOME_TYPE_OPTIONS = [
 ];
 
 const DEMO_PROFILES = {
-  'Priya Sharma': {
-    applicant_id: 'PRIYA_001',
-    AMT_INCOME_TOTAL: 85000, AMT_CREDIT: 520000, AMT_ANNUITY: 26000,
-    credit_income_ratio: 6.12, annuity_income_ratio: 0.31,
-    employment_years: 0.8, late_payment_share: 0.05,
-    mean_days_late: 2.0, max_days_late: 5.0,
-    underpayment_share: 0.04, installments_count: 3.0,
-    prev_applications_count: 2.0, prev_refused_count: 1.0,
-    prev_refusal_rate: 0.50, thin_file: 1.0,
-    bureau_active_credits_count: 0.0, NAME_INCOME_TYPE: 7,
+  'Maria Santos': {
+    applicant_id: 'MARIA_001',
+    AMT_INCOME_TOTAL: 240000, AMT_CREDIT: 200000, AMT_ANNUITY: 10000,
+    credit_income_ratio: 0.83, annuity_income_ratio: 0.04,
+    employment_years: 8.5, late_payment_share: 0.0,
+    mean_days_late: 0.0, max_days_late: 0.0,
+    underpayment_share: 0.0, installments_count: 36.0,
+    prev_applications_count: 2.0, prev_refused_count: 0.0,
+    prev_refusal_rate: 0.0, thin_file: 0.0,
+    bureau_active_credits_count: 6.0, NAME_INCOME_TYPE: 7,
   },
-  'Marcus Johnson': {
-    applicant_id: 'MARCUS_002',
-    AMT_INCOME_TOTAL: 120000, AMT_CREDIT: 680000, AMT_ANNUITY: 34000,
-    credit_income_ratio: 5.67, annuity_income_ratio: 0.28,
-    employment_years: 2.1, late_payment_share: 0.44,
-    mean_days_late: 19.0, max_days_late: 48.0,
-    underpayment_share: 0.32, installments_count: 9.0,
-    prev_applications_count: 5.0, prev_refused_count: 3.0,
-    prev_refusal_rate: 0.60, thin_file: 0.0,
-    bureau_active_credits_count: 2.0, NAME_INCOME_TYPE: 7,
+  'Priya Sharma': {
+    applicant_id: 'PRIYA_002',
+    AMT_INCOME_TOTAL: 160000, AMT_CREDIT: 100000, AMT_ANNUITY: 5000,
+    credit_income_ratio: 0.625, annuity_income_ratio: 0.031,
+    employment_years: 4.0, late_payment_share: 0.0,
+    mean_days_late: 0.0, max_days_late: 0.0,
+    underpayment_share: 0.0, installments_count: 15.0,
+    prev_applications_count: 1.0, prev_refused_count: 0.0,
+    prev_refusal_rate: 0.0, thin_file: 1.0,
+    bureau_active_credits_count: 0.0, NAME_INCOME_TYPE: 7,
   },
   'James Chen': {
     applicant_id: 'JAMES_003',
@@ -48,36 +48,36 @@ const DEMO_PROFILES = {
     prev_refusal_rate: 0.0, thin_file: 0.0,
     bureau_active_credits_count: 7.0, NAME_INCOME_TYPE: 3,
   },
-  'Aisha Patel': {
-    applicant_id: 'AISHA_005',
-    AMT_INCOME_TOTAL: 90000, AMT_CREDIT: 225000, AMT_ANNUITY: 26833.5,
-    credit_income_ratio: 2.50, annuity_income_ratio: 0.298,
-    employment_years: 0.95, late_payment_share: 0.0,
-    mean_days_late: 0.0, max_days_late: 0.0,
-    underpayment_share: 0.0, installments_count: 9.0,
-    prev_applications_count: 1.0, prev_refused_count: 0.0,
-    prev_refusal_rate: 0.0, thin_file: 1.0,
-    bureau_active_credits_count: 0.0, NAME_INCOME_TYPE: 7,
+  'Marcus Johnson': {
+    applicant_id: 'MARCUS_004',
+    AMT_INCOME_TOTAL: 120000, AMT_CREDIT: 680000, AMT_ANNUITY: 34000,
+    credit_income_ratio: 5.67, annuity_income_ratio: 0.28,
+    employment_years: 2.1, late_payment_share: 0.44,
+    mean_days_late: 19.0, max_days_late: 48.0,
+    underpayment_share: 0.32, installments_count: 9.0,
+    prev_applications_count: 5.0, prev_refused_count: 3.0,
+    prev_refusal_rate: 0.60, thin_file: 0.0,
+    bureau_active_credits_count: 2.0, NAME_INCOME_TYPE: 7,
   },
-  'Maria Santos': {
-    applicant_id: 'MARIA_004',
-    AMT_INCOME_TOTAL: 220000, AMT_CREDIT: 280000, AMT_ANNUITY: 14000,
-    credit_income_ratio: 1.27, annuity_income_ratio: 0.06,
-    employment_years: 7.2, late_payment_share: 0.03,
-    mean_days_late: 1.0, max_days_late: 3.0,
-    underpayment_share: 0.02, installments_count: 18.0,
-    prev_applications_count: 4.0, prev_refused_count: 0.0,
-    prev_refusal_rate: 0.0, thin_file: 0.0,
-    bureau_active_credits_count: 5.0, NAME_INCOME_TYPE: 7,
+  'David Vance': {
+    applicant_id: 'DAVID_005',
+    AMT_INCOME_TOTAL: 75000, AMT_CREDIT: 540000, AMT_ANNUITY: 27000,
+    credit_income_ratio: 7.20, annuity_income_ratio: 0.36,
+    employment_years: 0.4, late_payment_share: 0.25,
+    mean_days_late: 8.5, max_days_late: 22.0,
+    underpayment_share: 0.20, installments_count: 6.0,
+    prev_applications_count: 6.0, prev_refused_count: 4.0,
+    prev_refusal_rate: 0.67, thin_file: 0.0,
+    bureau_active_credits_count: 3.0, NAME_INCOME_TYPE: 7,
   },
 };
 
 const PROFILE_META = {
-  'Priya Sharma': { color: '#EF4444', tag: 'Thin-File · Deny' },
-  'Marcus Johnson': { color: '#EF4444', tag: 'Thick-File · Deny' },
+  'Maria Santos': { color: '#10B981', tag: 'Prime · Approve' },
+  'Priya Sharma': { color: '#10B981', tag: 'Thin-File Hero · Approve' },
   'James Chen': { color: '#F59E0B', tag: 'Borderline · Refer' },
-  'Aisha Patel': { color: '#F59E0B', tag: 'Thin-File · Refer' },
-  'Maria Santos': { color: '#10B981', tag: 'Strong · Approve' },
+  'Marcus Johnson': { color: '#EF4444', tag: 'Delinquency · Deny' },
+  'David Vance': { color: '#EF4444', tag: 'Inquiry Velocity · Deny' },
 };
 
 const FIELD_GROUPS = [
@@ -114,13 +114,13 @@ export default function NewApplication() {
   const navigate = useNavigate();
   const location = useLocation();
   const [form, setForm] = useState({
-    applicant_id: 'APPLICANT_001',
-    ...DEMO_PROFILES['James Chen'],
+    applicant_id: 'PRIYA_002',
+    ...DEMO_PROFILES['Priya Sharma'],
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [showAuth, setShowAuth] = useState(false);
-  const [activeProfile, setActiveProfile] = useState('James Chen');
+  const [activeProfile, setActiveProfile] = useState('Priya Sharma');
 
   useEffect(() => {
     if (location.state?.profile && DEMO_PROFILES[location.state.profile]) {
