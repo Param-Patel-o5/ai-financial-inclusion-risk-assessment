@@ -1,29 +1,25 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const BAND_CONFIG = {
   Approve: { color: '#10B981', bg: '#064E3B', border: '#10B981', label: 'APPROVED', icon: '✓', sub: 'Application meets credit criteria' },
-  Refer:   { color: '#F59E0B', bg: '#451A03', border: '#F59E0B', label: 'REFER FOR REVIEW', icon: '⚠', sub: 'Manual underwriter review required' },
-  Deny:    { color: '#EF4444', bg: '#450A0A', border: '#EF4444', label: 'DENIED', icon: '✗', sub: 'Application does not meet credit criteria' },
+  Refer: { color: '#F59E0B', bg: '#451A03', border: '#F59E0B', label: 'REFER FOR REVIEW', icon: '⚠', sub: 'Manual underwriter review required' },
+  Deny: { color: '#EF4444', bg: '#450A0A', border: '#EF4444', label: 'DENIED', icon: '✗', sub: 'Application does not meet credit criteria' },
 };
 
-export default function AssessmentResult() {
-  const { state } = useLocation();
+// ── Inner component — gets a fresh key from wrapper on every new result ──
+function ResultView({ result }) {
   const navigate = useNavigate();
-
-  if (!state?.result) {
-    return (
-      <div className="page-container" style={{ textAlign: 'center', paddingTop: '80px' }}>
-        <p style={{ color: '#9CA3AF', marginBottom: '16px' }}>No assessment result found.</p>
-        <button className="btn-primary" onClick={() => navigate('/apply')}>Go to New Application</button>
-      </div>
-    );
-  }
-
-  const { result } = state;
   const band = BAND_CONFIG[result.decision_band] || BAND_CONFIG.Refer;
+  const state = { result };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="page-container">
+
       {/* Decision Banner */}
       <div style={{
         background: band.bg,
@@ -38,11 +34,15 @@ export default function AssessmentResult() {
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '28px', margin: '0 auto 16px',
           color: band.color,
-        }}>{band.icon}</div>
+        }}>
+          {band.icon}
+        </div>
         <div style={{ fontSize: '36px', fontWeight: 800, color: band.color, marginBottom: '6px' }}>
           {band.label}
         </div>
-        <div style={{ color: '#9CA3AF', fontSize: '15px', marginBottom: '16px' }}>{band.sub}</div>
+        <div style={{ color: '#9CA3AF', fontSize: '15px', marginBottom: '16px' }}>
+          {band.sub}
+        </div>
         <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
           <span style={{ background: '#111111', padding: '6px 16px', borderRadius: '8px', fontSize: '14px' }}>
             Risk Score: <strong style={{ color: '#FFFFFF' }}>{(result.calibrated_probability * 100).toFixed(1)}%</strong>
@@ -51,7 +51,11 @@ export default function AssessmentResult() {
             Applicant: <strong style={{ color: '#FFFFFF' }}>{result.applicant_id}</strong>
           </span>
           {result.is_thin_file && (
-            <span style={{ background: 'rgba(255,209,0,0.1)', border: '1px solid #FFD100', color: '#FFD100', padding: '6px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: 600 }}>
+            <span style={{
+              background: 'rgba(255,209,0,0.1)', border: '1px solid #FFD100',
+              color: '#FFD100', padding: '6px 16px', borderRadius: '8px',
+              fontSize: '13px', fontWeight: 600,
+            }}>
               Thin-File Applicant
             </span>
           )}
@@ -63,10 +67,13 @@ export default function AssessmentResult() {
         <div className="section-label">Top Risk Factors</div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
           {result.shap_features.map((f, i) => (
-            <div key={i} style={{
-              background: '#111111', borderRadius: '10px', padding: '16px',
-              borderLeft: `4px solid ${f.shap > 0 ? '#EF4444' : '#10B981'}`,
-            }}>
+            <div
+              key={`${f.feature_name}-${i}`}
+              style={{
+                background: '#111111', borderRadius: '10px', padding: '16px',
+                borderLeft: `4px solid ${f.shap > 0 ? '#EF4444' : '#10B981'}`,
+              }}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                 <span style={{ fontSize: '12px', fontWeight: 700, color: '#9CA3AF' }}>
                   FACTOR #{i + 1}
@@ -86,7 +93,7 @@ export default function AssessmentResult() {
         </div>
       </div>
 
-      {/* Audit */}
+      {/* Compliance Audit */}
       <div className="card" style={{ marginBottom: '20px', padding: '16px 20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div style={{
@@ -99,14 +106,31 @@ export default function AssessmentResult() {
             {result.audit_flags.length === 0 ? '✓' : '!'}
           </div>
           <div>
-            <div style={{ fontWeight: 600, fontSize: '15px', color: result.audit_flags.length === 0 ? '#10B981' : '#EF4444' }}>
-              {result.audit_flags.length === 0 ? 'Compliance Audit: CLEAN — No violations detected' : `${result.audit_flags.length} Compliance Flag(s) Detected`}
+            <div style={{
+              fontWeight: 600, fontSize: '15px',
+              color: result.audit_flags.length === 0 ? '#10B981' : '#EF4444',
+            }}>
+              {result.audit_flags.length === 0
+                ? 'Compliance Audit: CLEAN — No violations detected'
+                : `${result.audit_flags.length} Compliance Flag(s) Detected`}
             </div>
             <div style={{ fontSize: '12px', color: '#6B7280', marginTop: '2px' }}>
               Processing time: {result.processing_time_s}s · Model: LightGBM + Isotonic Calibration
             </div>
           </div>
         </div>
+        {result.audit_flags.length > 0 && (
+          <div style={{ marginTop: '12px' }}>
+            {result.audit_flags.map((flag, i) => (
+              <div key={i} style={{
+                fontSize: '12px', color: '#EF4444',
+                fontFamily: 'monospace', marginTop: '4px',
+              }}>
+                {flag}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Actions */}
@@ -123,6 +147,28 @@ export default function AssessmentResult() {
           New Application
         </button>
       </div>
+
     </div>
   );
+}
+
+// ── Wrapper — key forces full remount on every new result ──
+export default function AssessmentResult() {
+  const { state } = useLocation();
+  const navigate = useNavigate();
+
+  if (!state?.result) {
+    return (
+      <div className="page-container" style={{ textAlign: 'center', paddingTop: '80px' }}>
+        <p style={{ color: '#9CA3AF', marginBottom: '16px' }}>No assessment result found.</p>
+        <button className="btn-primary" onClick={() => navigate('/apply')}>
+          Go to New Application
+        </button>
+      </div>
+    );
+  }
+
+  const cacheKey = `${state.result.applicant_id}-${state.result.calibrated_probability}`;
+
+  return <ResultView key={cacheKey} result={state.result} />;
 }

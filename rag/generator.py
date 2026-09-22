@@ -27,7 +27,11 @@ FEATURE_TO_CLAUSE = {
     "annuity_income_ratio": "regb_1002_9_b_2",
     "late_payment_share":   "regb_1002_9_b_2",
     "prev_refusal_rate":    "fcra_1681m_a",
+    "prev_refused_count":   "fcra_1681m_a",
     "credit_income_ratio":  "regb_1002_9_b_2",
+    "mean_days_late":       "regb_1002_9_b_2",
+    "max_days_late":        "regb_1002_9_b_2",
+    "underpayment_share":   "regb_1002_9_b_2",
 }
 
 
@@ -54,20 +58,12 @@ class AdverseActionNotice(BaseModel):
     disclosure_statement: str
 
 
-# ─── PROHIBITED TERMS (deterministic pre-check) ───────
+# ─── PROHIBITED TERMS ─────────────────────────────────
 
 PROHIBITED_TERMS = [
-    "race",
-    "color",
-    "religion",
-    "national origin",
-    "sex",
-    "marital status",
-    "age",
-    "familial status",
-    "disability",
-    "public assistance",
-    "gender",
+    "race", "color", "religion", "national origin", "sex",
+    "marital status", "age", "familial status", "disability",
+    "public assistance", "gender",
 ]
 
 
@@ -77,18 +73,14 @@ GENERATION_PROMPT = """You are a compliance officer writing an Adverse Action No
 Your output will be reviewed by a federal regulator.
 
 RULES — follow without exception:
-The plain_english_reason must reflect the direction of the SHAP Impact. 
-A positive SHAP value means this feature increases default risk — phrase 
-the reason accordingly (e.g. "too many", "too high", "too short"). 
-Never invert the direction.
+1. Every reason must correspond EXACTLY to one feature in SHAP_REASONS. Do not invent or add reasons.
 2. Each reason has a PRE-ASSIGNED clause in SHAP_REASONS marked as ASSIGNED_CLAUSE_ID. You MUST use that exact clause_id for that reason. Do not swap clauses between reasons under any circumstance.
 3. Do not use these prohibited terms or synonyms: race, color, religion, national origin, sex, marital status, age, familial status, disability, public assistance, gender.
 4. Write plain English at 8th-grade reading level.
 5. Do not state or imply a final credit decision. State reasons only. Do not use phrases like "areas for improvement", "key areas", "next steps", or any language implying the applicant caused or can fix the decision. The disclosure_statement must only state that specific reasons are provided as required by law and that the applicant has the right to request the information used.
-6. For the requirement field: copy the most relevant sentence directly from the 
-CLAUSE_TEXT provided for that feature in SHAP_REASONS. Do not paraphrase or 
-rewrite it. If CLAUSE_TEXT has multiple sentences, pick the one most directly 
-governing that specific credit factor.7. Output ONLY valid JSON matching the schema below. No preamble, no markdown, no explanation.
+6. The plain_english_reason must reflect the direction of the SHAP Impact. A positive SHAP value means this feature increases default risk — phrase the reason accordingly (e.g. "too many", "too high", "too short"). Never invert the direction.
+7. For the requirement field: copy the single most relevant sentence directly from the CLAUSE_TEXT provided for that feature in SHAP_REASONS. Do not paraphrase or rewrite it. If CLAUSE_TEXT has multiple sentences, pick the one most directly governing that specific credit factor.
+8. Output ONLY valid JSON matching the schema below. No preamble, no markdown, no explanation.
 
 OUTPUT SCHEMA:
 {{
@@ -103,7 +95,7 @@ OUTPUT SCHEMA:
       "regulatory_basis": {{
         "clause_id": "<ASSIGNED_CLAUSE_ID for this feature — copy exactly>",
         "citation": "<exact citation string for that clause_id from RETRIEVED_CLAUSES>",
-        "requirement": "<one sentence per Rule 6 above>"
+        "requirement": "<one sentence copied verbatim from CLAUSE_TEXT per Rule 7>"
       }}
     }}
   ],
@@ -120,7 +112,7 @@ THIN_FILE: {is_thin_file}
 SHAP_REASONS (each feature has a pre-assigned clause — copy ASSIGNED_CLAUSE_ID exactly, no reassignment):
 {shap_reasons_block}
 
-RETRIEVED_CLAUSES (use only to look up citation text and requirement text for the ASSIGNED_CLAUSE_ID — do not reassign):
+RETRIEVED_CLAUSES (look up citation and requirement text by ASSIGNED_CLAUSE_ID only — do not reassign):
 {retrieved_clauses_block}
 
 Write the Adverse Action Notice JSON now."""
@@ -132,34 +124,25 @@ def enrich_shap_with_clauses(
     shap_features: list[dict],
     retrieved_clauses: list[dict]
 ) -> list[dict]:
-    """
-    Injects clause_id into each shap feature using FEATURE_TO_CLAUSE map.
-    Falls back to first retrieved clause if feature not in map or clause
-    not in retrieved set.
-    """
     clause_ids_retrieved = {c["chunk_id"] for c in retrieved_clauses}
     fallback = retrieved_clauses[0]["chunk_id"]
 
     enriched = []
     for f in shap_features:
         clause_id = FEATURE_TO_CLAUSE.get(f["feature_name"])
-
         if not clause_id or clause_id not in clause_ids_retrieved:
             clause_id = fallback
-
         enriched.append({**f, "clause_id": clause_id})
 
     return enriched
 
+
 def build_shap_block(shap_features: list[dict], retrieved_clauses: list[dict]) -> str:
-    """
-    Now takes retrieved_clauses too, so it can embed actual clause text per feature.
-    """
     clause_lookup = {c["chunk_id"]: c for c in retrieved_clauses}
     lines = []
     for i, f in enumerate(shap_features, 1):
         clause = clause_lookup.get(f["clause_id"], {})
-        clause_text = clause.get("text", "")[:300]  # cap at 300 chars to save tokens
+        clause_text = clause.get("text", "")[:300]
         lines.append(
             f"{i}. Feature: {f['feature_name']}\n"
             f"   Value: {f['value']}\n"
@@ -183,7 +166,6 @@ def build_clauses_block(retrieved_clauses: list[dict]) -> str:
 
 
 def check_prohibited_terms(text: str) -> list[str]:
-    """Deterministic scan — runs before LLM and after."""
     found = []
     lower = text.lower()
     for term in PROHIBITED_TERMS:
@@ -193,7 +175,6 @@ def check_prohibited_terms(text: str) -> list[str]:
 
 
 def parse_llm_json(raw: str) -> dict:
-    """Strip markdown fences if LLM adds them despite instructions."""
     cleaned = re.sub(r"```json|```", "", raw).strip()
     return json.loads(cleaned)
 
@@ -209,30 +190,13 @@ def generate(
     retrieved_clauses: list[dict]
 ) -> dict:
 
-    """
-    shap_features format:
-    [
-        {"feature_name": "late_payment_share", "value": 0.35, "shap": 0.142},
-        ...
-    ]
-    clause_id is injected automatically — do not pass it manually.
-
-    retrieved_clauses: output from retriever.retrieve()["retrieved_clauses"]
-
-    Returns:
-    {
-        "notice": AdverseActionNotice dict,
-        "audit_flags": list of any pre/post violations found
-    }
-    """
-
     audit_flags = []
 
     # ── PRE-CHECK 1: enough clauses retrieved ─────────
     if len(retrieved_clauses) < 2:
         audit_flags.append("RETRIEVAL_INSUFFICIENT: fewer than 2 clauses")
 
-        # ── PRE-CHECK 2: prohibited terms in feature names ─
+    # ── PRE-CHECK 2: prohibited terms in feature names ─
     for f in shap_features:
         hits = check_prohibited_terms(f["feature_name"])
         if hits:
@@ -249,7 +213,7 @@ def generate(
         decision_band=decision_band,
         calibrated_prob=calibrated_prob,
         is_thin_file=is_thin_file,
-        shap_reasons_block=build_shap_block(enriched_shap, retrieved_clauses),  # ← updated signature
+        shap_reasons_block=build_shap_block(enriched_shap, retrieved_clauses),
         retrieved_clauses_block=build_clauses_block(retrieved_clauses)
     )
 
@@ -264,11 +228,7 @@ def generate(
     )
 
     response = model.generate_content(prompt)
-
-    # ── GET RAW OUTPUT ─────────────────────────────────
     raw_output = response.text
-
-    # ── PARSE ─────────────────────────────────────────
     notice_dict = parse_llm_json(raw_output)
 
     # ── POST-CHECK 1: feature names not hallucinated ──
@@ -309,7 +269,6 @@ def generate(
     # ── VALIDATE SCHEMA ───────────────────────────────
     notice = AdverseActionNotice(**notice_dict)
 
-    # ── RETURN ────────────────────────────────────────
     return {
         "notice": notice.model_dump(),
         "audit_flags": audit_flags
@@ -323,10 +282,10 @@ if __name__ == "__main__":
     from retriever import retrieve
 
     test_shap = [
-        {"feature_name": "thin_file",         "value": 1,    "shap": 0.31},
-        {"feature_name": "employment_years",  "value": 0.5,  "shap": 0.18},
-        {"feature_name": "installments_count","value": 8,    "shap": 0.14},
-        {"feature_name": "annuity_income_ratio","value": 0.6,"shap": 0.11},
+        {"feature_name": "thin_file",           "value": 1,    "shap": 0.31},
+        {"feature_name": "employment_years",    "value": 0.5,  "shap": 0.18},
+        {"feature_name": "installments_count",  "value": 8,    "shap": 0.14},
+        {"feature_name": "annuity_income_ratio","value": 0.6,  "shap": 0.11},
     ]
 
     retriever_output = retrieve(
