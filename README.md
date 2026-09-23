@@ -2,9 +2,12 @@
 
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111.0-009688.svg)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/React-18-61DAFB.svg)](https://react.dev/)
-[![Vite](https://img.shields.io/badge/Vite-5.4-646CFF.svg)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-19-61DAFB.svg)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.3-646CFF.svg)](https://vitejs.dev/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
+> **Every decision, explained.**  
+> Institutional credit risk underwriting and deterministic Dual-Lane adverse action regulatory compliance platform designed for underserved and thin-file populations.
 
 ---
 
@@ -89,11 +92,12 @@ FairTrace decouples **predictive accuracy** from **actionable regulatory disclos
               │ Validated JSON Response + Audit Logs
               ▼
   ┌────────────────────────────────────────────────────────┐
-  │  React + Vite Frontend (Synchrony Dark Theme)          │
-  │  • AssessmentResult & Calibrated Risk Dial             │
-  │  • AdverseActionNotice Dual-Lane Document Viewer       │
-  │  • Fairness & Segment Disparity Dashboard              │
-  │  • Human-in-the-Loop Underwriter Override Panel        │
+  │  React + Vite Frontend (Institutional FinTech UI)      │
+  │  • Home: Streamlined Hero & Regulatory Coverage Strip  │
+  │  • AssessmentResult: Calibrated Risk & Top Factors     │
+  │  • AdverseActionNotice: Dual-Lane Legal Document Viewer│
+  │  • FairnessDashboard: ROC-AUC & Parity Audit Metrics   │
+  │  • UnderwriterPanel: Human-in-the-Loop Override Console│
   └────────────────────────────────────────────────────────┘
 ```
 
@@ -112,8 +116,10 @@ cd ai-financial-inclusion-risk-assessment
 # Create virtual environment
 python -m venv .venv
 
-# Activate environment (Windows PowerShell / CMD):
-.venv\Scripts\activate
+# Activate environment (Windows PowerShell):
+.\.venv\Scripts\activate
+# On Windows CMD:
+.\.venv\Scripts\activate.bat
 # On macOS / Linux:
 source .venv/bin/activate
 
@@ -210,7 +216,7 @@ Pre-configured demo profiles available in the UI for live testing:
 | **RAG & Search** | `sentence-transformers` (`all-MiniLM-L6-v2`), SQLite | Vector embeddings, deterministic statutory indexing, metadata extraction. |
 | **LLM & Structuring** | Google Gemini (`gemini-2.5-flash-lite`), Pydantic v2 | Zero-temperature structured generation, adverse notice schema validation. |
 | **Backend API** | FastAPI, Uvicorn, Python-dotenv | RESTful endpoints (`/assess`, `/metrics`, `/override`), API key security. |
-| **Frontend UI** | React 18, Vite, Recharts, Vanilla CSS | Synchrony yellow/dark palette, responsive layouts, zero-clutter UX. |
+| **Frontend UI** | React 19, Vite 8, Recharts, Vanilla CSS | Institutional dark theme, clean typography (`Inter`, `IBM Plex Mono`), responsive layout. |
 
 ---
 

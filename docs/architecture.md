@@ -8,7 +8,7 @@ This document details the system design, two-tier machine learning pipeline, and
 
 ```mermaid
 flowchart TD
-    subgraph Frontend ["Frontend Layer (React + Vite)"]
+    subgraph Frontend ["Frontend Layer (React 19 + Vite 8)"]
         UI["User submits Application Form"]
         AR["AssessmentResult Page"]
         AAN["AdverseActionNotice Page (Dual-Lane View)"]
@@ -98,54 +98,36 @@ flowchart LR
         EXT["Internal Aggregators<br/>(EXT_SOURCE_2/3, Inquiries)"]
     end
 
-    subgraph Tier1 ["Tier 1: High-AUC Classifier"]
-        TREE["LightGBM 20-Feature Model<br/>AUC: 0.7411"]
-        CALIB["Isotonic Calibrator<br/>Default Separation: 6.71x"]
+    subgraph Tier1 ["Tier 1: High-AUC Model"]
+        ALL_FEATS["20 Ingested Features"]
+        LGBM_MODEL["Calibrated LightGBM Classifier<br/>(0.741 Test AUC)"]
+        RISK_SCORE["Calibrated Default Probability"]
     end
 
-    subgraph Tier2 ["Tier 2: Statutory Gating"]
-        RAW_SHAP["Raw SHAP Attributions"]
-        FILTER["ELIGIBLE_REASON_FEATURES Filter"]
-        TOP4["Top 4 Statutory Reasons"]
+    subgraph Tier2 ["Tier 2: Explainable Reason Whitelist"]
+        SHAP_EXP["TreeSHAP Attribution"]
+        FILTER{"ELIGIBLE_REASON_FEATURES<br/>Whitelist Filter"}
+        SAFE_FEATS["Top Actionable Statutory Factors<br/>(Debt Burden, Delinquency, Tenure)"]
     end
 
-    APP --> TREE
-    ALT --> TREE
-    EXT --> TREE
-    TREE --> CALIB
-    CALIB --> RAW_SHAP
-    RAW_SHAP --> FILTER
-    FILTER --> TOP4
+    APP --> ALL_FEATS
+    ALT --> ALL_FEATS
+    EXT --> ALL_FEATS
+    ALL_FEATS --> LGBM_MODEL
+    LGBM_MODEL --> RISK_SCORE
+    LGBM_MODEL --> SHAP_EXP
+    SHAP_EXP --> FILTER
+    FILTER --> SAFE_FEATS
 ```
 
 ---
 
-## 4. Standalone RAG Evaluation Benchmark (20 Profiles)
+## 4. Empirical Benchmark Validation (20 Test Profiles)
 
-The standalone evaluation harness (`rag/eval_harness.py`) runs 20 diverse test applicant profiles against 4 strict compliance targets:
-
-```mermaid
-flowchart TD
-    subgraph Benchmark ["20 Benchmark Profiles"]
-        POOL["20 Profiles (EVAL_001 – EVAL_020)<br/>Thin-File, High-Delinquency, Borderline, Prime"]
-    end
-
-    subgraph Execution ["Isolated Execution"]
-        RET["retriever.retrieve(...)"]
-        GEN["generator.generate(...)"]
-    end
-
-    subgraph Audit ["4 Deterministic Compliance Checks"]
-        C1["Schema Validity: 100.0% (20/20)"]
-        C2["Feature Hallucination: 0.0%"]
-        C3["Citation Hallucination: 0.0%"]
-        C4["Prohibited Term Violations: 0.0%"]
-    end
-
-    POOL --> RET
-    RET --> GEN
-    GEN --> C1
-    GEN --> C2
-    GEN --> C3
-    GEN --> C4
-```
+Across our 20-profile benchmark harness (`rag/eval_harness.py`):
+- **Schema Validity**: 100.0% (20/20 Pydantic AdverseActionNotice instances validated)
+- **Feature Hallucination Rate**: 0.0% (Zero ungrounded factors emitted)
+- **Citation Hallucination Rate**: 0.0% (100% verified against SQLite regulatory index)
+- **Prohibited Demographic Term Leakage**: 0.0% (0 ECOA violations)
+- **Mean Retrieval Latency**: 0.20 seconds
+- **Mean Generation Latency**: 4.38 seconds
