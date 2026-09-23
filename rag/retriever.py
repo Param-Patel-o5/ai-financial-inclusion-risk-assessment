@@ -2,6 +2,7 @@
 
 import json
 import sqlite3
+import hashlib
 import numpy as np
 from pathlib import Path
 from sentence_transformers import SentenceTransformer
@@ -9,6 +10,12 @@ from sentence_transformers import SentenceTransformer
 # ─── CONFIG ───────────────────────────────────────────
 DB_PATH = Path(__file__).resolve().parent / "reg_chunks.db"
 EMBED_MODEL = SentenceTransformer("all-MiniLM-L6-v2")
+
+# ─── MODULE-LEVEL CACHES ──────────────────────────────
+_CLAUSE_CACHE: dict[str, dict | None] = {}   # clause_id  → row dict
+_EMBED_CACHE:  dict[str, list]        = {}   # query str  → embedding list
+_VECTOR_CACHE: dict[str, list[dict]]  = {}   # query+k key → ranked results
+_DB_ROWS_CACHE: list | None           = None  # all reg_chunks rows (loaded once)
 
 # ─── FEATURE → DUAL-LANE MAPPING (14 TARGET CHUNKS) ───
 
@@ -171,38 +178,55 @@ FEATURE_TO_CLAUSE = {
 }
 
 
-# ─── STEP 1: EXACT LOOKUP ─────────────────────────────
+# ─── DB ROWS: LOAD ONCE INTO MEMORY ───────────────────
+def _get_db_rows() -> list:
+    """Load all reg_chunks rows into module-level cache on first call."""
+    global _DB_ROWS_CACHE
+    if _DB_ROWS_CACHE is None:
+        conn = sqlite3.connect(str(DB_PATH))
+        cur = conn.cursor()
+        cur.execute(
+            "SELECT chunk_id, citation, chunk_type, text, embedding FROM reg_chunks"
+        )
+        _DB_ROWS_CACHE = cur.fetchall()
+        conn.close()
+    return _DB_ROWS_CACHE
+
+
+# ─── STEP 1: EXACT LOOKUP (cached) ────────────────────
 def lookup_by_clause_id(clause_id: str) -> dict | None:
-    conn = sqlite3.connect(str(DB_PATH))
-    cur = conn.cursor()
-    cur.execute(
-        "SELECT chunk_id, citation, chunk_type, text FROM reg_chunks WHERE chunk_id = ?",
-        (clause_id,)
-    )
-    row = cur.fetchone()
-    conn.close()
-    if not row:
-        return None
-    return {
-        "chunk_id":   row[0],
-        "citation":   row[1],
-        "chunk_type": row[2],
-        "text":       row[3],
-        "similarity": 1.0,
-    }
+    if clause_id in _CLAUSE_CACHE:
+        return _CLAUSE_CACHE[clause_id]
+
+    # Search the in-memory rows first (avoids a DB round-trip)
+    for row in _get_db_rows():
+        if row[0] == clause_id:
+            result = {
+                "chunk_id":   row[0],
+                "citation":   row[1],
+                "chunk_type": row[2],
+                "text":       row[3],
+                "similarity": 1.0,
+            }
+            _CLAUSE_CACHE[clause_id] = result
+            return result
+
+    _CLAUSE_CACHE[clause_id] = None
+    return None
 
 
-# ─── STEP 2: VECTOR SEARCH ────────────────────────────
+# ─── STEP 2: VECTOR SEARCH (embed + search both cached) ───
 def vector_search(query: str, top_k: int = 5) -> list[dict]:
-    query_vec = EMBED_MODEL.encode(query).tolist()
+    cache_key = f"{query}||{top_k}"
+    if cache_key in _VECTOR_CACHE:
+        return _VECTOR_CACHE[cache_key]
 
-    conn = sqlite3.connect(str(DB_PATH))
-    cur = conn.cursor()
-    cur.execute(
-        "SELECT chunk_id, citation, chunk_type, text, embedding FROM reg_chunks"
-    )
-    rows = cur.fetchall()
-    conn.close()
+    # Embed with cache
+    if query not in _EMBED_CACHE:
+        _EMBED_CACHE[query] = EMBED_MODEL.encode(query).tolist()
+    query_vec = _EMBED_CACHE[query]
+
+    rows = _get_db_rows()
 
     results = []
     for row in rows:
@@ -221,7 +245,9 @@ def vector_search(query: str, top_k: int = 5) -> list[dict]:
         })
 
     results.sort(key=lambda x: x["similarity"], reverse=True)
-    return results[:top_k]
+    top = results[:top_k]
+    _VECTOR_CACHE[cache_key] = top
+    return top
 
 
 # ─── STEP 3: DEDUPLICATE ──────────────────────────────
