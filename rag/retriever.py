@@ -287,11 +287,11 @@ def retrieve(
                 pinned_ids.add(cid)
 
         # Vector search fallback
-        vec_results = vector_search(
-            query=f"adverse action reason disclosure requirement for {fname}",
-            top_k=2
-        )
-        raw_chunks.extend(vec_results)
+      #  vec_results = vector_search(
+       #     query=f"adverse action reason disclosure requirement for {fname}",
+      #      top_k=2
+       # )
+       # raw_chunks.extend(vec_results)
 
     # deduplicate
     deduped = deduplicate(raw_chunks)
