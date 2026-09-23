@@ -48,20 +48,31 @@ export default function Navbar() {
       </Link>
 
       {/* Nav Links */}
-      <div style={{ display: 'flex', gap: '4px' }}>
+      <div style={{ display: 'flex', gap: '8px', height: '100%', alignItems: 'center' }}>
         {links.map(link => {
           const active = location.pathname === link.to;
           return (
             <Link key={link.to} to={link.to} style={{
-              padding: '8px 16px',
-              borderRadius: '8px',
+              padding: '0 12px',
+              height: '64px',
+              display: 'flex',
+              alignItems: 'center',
               textDecoration: 'none',
               fontSize: '14px',
               fontWeight: active ? 600 : 400,
-              color: active ? '#FFD100' : '#9CA3AF',
-              background: active ? 'rgba(255,209,0,0.1)' : 'transparent',
-              transition: 'all 0.2s',
-            }}>
+              color: active ? '#FFFFFF' : '#9CA3AF',
+              background: 'transparent',
+              borderBottom: active ? '2px solid #FFB700' : '2px solid transparent',
+              transition: 'color 0.15s ease, border-color 0.15s ease',
+              boxSizing: 'border-box',
+            }}
+            onMouseEnter={e => {
+              if (!active) e.currentTarget.style.color = '#D1D5DB';
+            }}
+            onMouseLeave={e => {
+              if (!active) e.currentTarget.style.color = '#9CA3AF';
+            }}
+            >
               {link.label}
             </Link>
           );
@@ -69,7 +80,7 @@ export default function Navbar() {
       </div>
 
       {/* Right side */}
-      <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 500 }}>
+      <div style={{ fontSize: '12px', color: '#6B7280', fontWeight: 500, opacity: 0.6 }}>
         v1.0.0 · Demo Mode
       </div>
     </nav>

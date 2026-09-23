@@ -17,9 +17,9 @@ export default function FairnessDashboard() {
   }, []);
 
   const aucData = [
-    { name: 'Overall', auc: 0.741, color: '#FFD100' },
-    { name: 'Thin-File', auc: 0.718, color: '#F59E0B' },
-    { name: 'Thick-File', auc: 0.744, color: '#FFFFFF' },
+    { name: 'Overall', auc: 0.741, color: '#3B82F6' },
+    { name: 'Thin-File', auc: 0.718, color: 'rgba(59, 130, 246, 0.7)' },
+    { name: 'Thick-File', auc: 0.744, color: 'rgba(59, 130, 246, 0.5)' },
   ];
 
   const ragMetrics = [
@@ -33,31 +33,62 @@ export default function FairnessDashboard() {
 
   return (
     <div className="page-container">
-      <div style={{ marginBottom: '32px' }}>
-        <div className="section-label">Responsible AI & Governance</div>
-        <h2 style={{ fontSize: '28px', fontWeight: 800, color: '#FFFFFF', marginBottom: '8px' }}>Fairness & Regulatory Dashboard</h2>
-        <p style={{ color: '#9CA3AF', fontSize: '15px' }}>
-          High predictive accuracy with verified demographic parity.
-          Built to serve underbanked populations with mathematical fairness and rigorous statutory compliance.
+      <div style={{ marginBottom: '28px' }}>
+        <div style={{
+          fontSize: '12px',
+          fontWeight: 600,
+          color: '#9CA3AF',
+          letterSpacing: '0.02em',
+          marginBottom: '6px',
+        }}>
+          Responsible AI & Governance
+        </div>
+        <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#FFFFFF', marginBottom: '8px' }}>
+          Fairness & Regulatory Dashboard
+        </h2>
+        <p style={{ color: '#9CA3AF', fontSize: '14px', margin: 0 }}>
+          High predictive accuracy with verified demographic parity. Built to serve underbanked populations with mathematical fairness and statutory compliance.
         </p>
       </div>
 
       {/* AUC Chart */}
-      <div className="card" style={{ marginBottom: '24px' }}>
-        <div className="section-label">Model Performance by Demographic Segment</div>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>
+      <div style={{
+        background: '#1C2333',
+        border: '1px solid #2A364F',
+        borderLeft: '2px solid #3B82F6',
+        borderRadius: '4px',
+        padding: '24px',
+        marginBottom: '24px',
+      }}>
+        <div style={{
+          fontSize: '12px',
+          fontWeight: 600,
+          color: '#8B949E',
+          letterSpacing: '0.02em',
+          marginBottom: '8px',
+        }}>
+          Model Performance by Demographic Segment
+        </div>
+        <p style={{ color: '#9CA3AF', fontSize: '13px', marginBottom: '20px' }}>
           High discriminative power across both thin-file (0.718) and thick-file (0.744) cohorts with strong financial inclusion stability.
         </p>
         <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={aucData} barSize={80}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#2A2A2A" vertical={false} />
+          <BarChart data={aucData} barSize={72}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#2A364F" vertical={false} />
             <XAxis dataKey="name" stroke="#6B7280" axisLine={false} tickLine={false} />
             <YAxis domain={[0.65, 0.80]} stroke="#6B7280" tickFormatter={v => v.toFixed(3)} axisLine={false} tickLine={false} />
             <Tooltip
-              contentStyle={{ background: '#1A1A1A', border: '1px solid #2A2A2A', borderRadius: '8px' }}
+              contentStyle={{
+                background: '#111111',
+                border: '1px solid #30363D',
+                borderRadius: '4px',
+                fontFamily: "'IBM Plex Mono', monospace",
+                fontSize: '12px',
+                color: '#FFFFFF',
+              }}
               formatter={v => [v.toFixed(3), 'AUC Score']}
             />
-            <Bar dataKey="auc" radius={[6, 6, 0, 0]}>
+            <Bar dataKey="auc" radius={[3, 3, 0, 0]}>
               {aucData.map((entry, i) => <Cell key={i} fill={entry.color} />)}
             </Bar>
           </BarChart>
@@ -65,28 +96,55 @@ export default function FairnessDashboard() {
       </div>
 
       {/* RAG Metrics */}
-      <div className="card" style={{ marginBottom: '24px' }}>
-        <div className="section-label">RAG Pipeline Compliance & SLA Benchmark (20 Profiles)</div>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '20px' }}>
+      <div style={{
+        background: '#1C2333',
+        border: '1px solid #2A364F',
+        borderLeft: '2px solid #3B82F6',
+        borderRadius: '4px',
+        padding: '24px',
+        marginBottom: '24px',
+      }}>
+        <div style={{
+          fontSize: '12px',
+          fontWeight: 600,
+          color: '#8B949E',
+          letterSpacing: '0.02em',
+          marginBottom: '8px',
+        }}>
+          RAG Pipeline Compliance & SLA Benchmark (20 Profiles)
+        </div>
+        <p style={{ color: '#9CA3AF', fontSize: '13px', marginBottom: '20px' }}>
           Empirically evaluated across 20 diverse test profiles covering thin-file, high-delinquency, and borderline applicants.
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '14px' }}>
           {ragMetrics.map(m => (
             <div key={m.label} style={{
-              background: '#111111', borderRadius: '10px', padding: '18px',
-              border: '1px solid #222222', borderLeft: '3px solid #10B981',
+              background: '#111111',
+              borderRadius: '4px',
+              padding: '16px',
+              border: '1px solid #222222',
+              borderLeft: '2px solid #3B82F6',
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <span style={{ fontSize: '12px', color: '#9CA3AF', fontWeight: 600 }}>{m.label}</span>
-                <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 700, background: '#064E3B', padding: '2px 8px', borderRadius: '4px' }}>
+                <span style={{ fontSize: '12px', color: '#9CA3AF', fontWeight: 500 }}>{m.label}</span>
+                <span style={{
+                  fontSize: '11px',
+                  color: '#3FB950',
+                  border: '1px solid #3FB950',
+                  background: 'transparent',
+                  padding: '1px 6px',
+                  borderRadius: '3px',
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontWeight: 500,
+                }}>
                   PASS ✓
                 </span>
               </div>
-              <div style={{ fontSize: '24px', fontWeight: 800, color: '#FFFFFF', marginBottom: '4px' }}>
+              <div style={{ fontSize: '22px', fontWeight: 700, color: '#FFFFFF', marginBottom: '4px', fontFamily: "'IBM Plex Mono', monospace" }}>
                 {m.value}{m.unit}
               </div>
               <div style={{ fontSize: '11px', color: '#6B7280' }}>
-                Target: {m.target} · {m.desc}
+                Target: {m.target} — {m.desc}
               </div>
             </div>
           ))}
@@ -94,19 +152,39 @@ export default function FairnessDashboard() {
       </div>
 
       {/* Alternative Data Transparency */}
-      <div className="card">
-        <div className="section-label">Alternative Data & Financial Inclusion Features</div>
-        <p style={{ color: '#6B7280', fontSize: '14px', marginBottom: '16px' }}>
+      <div style={{
+        background: '#1C2333',
+        border: '1px solid #2A364F',
+        borderLeft: '2px solid #3B82F6',
+        borderRadius: '4px',
+        padding: '24px',
+      }}>
+        <div style={{
+          fontSize: '12px',
+          fontWeight: 600,
+          color: '#8B949E',
+          letterSpacing: '0.02em',
+          marginBottom: '8px',
+        }}>
+          Alternative Data & Financial Inclusion Features
+        </div>
+        <p style={{ color: '#9CA3AF', fontSize: '13px', marginBottom: '16px' }}>
           Alternative data factors used to safely underwrite thin-file consumers alongside traditional credit metrics:
         </p>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
           {ALT_DATA_FEATURES.map(f => (
-            <div key={f.name} style={{ background: '#111111', borderRadius: '8px', padding: '16px', borderLeft: '3px solid #FFD100' }}>
+            <div key={f.name} style={{
+              background: '#111111',
+              borderRadius: '4px',
+              padding: '16px',
+              border: '1px solid #222222',
+              borderLeft: '2px solid #3B82F6',
+            }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                <code style={{ fontSize: '13px', color: '#FFD100', fontWeight: 700 }}>{f.name}</code>
-                <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 600 }}>{f.law}</span>
+                <code style={{ fontSize: '12px', color: '#8B949E', fontFamily: "'IBM Plex Mono', monospace" }}>{f.name}</code>
+                <span style={{ fontSize: '11px', color: '#8B949E', fontFamily: "'IBM Plex Mono', monospace" }}>{f.law}</span>
               </div>
-              <div style={{ fontSize: '13px', color: '#FFFFFF', marginBottom: '6px' }}>{f.desc}</div>
+              <div style={{ fontSize: '13px', color: '#FFFFFF', marginBottom: '6px', fontWeight: 600 }}>{f.desc}</div>
               <div style={{ fontSize: '12px', color: '#6B7280' }}>{f.why}</div>
             </div>
           ))}

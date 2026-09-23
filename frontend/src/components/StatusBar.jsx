@@ -15,7 +15,8 @@ export default function StatusBar() {
   return (
     <div style={{
       width: '100%',
-      background: ok ? '#064E3B' : '#450A0A',
+      background: '#111111',
+      borderBottom: '1px solid #2A2A2A',
       padding: '6px 24px',
       display: 'flex',
       alignItems: 'center',
@@ -23,7 +24,7 @@ export default function StatusBar() {
       gap: '8px',
       fontSize: '12px',
       fontWeight: 500,
-      color: ok ? '#10B981' : '#EF4444',
+      color: '#9CA3AF',
     }}>
       <div style={{
         width: 7, height: 7,
@@ -32,8 +33,8 @@ export default function StatusBar() {
         animation: ok ? 'pulse 2s infinite' : 'none',
       }} />
       {ok
-        ? 'FairTrace API · All Systems Operational · ECOA · Reg B · FCRA Compliant'
-        : 'API Offline — Start backend with: python -m backend.main'}
+        ? 'FairTrace API | All Systems Operational | ECOA | Reg B | FCRA Compliant'
+        : 'API Offline | Start backend with: python -m backend.main'}
       <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }`}</style>
     </div>
   );
